@@ -23,7 +23,7 @@ public class Project {
     private boolean hasPOE;
     private String comments;
 
-    public Project(int projectID, int author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasMedia, String comments) {
+    public Project(int projectID, int author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasPOE, String comments) {
         this.projectID = projectID;
         this.author = author;
         this.title = title;
@@ -31,7 +31,7 @@ public class Project {
         this.endDate = endDate;
         this.stage = stage;
         this.budget = budget;
-        this.hasPOE = hasMedia;
+        this.hasPOE = hasPOE;
         this.comments = comments;
     }
 
@@ -63,7 +63,7 @@ public class Project {
         return budget;
     }
 
-    public boolean isHasMedia() {
+    public boolean hasPOE() {
         return hasPOE;
     }
 
@@ -99,8 +99,8 @@ public class Project {
         this.budget = budget;
     }
 
-    public void setHasMedia(boolean hasMedia) {
-        this.hasPOE = hasMedia;
+    public void setPOE(boolean hasPOE) {
+        this.hasPOE = hasPOE;
     }
 
     public void setComments(String comments) {
