@@ -4,7 +4,9 @@
     Author     : Athinodoros
 --%>
 
+<%@page import="layer2.domain.interfaces.NamingConv"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,9 +15,14 @@
     </head>
     <body>
         <div>
-            <% String role =  (String)request.getAttribute("role"); %>
-            <% String on =  (String)request.getAttribute("ison"); %>
-            <%  if (role.equals("reseller") && on.equals("")) {%>
+            <%@page import="layer2.domain.bean.User"  %>
+            <%@page import="layer2.domain.bean.*" %>  
+            
+            <% User user = (User)request.getAttribute("user1") ; %>
+           
+
+            
+            <%  if (user.getRole().equals(NamingConv.RESELLER) ) {%>
             <form action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
@@ -37,7 +44,7 @@
                 <br>
                 <input type="submit" value="Submit" />
             </form>
-            <% }else if(role.equals("admin") && on.equals("")){%> 
+            <% }else if(user.getRole().equals("admin")){%> 
             
             <form action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
@@ -61,7 +68,7 @@
                 <input type="submit" value="Submit" />
             </form>
             
-            <%}else if(role.equals("admin") && on.equals("on")){%> 
+            <%}else if(user.getRole().equals("admin")){%> 
                  <form action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
