@@ -11,7 +11,7 @@ package layer2.domain.bean;
  */
 public class User {
     
-    private String userID;
+    private int userID;
     private String name;
     private String password;
     private String email;
@@ -19,7 +19,7 @@ public class User {
     private String role;
     private Company company;
 
-    public User(String userID, String name, String password, String email, String country, String role, Company company) {
+    public User(int userID, String name, String password, String email, String country, String role, Company company) {
         this.userID = userID;
         this.name = name;
         this.password = password;
@@ -29,7 +29,7 @@ public class User {
         this.company = company;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
@@ -57,7 +57,7 @@ public class User {
         return company;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

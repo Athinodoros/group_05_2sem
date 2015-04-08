@@ -9,7 +9,7 @@ package layer2.domain.bean;
  *
  * @author Bancho
  */
-class Company {
+public class Company {
     
     private String companyName;
     private int budget;

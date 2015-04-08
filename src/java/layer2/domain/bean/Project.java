@@ -13,17 +13,17 @@ import java.util.Date;
  */
 public class Project {
     
-    private String projectID;
-    private User author;
+    private int projectID;
+    private int author;
     private String title;
     private Date startDate;
     private Date endDate;
     private String stage;
     private int budget;
-    private boolean hasMedia;
+    private boolean hasPOE;
     private String comments;
 
-    public Project(String projectID, User author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasMedia, String comments) {
+    public Project(int projectID, int author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasMedia, String comments) {
         this.projectID = projectID;
         this.author = author;
         this.title = title;
@@ -31,15 +31,15 @@ public class Project {
         this.endDate = endDate;
         this.stage = stage;
         this.budget = budget;
-        this.hasMedia = hasMedia;
+        this.hasPOE = hasMedia;
         this.comments = comments;
     }
 
-    public String getProjectID() {
+    public int getProjectID() {
         return projectID;
     }
 
-    public User getAuthor() {
+    public int getAuthor() {
         return author;
     }
 
@@ -64,18 +64,18 @@ public class Project {
     }
 
     public boolean isHasMedia() {
-        return hasMedia;
+        return hasPOE;
     }
 
     public String getComments() {
         return comments;
     }
 
-    public void setProjectID(String projectID) {
+    public void setProjectID(int projectID) {
         this.projectID = projectID;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(int author) {
         this.author = author;
     }
 
@@ -100,7 +100,7 @@ public class Project {
     }
 
     public void setHasMedia(boolean hasMedia) {
-        this.hasMedia = hasMedia;
+        this.hasPOE = hasMedia;
     }
 
     public void setComments(String comments) {
