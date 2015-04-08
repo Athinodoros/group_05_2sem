@@ -6,7 +6,7 @@
 package layer1.presentation;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import layer2.domain.Controller;
+import layer2.domain.bean.User;
+import layer2.domain.interfaces.NamingConv;
+import layer2.domain.bean.Company;
 
 //comment
 /**
@@ -45,17 +48,17 @@ public class UIServlet extends HttpServlet {
         String command = (String) request.getParameter("command");
         switch (command) {
             case "log-in":
-                try (PrintWriter out = response.getWriter()) {
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet NewServlet</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<h1>Works, bro!! <br/> Servlet NewServlet at " + request.getContextPath() + "</h1>");
-                    out.println("</body>");
-                    out.println("</html>");
-                }
+                //dummy code starts here
+                Company resellComp = new Company("Reseller", 1);
+                Company dell = new Company("Dell", 1000000);
+                User user1 = new User(1, "Nos", "1234", "nos@paok.gr", "Greece", NamingConv.RESELLER, resellComp);
+                User user2 = new User(1, "Bo", "1234", "bo@cph.dk", "Denmark", NamingConv.ADMIN, dell);
+                request.setAttribute("user1", user1);
+                request.setAttribute("user2", user2);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher.forward(request, response);
+                //dummy code ends here
+                
                 //validate credentials
                 break;
         }
