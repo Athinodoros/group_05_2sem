@@ -13,7 +13,7 @@
     <% User user = (User)session.getAttribute("user"); %>
     <c:if test="${param.user.role == NamingConv.ADMIN}">
         <ul class="nav nav-sidebar ">
-            <li>Project List</li>
+            <li><a> Project List</a></li>
             <li>Create Project</li>
             <li class="active"><a href="#">Overview of projects <span class="sr-only">(current)</span></a></li>
             <li>some Random thing</li>
