@@ -1,3 +1,4 @@
+<%@page import="layer2.domain.interfaces.NamingConv"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,6 +27,10 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+  
+    <%@page import="layer2.domain.bean.User"  %>
+    <%@page import="layer2.domain.bean.*" %>  
+    <% User user = (User)session.getAttribute("user") ; %>
 
   <body>
 
@@ -64,7 +69,19 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            
+        <% 
+            if (user.getRole().equals(NamingConv.RESELLER)) {
+        %>
           <h1 class="page-header">Hi, Reseller</h1>
+        <%          
+                }
+            else if(user.getRole().equals(NamingConv.ADMIN)){
+        %>
+          <h1 class="page-header">Hi, Admin</h1>
+        <%
+            }
+        %>
 
           <!--
           <div class="row placeholders">
