@@ -28,7 +28,6 @@
     <![endif]-->
   </head>
   
-    <%@page import="layer2.domain.bean.User"  %>
     <%@page import="layer2.domain.bean.*" %>  
     <% User user = (User)session.getAttribute("user") ; %>
 
