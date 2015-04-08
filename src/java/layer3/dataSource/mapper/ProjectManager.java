@@ -21,9 +21,9 @@ public class ProjectManager {
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
         String sql1
-                = "select adminSeq.nextval "//= "select orderseq.nextval  "
-                + "from dual";              // <- this (dual) is a dummy table, and it is needed
-                                            // because of the select statemant (oracle data-base only)
+                = "select projectSequence.nextval " //= "select orderseq.nextval  "
+                + "from dual";                      // <- this (dual) is a dummy table, and it is needed
+                                                    // because of the select statemant (oracle data-base only)
         //--------------------------------------------------------------------------------
         
         String sql = "INSERT into projects (projectid, authorid, title, startdate, enddate, stage, budget, poe, comments) "
@@ -51,13 +51,13 @@ public class ProjectManager {
 //         + "startdate, enddate, stage, budget, poe, comments) "          
             //== insert tuple
             stmt.setInt     (1, bean.getProjectID());
-            stmt.setInt     (2, bean.getAuthorID());
+            stmt.setInt     (2, bean.getAuthor());
             stmt.setString  (3, bean.getTitle());
             stmt.setDate    (4, convertJavaDateToSqlDate( bean.getStartDate()));
             stmt.setDate    (5, convertJavaDateToSqlDate( bean.getEndDate()));
             stmt.setString  (6, bean.getStage());
             stmt.setInt     (7, bean.getBudget());
-            stmt.setString  (8, bean.getPOE());
+            stmt.setString  (8, convertBooleanToString( bean.hasPOE()));
             stmt.setString  (9, bean.getComments());
             rowsInserted  = stmt.executeUpdate();
             
@@ -79,7 +79,15 @@ public class ProjectManager {
     
     public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
     return new java.sql.Date(date.getTime());
-}
+    }
+
+    public String convertBooleanToString(boolean bool) {
+        
+        if(bool == true)
+            return "y";
+        else
+            return "n";
+    } // End of method()
     
     
 } // End of Class :: ProjectManager
