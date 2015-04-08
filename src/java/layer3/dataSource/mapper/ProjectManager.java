@@ -47,8 +47,7 @@ public class ProjectManager {
                 // ToDo - 
             }
             //--------------------------------
-// String sql = "INSERT into projects (projectid, authorid, title, "
-//         + "startdate, enddate, stage, budget, poe, comments) "          
+     
             //== insert tuple
             stmt.setInt     (1, bean.getProjectID());
             stmt.setInt     (2, bean.getAuthor());
