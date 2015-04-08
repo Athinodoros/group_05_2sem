@@ -57,8 +57,9 @@ public class UIServlet extends HttpServlet {
                 String input = request.getParameter("email");
                 if (input.equals("admin")) {
                     session.setAttribute("user", user2);
+                }else{
+                    session.setAttribute("user", user1);
                 }
-                session.setAttribute("user", user1);
                 dispatcher = request.getRequestDispatcher("dashboard.jsp");
                 dispatcher.forward(request, response);
                 //dummy code ends here
