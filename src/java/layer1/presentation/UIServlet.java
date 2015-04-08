@@ -46,6 +46,7 @@ public class UIServlet extends HttpServlet {
         }
 
         String command = (String) request.getParameter("command");
+        RequestDispatcher dispatcher;
         switch (command) {
             case "log-in":
                 //dummy code starts here
@@ -53,13 +54,21 @@ public class UIServlet extends HttpServlet {
                 Company dell = new Company("Dell", 1000000);
                 User user1 = new User(1, "Nos", "1234", "nos@paok.gr", "Greece", NamingConv.RESELLER, resellComp);
                 User user2 = new User(1, "Bo", "1234", "bo@cph.dk", "Denmark", NamingConv.ADMIN, dell);
-                request.setAttribute("user1", user1);
-                request.setAttribute("user2", user2);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                String input = request.getParameter("email");
+                if (input.equals("admin")) {
+                    session.setAttribute("user", user2);
+                }
+                session.setAttribute("user", user1);
+                dispatcher = request.getRequestDispatcher("dashboard.jsp");
                 dispatcher.forward(request, response);
                 //dummy code ends here
                 
                 //validate credentials
+                break;
+                
+            case "initialForm":
+                dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher.forward(request, response);
                 break;
         }
     }
