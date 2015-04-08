@@ -18,7 +18,7 @@
             <%@page import="layer2.domain.bean.User"  %>
             <%@page import="layer2.domain.bean.*" %>  
             
-            <% User user = (User)request.getAttribute("user1") ; %>
+            <% User user = (User)session.getAttribute("user") ; %>
            
 
             
