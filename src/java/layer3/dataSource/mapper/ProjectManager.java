@@ -18,23 +18,25 @@ public class ProjectManager {
     
     public boolean insert(Connection conn, Project bean) { 
 
-        int rowsInserted = 0;  
+        int rowsInserted = 0;
+        
+         String sql1 = "INSERT into projects (projectid, authorid, title, startdate, enddate, stage, budget, poe, comments) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
-        String sql1
+        String sql2
                 = "select projectSequence.nextval " //= "select orderseq.nextval  "
                 + "from dual";                      // <- this (dual) is a dummy table, and it is needed
                                                     // because of the select statemant (oracle data-base only)
         //--------------------------------------------------------------------------------
         
-        String sql = "INSERT into projects (projectid, authorid, title, startdate, enddate, stage, budget, poe, comments) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         ResultSet keys = null;
         try (
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement stmt = conn.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
                 
                 // Henrik's code (needed to update primary key (oracle data-base only)->
-                PreparedStatement stmt1 = conn.prepareStatement( sql1 );
+                PreparedStatement stmt1 = conn.prepareStatement( sql2 );
                 ) {
 
             
@@ -51,7 +53,7 @@ public class ProjectManager {
      
             //== insert tuple
             stmt.setInt     (1, bean.getProjectID());
-            stmt.setInt     (2, bean.getAuthor());
+            stmt.setNull    (2, bean.getAuthor());
             stmt.setString  (3, bean.getTitle());
             stmt.setDate    (4, Convert.date2SqlDate(bean.getStartDate()));
             stmt.setDate    (5, Convert.date2SqlDate(bean.getEndDate()));
