@@ -8,6 +8,7 @@ package layer3.dataSource.mapper;
 import java.sql.*;
 import layer2.domain.bean.Project;
 import layer3.dataSource.DBConnector;
+import layer3.dataSource.utility.Convert;
 
 /**
  *
@@ -52,11 +53,11 @@ public class ProjectManager {
             stmt.setInt     (1, bean.getProjectID());
             stmt.setInt     (2, bean.getAuthor());
             stmt.setString  (3, bean.getTitle());
-            stmt.setDate    (4, convertJavaDateToSqlDate( bean.getStartDate()));
-            stmt.setDate    (5, convertJavaDateToSqlDate( bean.getEndDate()));
+            stmt.setDate    (4, Convert.date2SqlDate(bean.getStartDate()));
+            stmt.setDate    (5, Convert.date2SqlDate(bean.getEndDate()));
             stmt.setString  (6, bean.getStage());
             stmt.setInt     (7, bean.getBudget());
-            stmt.setString  (8, convertBooleanToString( bean.hasPOE()));
+            stmt.setString  (8, Convert.Boolean2String(bean.hasPOE()));
             stmt.setString  (9, bean.getComments());
             rowsInserted  = stmt.executeUpdate();
             
@@ -75,18 +76,4 @@ public class ProjectManager {
         }
         return rowsInserted == 1;
     } // End of method :: insert()
-    
-    public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
-    return new java.sql.Date(date.getTime());
-    }
-
-    public String convertBooleanToString(boolean bool) {
-        
-        if(bool == true)
-            return "y";
-        else
-            return "n";
-    } // End of method()
-    
-    
 } // End of Class :: ProjectManager
