@@ -10,9 +10,26 @@ package layer2.domain.bean;
  * @author Bancho
  */
 public class Company {
-    
+
     private String companyName;
     private int budget;
+
+    public Company() {
+    }
+
+    @Override
+    public String toString() {
+        
+        String str = "";
+        
+        str +=  "Company Name :: ";
+        str +=  companyName;
+        str +=  "\n";
+        str +=  "Budget :: ";
+        str +=  budget;
+        
+        return str;
+    }
 
     public Company(String companyName, int budget) {
         this.companyName = companyName;
@@ -34,7 +51,5 @@ public class Company {
     public void setBudget(int budget) {
         this.budget = budget;
     }
-    
-    
-    
+
 }
