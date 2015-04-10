@@ -41,6 +41,39 @@ public class CompanyManager {
     
     
      
+     public Company getRow(Connection conn, String companyName) { 
+
+        String sql = "SELECT * FROM companies WHERE companyname = ?";
+        ResultSet rs = null;
+
+        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+            
+            stmt.setString(1, companyName);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Company bean = new Company();
+                bean.setCompanyName(companyName);
+                bean.setBudget(rs.getInt("budget"));
+                return bean;
+            } else {
+                return null;
+            }
+
+        } catch ( SQLException e) {
+            DBConnector.processException(e);
+            return null;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    DBConnector.processException(e);
+                }
+            }
+        }
+    } // End of method :: getRow() 
+     
      
      
 } // End of Class :: CompanyManager

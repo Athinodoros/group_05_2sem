@@ -65,4 +65,20 @@ public class CompanyManagerTest {
 
     } // End of method :: testInsert()
     
-} // End of Class ::
+   @Test
+   public void testGetRow() {
+       System.out.println("getRow");
+       
+       CompanyManager instance = new CompanyManager();
+       
+       Company expResult = new Company("CompanyNameTest", 666);
+       Company result = instance.getRow(conn, "CompanyNameTest");
+       
+       assertTrue("", expResult.toString().equals(result.toString()));
+       
+   } // End of method :: testgetRow
+   
+   
+   
+    
+} // End of Class :: CompanyManagerTest
