@@ -21,10 +21,7 @@ public class CompanyManager {
         
          String sql1 = "INSERT into companies (companyname, budget) " + "VALUES (?, ?)";
  
-        try (
-                // PreparedStatement stmt = conn.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
-                PreparedStatement stmt = conn.prepareStatement(sql1);
-                ) {
+        try ( PreparedStatement stmt = conn.prepareStatement(sql1); ) {
      
             //== insert tuple
             stmt.setString  (1, bean.getCompanyName());
@@ -75,5 +72,50 @@ public class CompanyManager {
     } // End of method :: getRow() 
      
      
+    public boolean update(Connection conn, Company bean) { 
+
+        String sql
+                = "UPDATE companies SET "
+                + "budget = ? "
+                + "WHERE companyname = ?";
+        
+        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+
+            stmt.setInt     (1, bean.getBudget());
+            stmt.setString  (2, bean.getCompanyName());
+
+            int affected = stmt.executeUpdate();
+            if (affected == 1) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: update()
+     
+    public boolean delete(Connection conn, String companyName) { 
+        
+        String sql = "DELETE FROM companies WHERE companyname = ?";
+        
+        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+        
+            stmt.setString(1, companyName);
+            int effected = stmt.executeUpdate();
+
+            if(effected == 1) {
+                return true;
+            } else {
+                return false;
+            }
+       
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: Delete() 
      
 } // End of Class :: CompanyManager

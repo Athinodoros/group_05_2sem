@@ -15,7 +15,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     
-    layer3.dataSource.DBConnectorTest.class
+    layer3.dataSource.DBConnectorTest.class,
+    layer3.dataSource.mapper.CompanyManagerTest.class
+    
 })
 public class TestSuite {
     
