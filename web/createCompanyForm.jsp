@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <link href="bootstrap.min.css" rel="stylesheet">
+
     
     <body>
         <form class="lead" action="UIServlet" method="POST">
@@ -14,6 +16,7 @@
             </br>
             <a>Company Name :</a> <input type="text" name="companyName" value=""></br></br>
             <a>Budget :</a> <input type="text" name="budget" value=""></br></br>
+            <input type="hidden" name="" value="CompanyForm" />
             <!--
             
             <a>Zip Code</a>
@@ -22,7 +25,7 @@
             
             <a>budget</a>
             -->
-            
+            <input type="submit" value="Submit" />
         </form>   
     </body>
 </html>
