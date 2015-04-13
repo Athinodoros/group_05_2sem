@@ -4,6 +4,7 @@
     Author     : Athinodoros
 --%>
 
+<%@page import="java.io.PrintWriter"%>
 <%@page import="layer2.domain.interfaces.NamingConv"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -24,16 +25,15 @@
     <ul class="nav nav-sidebar ">
         <li class="active"><a href="#">Overview of projects <span class="sr-only">(current)</span></a></li>
         <li><a href="#">View company budget</a></li>
-        <li><a href="#">Launch new project</a></li>
+        <li onclick="<% session.setAttribute(NamingConv.MAINAREA, NamingConv.PROJECTLIST); %>" ><a href="#">Launch new project</a></li>
     </ul>
     <% } else if (user.getRole().equals(NamingConv.PARTNER)) { %>
     <ul class="nav nav-sidebar ">
         <li class="active"><a href="#">Overview of projects <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">POE Inspect</a></li>
+        <li ><a href="#">POE Inspect</a></li>
     </ul>    
-
-    <%}%>
-
-
+    <% } %>
+    
+   
 
 </html>
