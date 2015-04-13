@@ -17,6 +17,7 @@
             <a>Company Name :</a> <input type="text" name="companyName" value=""></br></br>
             <a>Budget :</a> <input type="text" name="budget" value=""></br></br>
             <input type="hidden" name="" value="CompanyForm" />
+            <input type="submit" value="qwdqwd" />
             <!--
             
             <a>Zip Code</a>

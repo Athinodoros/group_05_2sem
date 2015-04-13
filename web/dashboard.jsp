@@ -30,6 +30,7 @@
   
     <%@page import="layer2.domain.bean.*" %>  
     <% User user = (User)session.getAttribute("user") ; %>
+    
 
   <body>
 
@@ -102,9 +103,17 @@
             </div>
           </div>
           -->
-
           <h2 class="sub-header">List of your company's projects</h2>
           <div class="table-responsive">
+              <%if (session.getAttribute(NamingConv.MAINAREA).equals(NamingConv.PROJECTLIST)) {%>
+              <jsp:include page="initialForm.jsp" />
+                  
+   
+<%}else{ %>
+nothing here
+
+<% } %>
+<!--
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -235,6 +244,7 @@
                 </tr>
               </tbody>
             </table>
+-->
           </div>
         </div>
       </div>
