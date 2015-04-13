@@ -10,6 +10,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+    <body>
     
     <link href="bootstrap.min.css" rel="stylesheet">
     
@@ -92,5 +93,5 @@
             <%}%>
 
         </div>
-   
+</body>
 </html>
