@@ -46,7 +46,7 @@ public class UIServlet extends HttpServlet {
         }
 
         String command = (String) request.getParameter("command");
-        String Main = (String) request.getParameter(NamingConv.MAINAREA);
+        String Main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
         switch (command) {
             case "log-in":
@@ -77,8 +77,15 @@ public class UIServlet extends HttpServlet {
                 //dummy code start
                 switch (Main) {
                     case NamingConv.PROJECTLIST:
+                        request.setAttribute("mainArea", NamingConv.PROJECTLIST);
                         dispatcher = request.getRequestDispatcher("dashboard.jsp");
                         dispatcher.forward(request, response);
+                        break;
+                    case NamingConv.BUDGET:
+                        request.setAttribute("mainArea", NamingConv.BUDGET);
+                        dispatcher = request.getRequestDispatcher("dashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
                         
                 }
                 dispatcher = request.getRequestDispatcher("initialForm.jsp");

@@ -36,6 +36,74 @@ public class NamingConv {
     
    //pages
     public static final String DASHBOARD = "dashboard";
+    public static final String BUDGET = "budget";
     public static final String PROJECTLIST = "projectlist";
+    
+    
+    
+    
+    //-------------------------------------Setters and getters----------------------------------------------//
+
+    public static String getROLE() {
+        return ROLE;
+    }
+
+    public static String getRESELLER() {
+        return RESELLER;
+    }
+
+    public static String getPARTNER() {
+        return PARTNER;
+    }
+
+    public static String getADMIN() {
+        return ADMIN;
+    }
+
+    public static String getSUPER_USER() {
+        return SUPER_USER;
+    }
+
+    public static String getUSER_NAME() {
+        return USER_NAME;
+    }
+
+    public static String getPASSWORD() {
+        return PASSWORD;
+    }
+
+    public static String getSTAGE() {
+        return STAGE;
+    }
+
+    public static String getPRE_APPROVED() {
+        return PRE_APPROVED;
+    }
+
+    public static String getAPPROVED() {
+        return APPROVED;
+    }
+
+    public static String getFINISHED() {
+        return FINISHED;
+    }
+
+    public static String getMAINAREA() {
+        return MAINAREA;
+    }
+
+    public static String getDASHBOARD() {
+        return DASHBOARD;
+    }
+
+    public static String getBUDGET() {
+        return BUDGET;
+    }
+
+    public static String getPROJECTLIST() {
+        return PROJECTLIST;
+    }
+    
+    
     
 }

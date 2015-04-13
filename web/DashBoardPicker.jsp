@@ -10,15 +10,13 @@
 <!DOCTYPE html>
 <html>
     <body>
-       <!-- <%@ page import="" %>-->
-        <% String pagepoint = (String)request.getAttribute("pageScope") ; 
-    if (pagepoint == NamingConv.DASHBOARD) { %>
-    <jsp:include page="dashBoard.jsp"></jsp:include>
-    <%} else if (pagepoint == NamingConv.PROJECTLIST ) { %>
-    <jsp:include page="dashBoard.jsp"></jsp:include>
-       <% } %>
-    %>
-        %>
+        <% String pagepoint = (String) request.getAttribute("mainArea");
+            if (pagepoint == NamingConv.BUDGET) { %>
+            <jsp:include page="Budget.jsp"/>
+        <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
+        <jsp:include page="initialForm.jsp"/>
+        <% }%>
         
+
     </body>
 </html>

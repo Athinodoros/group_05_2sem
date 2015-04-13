@@ -10,9 +10,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+    <body>
     
     <link href="bootstrap.min.css" rel="stylesheet">
-    <body>
+    
         <div>
             <%@page import="layer2.domain.bean.User"  %>
             <%@page import="layer2.domain.bean.*" %>  
@@ -92,5 +93,5 @@
             <%}%>
 
         </div>
-    </body>
+</body>
 </html>
