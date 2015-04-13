@@ -71,6 +71,13 @@ public class UIServlet extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("initialForm.jsp");
                 dispatcher.forward(request, response);
                 break;
+                
+            case "reloadMain":
+                //dummy code start
+                dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher.forward(request, response);
+                //dummy code end
+                break;
         }
     }
 

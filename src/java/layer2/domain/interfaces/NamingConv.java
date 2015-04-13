@@ -28,5 +28,14 @@ public class NamingConv {
     public static final String APPROVED = "approved";
     public static final String FINISHED = "finished";
 
-       
+    
+    
+    //Nos
+    //pageloader
+    public static final String MAINAREA = "mainArea";
+    
+   //pages
+    public static final String DASHBOARD = "dashboard";
+    public static final String PROJECTLIST = "projectlist";
+    
 }
