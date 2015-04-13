@@ -28,6 +28,7 @@
         <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview of all projects <span class="sr-only">(current)</span></a></li>
             <li><a href="#">View company budget</a></li>
+            <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.BUDGET %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Budget</button></form></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.PROJECTLIST %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">View pending projects</button></form></a></li>
             <li><a href="#">View approved projects</a></li>
         </ul>

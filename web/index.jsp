@@ -9,7 +9,7 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Cover Template for Bootstrap</title>
-
+          
     <!-- Bootstrap core CSS -->
     <link href="bootstrap.min.css" rel="stylesheet">
 
@@ -56,6 +56,7 @@
                 Password:<br/>
                 <input class="input" type='password' name = "password" required/><br/><br/>
                 <input name="command" value="log-in" hidden/>
+                <% session.setAttribute("mainArea","paok" ); %>
                 <button class = "input" type = "submit" name = "LogIn" value="LogIn">Log in</button>
             </form>
             

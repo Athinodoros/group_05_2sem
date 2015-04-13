@@ -12,7 +12,7 @@
 <html>
     
     <link href="bootstrap.min.css" rel="stylesheet">
-    <body>
+    
         <div>
             <%@page import="layer2.domain.bean.User"  %>
             <%@page import="layer2.domain.bean.*" %>  
@@ -92,5 +92,5 @@
             <%}%>
 
         </div>
-    </body>
+   
 </html>

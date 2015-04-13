@@ -11,11 +11,11 @@
 <html>
     <body>
        <!-- <%@ page import="" %>-->
-        <% String pagepoint = (String)request.getAttribute("pageScope") ; 
+        <% String pagepoint = (String)request.getAttribute("mainArea") ; 
     if (pagepoint == NamingConv.DASHBOARD) { %>
-    <jsp:include page="dashBoard.jsp"></jsp:include>
+    <jsp:include page="dashBoard.jsp"/>
     <%} else if (pagepoint == NamingConv.PROJECTLIST ) { %>
-    <jsp:include page="dashBoard.jsp"></jsp:include>
+    <jsp:include page="dashBoard.jsp"/>
        <% } %>
     %>
         %>
