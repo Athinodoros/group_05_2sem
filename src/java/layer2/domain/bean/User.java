@@ -19,6 +19,44 @@ public class User {
     private String role;
     private Company company;
 
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        
+        String str = "";
+        
+        str += "\n";
+        str += "-------------- User ----------------";
+        str += "\n";
+        
+        str += "User ID     :: ";
+        str += userID;
+        str += "\n";
+        str += "Name        :: ";
+        str += name;
+        str += "\n";
+        str += "Password    :: ";
+        str += password;
+        str += "\n";
+        str += "Email       :: ";
+        str += email;
+        str += "\n";
+        str += "Country     :: ";
+        str += country;
+        str += "\n";
+        str += "Role        :: ";
+        str += role;
+        str += "\n";
+        str += "Company name:: ";
+        str += company.getCompanyName();
+        
+        return str;
+    }
+    
+    
+
     public User(int userID, String name, String password, String email, String country, String role, Company company) {
         this.userID = userID;
         this.name = name;
