@@ -6,13 +6,12 @@
 
 <%@page import="layer2.domain.interfaces.NamingConv"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+    
+    <link href="bootstrap.min.css" rel="stylesheet">
     <body>
         <div>
             <%@page import="layer2.domain.bean.User"  %>
@@ -23,7 +22,7 @@
 
             
             <%  if (user.getRole().equals(NamingConv.RESELLER) ) {%>
-            <form action="StartProject">
+            <form class="lead" action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>
@@ -46,7 +45,7 @@
             </form>
             <% }else if(user.getRole().equals("admin")){%> 
             
-            <form action="StartProject">
+            <form class="lead" action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>
@@ -69,7 +68,7 @@
             </form>
             
             <%}else if(user.getRole().equals("admin")){%> 
-                 <form action="StartProject">
+                 <form class="lead" action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>

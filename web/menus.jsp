@@ -4,6 +4,7 @@
     Author     : Athinodoros
 --%>
 
+<%@page import="java.io.PrintWriter"%>
 <%@page import="layer2.domain.interfaces.NamingConv"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
