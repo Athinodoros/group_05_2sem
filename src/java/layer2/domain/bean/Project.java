@@ -14,7 +14,7 @@ import java.util.Date;
 public class Project {
     
     private int projectID;
-    private int author;
+    private User author;
     private String title;
     private Date startDate;
     private Date endDate;
@@ -23,7 +23,7 @@ public class Project {
     private boolean hasPOE;
     private String comments;
 
-    public Project(int projectID, int author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasPOE, String comments) {
+    public Project(int projectID, User author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasPOE, String comments) {
         this.projectID = projectID;
         this.author = author;
         this.title = title;
@@ -35,11 +35,15 @@ public class Project {
         this.comments = comments;
     }
 
+    public Project() {
+        //empty constructor
+    }
+
     public int getProjectID() {
         return projectID;
     }
 
-    public int getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
@@ -75,7 +79,7 @@ public class Project {
         this.projectID = projectID;
     }
 
-    public void setAuthor(int author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
@@ -107,6 +111,42 @@ public class Project {
         this.comments = comments;
     }
     
-    
+    @Override
+    public String toString(){
+        String str = "";
+        
+        str += "\n";
+        str += "-------------- Project ----------------";
+        str += "\n";
+        
+        str += "Project ID     :: ";
+        str += projectID;
+        str += "\n";
+        str += "Author ID      :: ";
+        str += author.getUserID();
+        str += "\n";
+        str += "Title    :: ";
+        str += title;
+        str += "\n";
+        str += "Start Date       :: ";
+        str += startDate.toString();
+        str += "\n";
+        str += "End Date     :: ";
+        str += endDate.toString();
+        str += "\n";
+        str += "Stage        :: ";
+        str += stage;
+        str += "\n";
+        str += "Budget       :: ";
+        str += budget;
+        str += "\n";
+        str += "hasPOE       :: ";
+        str += hasPOE;
+        str += "\n";
+        str += "Comments       :: ";
+        str += comments;
+        
+        return str;
+    }
     
 }

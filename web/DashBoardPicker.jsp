@@ -12,11 +12,15 @@
     <body>
         <% String pagepoint = (String) request.getAttribute("mainArea");
             if (pagepoint == NamingConv.BUDGET) { %>
-            <jsp:include page="Budget.jsp"/>
+        <jsp:include page="Budget.jsp"/>
         <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
         <jsp:include page="initialForm.jsp"/>
+        <% } else if (pagepoint == NamingConv.CREATECOMPANY) { %>
+        <jsp:include page="createCompanyForm.jsp" />
+        <% } else if (pagepoint == NamingConv.ADMIN) { %>
+
         <% }%>
-        
+
 
     </body>
 </html>
