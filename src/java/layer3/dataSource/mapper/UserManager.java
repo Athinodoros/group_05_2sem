@@ -6,6 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
+import layer2.domain.bean.Company;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.utility.Convert;
@@ -78,29 +79,43 @@ public class UserManager {
     
     public User getRow(Connection conn, int userid) { 
 
-        String sql = "SELECT * FROM users WHERE userid = ?";
+        String sql1 = "SELECT * FROM users WHERE userid = ?";
+        String sql2 = "SELECT * FROM companies WHERE companyname = ?";
+        PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
-            
+        try {
+            stmt = conn.prepareStatement(sql1);
             stmt.setInt(1, userid);
             rs = stmt.executeQuery();
+            
+            User bean = new User();
+            String companyName = "";
 
             if (rs.next()) {
-                User bean = new User();
                 bean.setUserID(userid);
                 bean.setName(rs.getNString("uname"));
                 bean.setPassword(rs.getNString("password"));
                 bean.setEmail(rs.getNString("email"));
                 bean.setCountry(rs.getNString("country"));
                 bean.setRole(rs.getNString("urole"));
-                bean.getCompany().setCompanyName(rs.getNString("company"));
-                
-                
-                return bean;
-            } else {
-                return null;
+                companyName = rs.getNString("company");
             }
+            
+            stmt = conn.prepareStatement(sql2);
+            stmt.setString(1, companyName);
+            rs = stmt.executeQuery();
+            
+            Company company = new Company();
+            
+            if (rs.next()) {
+                company.setCompanyName(rs.getNString("companyname"));
+                company.setBudget(rs.getInt("budget"));
+            }
+            
+            bean.setCompany(company);
+            
+            return bean;
 
         } catch ( SQLException e) {
             DBConnector.processException(e);
@@ -109,6 +124,13 @@ public class UserManager {
             if (rs != null) {
                 try {
                     rs.close();
+                } catch (SQLException e) {
+                    DBConnector.processException(e);
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
                 } catch (SQLException e) {
                     DBConnector.processException(e);
                 }
