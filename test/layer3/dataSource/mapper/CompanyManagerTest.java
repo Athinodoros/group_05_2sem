@@ -21,7 +21,9 @@ import static org.junit.Assert.*;
  *
  * @author bo
  */
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//  from ::jUnit version 4.11
+//  Furure updates :: allows for fix order execution of test methods in ascending order
+//  @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CompanyManagerTest {
 
     private static Connection conn;
@@ -31,13 +33,13 @@ public class CompanyManagerTest {
     Random random = new Random();
 
     private final String COMPANY_NAME           = "CompanyNameTest_" + random.nextInt(100_000_000);
-    private final int BUDGET            = 600;
+    private final int BUDGET                    = 600;
     
     private final String COMPANY_NAME_UPDATED   = COMPANY_NAME;
-    private final int BUDGET_UPDATED    = 700;
+    private final int BUDGET_UPDATED            = 700;
 
-    private final Company company           = new Company(COMPANY_NAME, BUDGET);
-    private final Company companyUpdated    = new Company(COMPANY_NAME_UPDATED, BUDGET_UPDATED);
+    private final Company company               = new Company(COMPANY_NAME, BUDGET);
+    private final Company companyUpdated        = new Company(COMPANY_NAME_UPDATED, BUDGET_UPDATED);
 
     public CompanyManagerTest() {}
 
@@ -74,7 +76,7 @@ public class CompanyManagerTest {
 
         assertEquals("        :: Row not inserted", expResult, result);
         
-        // cleaning up :: by inserting a row
+        // cleaning up :: by deleting a row
         deleteRow();
     } // End of method :: testInsert()
 
@@ -95,7 +97,7 @@ public class CompanyManagerTest {
                 "        :: Retrieved data is not as expected",
                 expResult.toString().equals(result.toString()));
         
-        // cleaning up :: by inserting a row
+        // cleaning up :: by deleting a row
         deleteRow();
     } // End of method :: testgetRow
 
@@ -127,7 +129,7 @@ public class CompanyManagerTest {
                 "        :: Retrieved data is not as expected",
                 expResult.toString().equals(result.toString()));
         
-        // cleaning up :: by inserting a row
+        // cleaning up :: by deleting a row
         deleteRow();
     } // End of Method :: testUpdate()
 

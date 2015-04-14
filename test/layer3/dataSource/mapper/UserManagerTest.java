@@ -6,6 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.Connection;
+import java.util.Random;
 import layer2.domain.bean.Company;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
@@ -25,17 +26,22 @@ public class UserManagerTest {
     
     private static Connection conn;
     
+    private Random random = new Random();
+    
     UserManager     userInstance        = new UserManager();
     CompanyManager  companyInstance     = new CompanyManager();
     
-//    private final int       USER_ID                     = 0;
-    private static int       USER_ID              = 0;
+    private final String    COMPANY_NAME                = "CompanyNameTest_"+ random.nextInt(100_000_000);
+    private final int       BUDGET                      = 600;
+    
+    private final int       USER_ID                     = 0;
     private final String    USER_NAME                   = "UserNameTest";           
     private final String    PASSWORD                    = "PassWordTest";
     private final String    EMAIL                       = "email@Test";
     private final String    COUNTRY                     = "CountryTest";
     private final String    ROLE                        = "RoleTest";
-    private final Company   company;
+//    private final Company   company;
+    private final Company   company = new Company(COMPANY_NAME, BUDGET);
     
     private final int       USER_ID_UPDATED             = USER_ID;
     private final String    USER_NAME_UPDATED           = USER_NAME + "Updated";        
@@ -43,29 +49,35 @@ public class UserManagerTest {
     private final String    EMAIL_UPDATED               = EMAIL     + "Updated";
     private final String    COUNTRY_UPDATED             = COUNTRY   + "Updated";
     private final String    ROLE_UPDATED                = ROLE      + "Updated";
-    private final Company   company_updated;
+//    private final Company   company_updated;
+    private final Company   company_updated = company;
     
-    private final String    COMPANY_NAME                = "CompanyNameTest";
-    private final int       BUDGET                      = 600;
     
-   
     
-    private final User user;
-    private final User userUpdated;
-    
-    public UserManagerTest() {
-        company                     = new Company(COMPANY_NAME, BUDGET);
-        company_updated             = company;
-        
-        user                        = new User(
+//    private final User user;
+//    private final User userUpdated;
+    private final User user = new User(
                                                 USER_ID, USER_NAME, PASSWORD,
                                                 EMAIL, COUNTRY, ROLE, company);
-        
-        userUpdated                 = new User(
+    private final User userUpdated= new User(
                                                 USER_ID_UPDATED, USER_NAME_UPDATED,
                                                 PASSWORD_UPDATED, EMAIL_UPDATED,
                                                 COUNTRY_UPDATED, ROLE_UPDATED,
                                                 company_updated);
+    
+    public UserManagerTest() {
+//        company                     = new Company(COMPANY_NAME, BUDGET);
+//        company_updated             = company;
+        
+//        user                        = new User(
+//                                                USER_ID, USER_NAME, PASSWORD,
+//                                                EMAIL, COUNTRY, ROLE, company);
+        
+//        userUpdated                 = new User(
+//                                                USER_ID_UPDATED, USER_NAME_UPDATED,
+//                                                PASSWORD_UPDATED, EMAIL_UPDATED,
+//                                                COUNTRY_UPDATED, ROLE_UPDATED,
+//                                                company_updated);
         
         
     } // End of constructor
@@ -85,12 +97,10 @@ public class UserManagerTest {
     }
     
     @Before
-    public void setUp() {
-    }
+    public void setUp() {}
     
     @After
-    public void tearDown() {
-    }
+    public void tearDown() {}
 
     /**
      * Test of insert method, of class UserManager.
@@ -104,10 +114,11 @@ public class UserManagerTest {
         if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
         
         boolean expResult   = true;
-        boolean result      = userInstance.insert(conn, user);
+        boolean result      = insertRow();      
         
-        USER_ID = user.getUserID();
         assertEquals("        :: Row not inserted", expResult, result);
+        
+        deleteRow();
     } // End of method :: testInert()
     
     
@@ -117,21 +128,51 @@ public class UserManagerTest {
     @Test
     public void testGetRow() {
         System.out.println("Testing :: UserManager.getRow()");
+        
+        boolean isInserted  = companyInstance.insert(conn, company);
+        
+        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
+        
+        insertRow();
 
-        System.out.println("user id in thest insert :: " + user.toString());
-        
-        
+        System.out.println(user.toString());
         
         User expResult   = user;
         User result      = userInstance.getRow(conn, user.getUserID());
         
-       
-        
-        
+        result.toString();
         
         assertTrue(
                 "        :: Retrieved data is not as expected",
                 expResult.toString().equals(result.toString()));
     } // End of method :: testgetRow
+    
+    
+    @Test
+    public void test_D_Delete() {
+        System.out.println("Testing :: UserManager.delete()");
+
+        boolean isInserted  = companyInstance.insert(conn, company);
+        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
+        
+        // Seting up :: by inserting a row
+        insertRow();
+        
+        boolean result = deleteRow();
+
+        assertTrue("        :: Row not deleted", result);
+    } // End of method :: testDelete()
+    
+    
+    
+    private boolean insertRow() {
+        
+        return userInstance.insert(conn, user);
+    }
+    
+    private boolean deleteRow() {
+        
+        return userInstance.delete(conn, user.getUserID()); 
+    }
     
 } // End of class :: UserManagerTest

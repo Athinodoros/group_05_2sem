@@ -88,7 +88,6 @@ public class UserManager {
 
             if (rs.next()) {
                 User bean = new User();
-                System.out.println(bean.toString());
                 bean.setUserID(userid);
                 bean.setName(rs.getNString("uname"));
                 bean.setPassword(rs.getNString("password"));
@@ -96,7 +95,7 @@ public class UserManager {
                 bean.setCountry(rs.getNString("country"));
                 bean.setRole(rs.getNString("urole"));
                 bean.getCompany().setCompanyName(rs.getNString("company"));
-               
+                
                 
                 return bean;
             } else {
@@ -116,5 +115,26 @@ public class UserManager {
             }
         }
     } // End of method :: getRow() 
+    
+    public boolean delete(Connection conn, int userid) { 
+        
+        String sql = "DELETE FROM users WHERE userid = ?";
+        
+        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+        
+            stmt.setInt(1, userid);
+            int effected = stmt.executeUpdate();
+
+            if(effected == 1) {
+                return true;
+            } else {
+                return false;
+            }
+       
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: Delete() 
     
 } // End of Class :: UserManager
