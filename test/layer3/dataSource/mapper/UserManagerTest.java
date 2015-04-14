@@ -28,29 +28,27 @@ public class UserManagerTest {
     
     private Random random = new Random();
     
-    UserManager     userInstance        = new UserManager();
-    CompanyManager  companyInstance     = new CompanyManager();
+    UserManager             userInstance        = new UserManager();
+    CompanyManager          companyInstance     = new CompanyManager();
     
-    private final String    COMPANY_NAME                = "CompanyNameTest_"+ random.nextInt(100_000_000);
-    private final int       BUDGET                      = 600;
+    private final String    COMPANY_NAME        = "CompanyNameTest_"+ random.nextInt(100_000_000);
+    private final int       BUDGET              = 600;
     
-    private final int       USER_ID                     = 0;
-    private final String    USER_NAME                   = "UserNameTest";           
-    private final String    PASSWORD                    = "PassWordTest";
-    private final String    EMAIL                       = "email@Test";
-    private final String    COUNTRY                     = "CountryTest";
-    private final String    ROLE                        = "RoleTest";
-//    private final Company   company;
-    private final Company   company = new Company(COMPANY_NAME, BUDGET);
+    private final int       USER_ID             = 0;
+    private final String    USER_NAME           = "UserNameTest";           
+    private final String    PASSWORD            = "PassWordTest";
+    private final String    EMAIL               = "email@Test";
+    private final String    COUNTRY             = "CountryTest";
+    private final String    ROLE                = "RoleTest";
+    private final Company   company             = new Company(COMPANY_NAME, BUDGET);
     
-    private final int       USER_ID_UPDATED             = USER_ID;
-    private final String    USER_NAME_UPDATED           = USER_NAME + "Updated";        
-    private final String    PASSWORD_UPDATED            = PASSWORD  + "Updated";
-    private final String    EMAIL_UPDATED               = EMAIL     + "Updated";
-    private final String    COUNTRY_UPDATED             = COUNTRY   + "Updated";
-    private final String    ROLE_UPDATED                = ROLE      + "Updated";
-//    private final Company   company_updated;
-    private final Company   company_updated = company;
+    private final int       USER_ID_UPDATED     = USER_ID;
+    private final String    USER_NAME_UPDATED   = USER_NAME + "Updated";        
+    private final String    PASSWORD_UPDATED    = PASSWORD  + "Updated";
+    private final String    EMAIL_UPDATED       = EMAIL     + "Updated";
+    private final String    COUNTRY_UPDATED     = COUNTRY   + "Updated";
+    private final String    ROLE_UPDATED        = ROLE      + "Updated";
+    private final Company   company_updated     = company;
     
     
     
@@ -65,22 +63,7 @@ public class UserManagerTest {
                                                 COUNTRY_UPDATED, ROLE_UPDATED,
                                                 company_updated);
     
-    public UserManagerTest() {
-//        company                     = new Company(COMPANY_NAME, BUDGET);
-//        company_updated             = company;
-        
-//        user                        = new User(
-//                                                USER_ID, USER_NAME, PASSWORD,
-//                                                EMAIL, COUNTRY, ROLE, company);
-        
-//        userUpdated                 = new User(
-//                                                USER_ID_UPDATED, USER_NAME_UPDATED,
-//                                                PASSWORD_UPDATED, EMAIL_UPDATED,
-//                                                COUNTRY_UPDATED, ROLE_UPDATED,
-//                                                company_updated);
-        
-        
-    } // End of constructor
+    public UserManagerTest() {} // End of constructor
     
     
     @BeforeClass
@@ -106,7 +89,7 @@ public class UserManagerTest {
      * Test of insert method, of class UserManager.
      */
     @Test
-    public void testInsert() {
+    public void test_A_Insert() {
         System.out.println("Testing :: UserManager.insert()");
         
         boolean isInserted  = companyInstance.insert(conn, company);
@@ -121,6 +104,21 @@ public class UserManagerTest {
         deleteRow();
     } // End of method :: testInert()
     
+    @Test
+    public void test_B_Delete() {
+        System.out.println("Testing :: UserManager.delete()");
+
+        boolean isInserted  = companyInstance.insert(conn, company);
+        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
+        
+        // Seting up :: by inserting a row
+        insertRow();
+        
+        boolean result = deleteRow();
+
+        assertTrue("        :: Row not deleted", result);
+    } // End of method :: testDelete()
+    
     
     /**
      * Test of getRow method, of class UserManager.
@@ -134,13 +132,9 @@ public class UserManagerTest {
         if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
         
         insertRow();
-
-        System.out.println(user.toString());
         
         User expResult   = user;
         User result      = userInstance.getRow(conn, user.getUserID());
-        
-        result.toString();
         
         assertTrue(
                 "        :: Retrieved data is not as expected",
@@ -148,20 +142,40 @@ public class UserManagerTest {
     } // End of method :: testgetRow
     
     
-    @Test
-    public void test_D_Delete() {
-        System.out.println("Testing :: UserManager.delete()");
+     @Test
+    public void test_C_Update() {
+        System.out.println("Testing :: UserManager.Update()");
 
         boolean isInserted  = companyInstance.insert(conn, company);
+        
         if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
         
         // Seting up :: by inserting a row
         insertRow();
+        userUpdated.setUserID(user.getUserID());
         
-        boolean result = deleteRow();
+        
+        User expResult   = userUpdated;
+        User result      = user;
 
-        assertTrue("        :: Row not deleted", result);
-    } // End of method :: testDelete()
+        boolean isUpdated = userInstance.update(conn, userUpdated);
+
+        if (isUpdated) {
+            
+            System.out.println("        :: Row updated ... now retrieving the same row from database ");
+            result = userInstance.getRow(conn, userUpdated.getUserID());
+        } else {
+            
+            System.err.println("Something went wrong when updating the database");
+        } // End of if-else()
+        
+        assertTrue(
+                "        :: Retrieved data is not as expected",
+                expResult.toString().equals(result.toString()));
+        
+        // cleaning up :: by deleting a row
+        deleteRow();
+    } // End of Method :: testUpdate()
     
     
     

@@ -76,46 +76,33 @@ public class UserManager {
         return rowsInserted == 1;
     } // End of method :: insert()
     
-    
-    public User getRow(Connection conn, int userid) { 
+     
+      public User getRow(Connection conn, int userid) { 
 
-        String sql1 = "SELECT * FROM users WHERE userid = ?";
-        String sql2 = "SELECT * FROM companies WHERE companyname = ?";
-        PreparedStatement stmt = null;
+        String sql = "SELECT * FROM users WHERE userid = ?";
         ResultSet rs = null;
 
-        try {
-            stmt = conn.prepareStatement(sql1);
+        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+            
             stmt.setInt(1, userid);
             rs = stmt.executeQuery();
             
-            User bean = new User();
-            String companyName = "";
-
             if (rs.next()) {
+                CompanyManager cm = new CompanyManager();
+                User bean = new User();
+                
                 bean.setUserID(userid);
                 bean.setName(rs.getNString("uname"));
                 bean.setPassword(rs.getNString("password"));
                 bean.setEmail(rs.getNString("email"));
                 bean.setCountry(rs.getNString("country"));
                 bean.setRole(rs.getNString("urole"));
-                companyName = rs.getNString("company");
+                bean.setCompany( cm.getRow(conn, rs.getNString("company")) );
+                
+                return bean;
+            } else {
+                return null;
             }
-            
-            stmt = conn.prepareStatement(sql2);
-            stmt.setString(1, companyName);
-            rs = stmt.executeQuery();
-            
-            Company company = new Company();
-            
-            if (rs.next()) {
-                company.setCompanyName(rs.getNString("companyname"));
-                company.setBudget(rs.getInt("budget"));
-            }
-            
-            bean.setCompany(company);
-            
-            return bean;
 
         } catch ( SQLException e) {
             DBConnector.processException(e);
@@ -128,15 +115,52 @@ public class UserManager {
                     DBConnector.processException(e);
                 }
             }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    DBConnector.processException(e);
-                }
-            }
         }
     } // End of method :: getRow() 
+     
+     
+    
+    public boolean update(Connection conn, User bean) { 
+
+        String sql
+                = "UPDATE users SET "
+                + "uname = ?, "
+                + "password = ?, "
+                + "email = ?, "
+                + "country = ?, "
+                + "urole = ? "
+                // + "company = ? "
+                + "WHERE userid = ?";
+        
+        
+        
+        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+
+            CompanyManager cm = new CompanyManager();
+            
+            stmt.setString(1, bean.getName());
+            stmt.setString(2, bean.getPassword());
+            stmt.setString(3, bean.getEmail());
+            stmt.setString(4, bean.getCountry());
+            stmt.setString(5, bean.getRole());
+            //stmt.setString(6, bean.getCompany().getCompanyName());
+            stmt.setInt(6, bean.getUserID());
+            
+            int affected = stmt.executeUpdate();
+            if (affected == 1) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: update()
+    
+    
+    
     
     public boolean delete(Connection conn, int userid) { 
         

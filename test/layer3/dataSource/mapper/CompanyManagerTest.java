@@ -157,7 +157,7 @@ public class CompanyManagerTest {
     
     private boolean deleteRow() {
         
-        return instance.delete(conn, companyUpdated.getCompanyName());
+        return instance.delete(conn, company.getCompanyName());
     }
     
 } // End of Class :: CompanyManagerTest
