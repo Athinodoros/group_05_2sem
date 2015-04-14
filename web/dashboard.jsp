@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="layer2.domain.interfaces.NamingConv"%>
 
@@ -63,6 +64,7 @@
 
         <div class="container-fluid">
             <div class="row">
+                <!-- Athinodoros Sgouromallis-->
                 <div class="col-sm-3 col-md-2 sidebar">
                     <jsp:include page="menus.jsp"></jsp:include>
                     </div>
@@ -112,7 +114,7 @@
                     
                     
                     
-                    
+                    <!-- //Athinodoros Sgouromallis-->
                     
                     <div class="table-responsive">
                         
