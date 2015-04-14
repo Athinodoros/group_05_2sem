@@ -22,10 +22,14 @@ public class Company {
         
         String str = "";
         
-        str +=  "Company Name :: ";
+        str += "\n";
+        str += "------------- Company ---------------";
+        str += "\n";
+        
+        str +=  "Company Name   :: ";
         str +=  companyName;
         str +=  "\n";
-        str +=  "Budget :: ";
+        str +=  "Budget         :: ";
         str +=  budget;
         
         return str;
