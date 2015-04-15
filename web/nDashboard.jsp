@@ -14,19 +14,19 @@
     <body>
         <%-- Top area header etc. --%>
         <div class="col-md-12">
-            <jsp:include page="header.jsp" />
+          <%-- Top area header etc.  <jsp:include page="header.jsp" /> --%>
         </div>
         <%-- left menu item --%>
-        <div class="col-md-3">
-            <jsp:include page="menus.jsp" />
+        <div class="col-sm-3 col-md-3 sidebar">
+           <%-- Top area header etc.  <jsp:include page="menus.jsp"/> --%>
         </div>
         <%-- dashboard main area --%>
         <div class="col-md-9">
-            <jsp:include page="DashBoardPicker.jsp" />
+          <%-- Top area header etc.   <jsp:include page="DashBoardPicker.jsp" /> --%>
         </div>
         <%-- footer area  --%>
-        <div class="col-md-12">
-            
+        <div class="col-md-12 col-sm-12">
+            This is the footer area
         </div>
     </body>
 </html>
