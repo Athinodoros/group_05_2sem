@@ -86,11 +86,6 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.CREATECOMPANY:
-                        request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
-                        dispatcher = request.getRequestDispatcher("dashboard.jsp");
-                        dispatcher.forward(request, response);
-                        break;
                         
                 }
                 dispatcher = request.getRequestDispatcher("initialForm.jsp");

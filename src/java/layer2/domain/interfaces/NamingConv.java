@@ -37,8 +37,7 @@ public class NamingConv {
    //pages
     public static final String DASHBOARD = "dashboard";
     public static final String BUDGET = "budget";
-    public static final String PROJECTLIST = "projectList";
-    public static final String CREATECOMPANY = "createCompany";
+    public static final String PROJECTLIST = "projectlist";
     
     
     

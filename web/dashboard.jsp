@@ -105,8 +105,6 @@
                         <span class="text-muted">Something else</span>
                       </div>
                     </div>
-                    
-                   
                     -->
                     <h2 class="sub-header">List of your company's projects</h2>
                     <jsp:include page="DashBoardPicker.jsp" />
