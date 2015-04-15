@@ -23,7 +23,7 @@ public class Convert {
     }
     
     
-    public static String Boolean2String(boolean bool) {
+    public static String boolean2String(boolean bool) {
         
         if(bool == true)
             return "y";
@@ -31,7 +31,7 @@ public class Convert {
             return "n";
     } // End of method()
     
-    public static boolean String2Boolean(String string) {
+    public static boolean string2Boolean(String string) {
         
        if( string.equalsIgnoreCase("y") )
            return true;

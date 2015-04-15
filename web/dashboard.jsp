@@ -77,7 +77,7 @@
                     <%
                     } else if (user.getRole().equals(NamingConv.ADMIN)) {
                     %>
-                    <h1 class="page-header">Hi, Admin</h1>
+                    <h1 class="page-header">Hi, Admin </h1>
                     <%
                         }
                     %>
@@ -105,8 +105,6 @@
                         <span class="text-muted">Something else</span>
                       </div>
                     </div>
-                    
-                   
                     -->
                     <h2 class="sub-header">List of your company's projects</h2>
                     <jsp:include page="DashBoardPicker.jsp" />

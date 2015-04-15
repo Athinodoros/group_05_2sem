@@ -118,12 +118,61 @@ public class ProjectManagerTest {
             result = projectManager.getRow(conn, project.getProjectID());
         }
         if (result != null) {
-            System.out.println("Expected");
-            System.out.println(project.toString());
-            System.out.println("Result");
-            System.out.println(result.toString());
+//            System.out.println("\n\nExpected");
+//            System.out.println(project.toString());
+//            System.out.println("\n\nResult");
+//            System.out.println(result.toString());
             assertTrue(result.toString().equals(project.toString()));
         }
         
     } // End of method :: testGetRow()
+    
+    
+    @Test
+    public void testDelete(){
+        System.out.println("Testing :: ProjectManager.delete()");
+        
+        //making sure I first insert all the necessary rows, before I try to delete something
+        boolean status1 = companyManager.insert(conn, dummyCompany);
+        boolean status2 = userManager.insert(conn, author);
+        boolean status3 = projectManager.insert(conn, project);
+        
+        boolean result = false;
+        if (status1 && status2 && status3) {
+            result = projectManager.delete(conn, project.getProjectID());
+        }
+        
+        assertTrue(result);
+    } // End of method :: testDelete()
+    
+    
+    @Test
+    public void testUpdate() {
+        System.out.println("Testing :: ProjectManager.update()");
+        
+        //making sure I first insert all the necessary rows, before I try to update something
+        boolean status1 = companyManager.insert(conn, dummyCompany);
+        boolean status2 = userManager.insert(conn, author);
+        boolean status3 = projectManager.insert(conn, project);
+        
+        project.setStage("different stage");
+        project.setBudget(43);
+        project.setPOE(true);
+        project.setComments("new comments");
+        
+        boolean status4 = projectManager.update(conn, project);
+        
+        Project updated = null;
+        if (status1 && status2 && status3 && status4) {
+            updated = projectManager.getRow(conn, project.getProjectID());
+        }
+        
+        if (updated != null) {
+            System.out.println("\n\nExpected");
+            System.out.println(project.toString());
+            System.out.println("\n\nResult");
+            System.out.println(updated.toString());
+            assertTrue(project.toString().equals(updated.toString()));
+        }
+    } // End of method :: testUpdate()
 } // End of class :: 

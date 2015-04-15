@@ -41,7 +41,7 @@ public class UIServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
         if (ctrl == null) {
-            ctrl = Controller.getInstance();
+            ctrl = new Controller();
             session.setAttribute("Controller", ctrl);
         }
 
@@ -69,7 +69,7 @@ public class UIServlet extends HttpServlet {
                 break;
                 
             case "initialForm":
-                dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                 dispatcher.forward(request, response);
                 break;
                 
@@ -86,14 +86,9 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.CREATECOMPANY:
-                        request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
-                        dispatcher = request.getRequestDispatcher("dashboard.jsp");
-                        dispatcher.forward(request, response);
-                        break;
                         
                 }
-                dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                 dispatcher.forward(request, response);
                 //dummy code end
                 break;

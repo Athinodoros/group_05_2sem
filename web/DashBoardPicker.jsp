@@ -2,25 +2,24 @@
     Document   : DashBoardPicker
     Created on : Apr 11, 2015, 8:16:06 PM
     Author     : Athinodoros
---%>
-
-<%@page import="layer2.domain.interfaces.NamingConv"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
-    <body>
+--%>
+
+<%@page import="layer2.domain.interfaces.NamingConv"%>
+<link href="bootstrap.min.css" rel="stylesheet">
+
+<div class="col-md-5">
         <% String pagepoint = (String) request.getAttribute("mainArea");
             if (pagepoint == NamingConv.BUDGET) { %>
-        <jsp:include page="Budget.jsp"/>
+        <jsp:include page="Forms/Budget.jsp"/>
         <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
-        <jsp:include page="initialForm.jsp"/>
+        <jsp:include page="Forms/initialForm.jsp"/>
         <% } else if (pagepoint == NamingConv.CREATECOMPANY) { %>
-        <jsp:include page="createCompanyForm.jsp" />
-        <% } else if (pagepoint == NamingConv.ADMIN) { %>
-
+        <jsp:include page="Forms/createCompanyForm.jsp" />
+        <% } else  { %>
+        <p>no jsp was loaded </p>
         <% }%>
 
-
-    </body>
-</html>
+</div>
