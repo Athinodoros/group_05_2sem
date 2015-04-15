@@ -58,6 +58,9 @@ public class DBFacade {
         return projectManager.insert(conn, newProject);
     }
     
+    public boolean editProject(Project project) {
+        return projectManager.update(conn, project);
+    }
     
     //dummy methods start here
     public User getAdmin(){

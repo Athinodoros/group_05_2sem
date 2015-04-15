@@ -26,6 +26,10 @@ public class Controller {
         return dbf.createProject(newProject, creator);
     }
     
+    public boolean editProject(Project project) {
+        return dbf.editProject(project);
+    }
+    
     //dummy methods start here
     public User getAdmin(){
         return dbf.getAdmin();
