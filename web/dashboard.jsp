@@ -77,7 +77,7 @@
                     <%
                     } else if (user.getRole().equals(NamingConv.ADMIN)) {
                     %>
-                    <h1 class="page-header">Hi, Admin</h1>
+                    <h1 class="page-header">Hi, Admin </h1>
                     <%
                         }
                     %>

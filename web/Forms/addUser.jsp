@@ -2,14 +2,13 @@
     Document   : addUser
     Created on : Apr 10, 2015, 12:15:40 PM
     Author     : Athinodoros
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link href="bootstrap.min.css" rel="stylesheet">
 <!DOCTYPE html>
-<html>
+--%>
+<link href="bootstrap.min.css" rel="stylesheet">
 
-    <body>
+
         <div class="form-user">
             <form class="lead"></br>
                 <a>Name</a> <input type="text" name="Name" value="" /></br></br>
@@ -41,5 +40,4 @@
 
             </form>
         </div>
-    </body>
-</html>
+    

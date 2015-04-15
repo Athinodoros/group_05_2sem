@@ -69,7 +69,7 @@ public class UIServlet extends HttpServlet {
                 break;
                 
             case "initialForm":
-                dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                 dispatcher.forward(request, response);
                 break;
                 
@@ -88,7 +88,7 @@ public class UIServlet extends HttpServlet {
                         break;
                         
                 }
-                dispatcher = request.getRequestDispatcher("initialForm.jsp");
+                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                 dispatcher.forward(request, response);
                 //dummy code end
                 break;
