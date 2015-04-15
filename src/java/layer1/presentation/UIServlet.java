@@ -61,7 +61,7 @@ public class UIServlet extends HttpServlet {
                 }else{
                     session.setAttribute("user", user1);
                 }
-                dispatcher = request.getRequestDispatcher("dashboard.jsp");
+                dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                 dispatcher.forward(request, response);
                 //dummy code ends here
                 
@@ -78,12 +78,17 @@ public class UIServlet extends HttpServlet {
                 switch (Main) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
-                        dispatcher = request.getRequestDispatcher("dashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.BUDGET:
                         request.setAttribute("mainArea", NamingConv.BUDGET);
-                        dispatcher = request.getRequestDispatcher("dashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
+                    case NamingConv.CREATECOMPANY:
+                        request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
+                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                         
