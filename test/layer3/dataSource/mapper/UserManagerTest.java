@@ -22,6 +22,9 @@ import static org.junit.Assert.*;
  *
  * @author bo
  */
+//  from ::jUnit version 4.11
+//  Furure updates :: allows for fix order execution of test methods in ascending order
+//  @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserManagerTest {
     
     private static Connection conn;
@@ -49,11 +52,8 @@ public class UserManagerTest {
     private final String    COUNTRY_UPDATED     = COUNTRY   + "Updated";
     private final String    ROLE_UPDATED        = ROLE      + "Updated";
     private final Company   company_updated     = company;
+   
     
-    
-    
-//    private final User user;
-//    private final User userUpdated;
     private final User user = new User(
                                                 USER_ID, USER_NAME, PASSWORD,
                                                 EMAIL, COUNTRY, ROLE, company);

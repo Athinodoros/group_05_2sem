@@ -6,6 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
+import java.util.*;
 import layer2.domain.bean.Company;
 import layer3.dataSource.DBConnector;
 
@@ -14,6 +15,38 @@ import layer3.dataSource.DBConnector;
  * @author bo
  */
 public class CompanyManager {
+    
+     public Collection getAllRows(Connection conn) { 
+
+//        List<Company> rows = new ArrayList();
+        Collection<Company> rows = new ArrayList();
+        
+        String sql = "SELECT companyname, budget FROM companies";
+        
+        try (   Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery( sql );
+            ) {
+
+            while (rs.next()) {
+                Company company = new Company();
+                
+                company.setCompanyName(rs.getString("companyname"));
+                company.setBudget(rs.getInt("budget"));
+                rows.add(company);
+            }
+            
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+        }
+        return rows;
+    } // End of method :: displayAllrows()
+    
+    
+    
+    
+    
+    
+    
     
      public boolean insert(Connection conn, Company bean) { 
 
@@ -114,6 +147,33 @@ public class CompanyManager {
        
         } catch (SQLException e) {
             DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: Delete() 
+    
+    public boolean deleteAllRows(Connection conn, String confirm) { 
+        
+        if( confirm.equalsIgnoreCase("yes")) {
+            
+            String sql = "DELETE FROM companies";
+
+            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+
+                //stmt.setString(1, companyName);
+                int effected = stmt.executeUpdate();
+
+                if(effected == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (SQLException e) {
+                DBConnector.processException(e);
+                return false;
+            }
+        }
+        else {
             return false;
         }
     } // End of method :: Delete() 
