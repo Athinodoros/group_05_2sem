@@ -7,6 +7,8 @@ package layer3.dataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import layer2.domain.bean.Project;
+import layer2.domain.bean.User;
 import layer3.dataSource.mapper.CompanyManager;
 import layer3.dataSource.mapper.ProjectManager;
 import layer3.dataSource.mapper.UserManager;
@@ -52,31 +54,8 @@ public class DBFacade {
     
     
     
-    // Do some work here ->
-    
-//    public void displayAllRows() {
-//        
-//        adminManager.displayAllRows(conn);
-//    }
-//    
-//     public Admin getRow(int adminId) {
-//        
-//        return adminManager.getRow(conn, adminId);
-//    }
-//    
-//     public boolean delete(int adminId) {
-//        
-//        return adminManager.delete(conn, adminId);
-//    }
-//    
-//    public boolean insert(Admin bean) {
-//        
-//        return adminManager.insert(conn, bean);
-//    }
-//    
-//    public boolean update(Admin bean) {
-//        
-//        return adminManager.update(conn, bean);
-//    }
+    public boolean createProject(Project newProject, User creator) {
+        return projectManager.insert(conn, newProject);
+    }
     
 } // End of Class :: DBFacade

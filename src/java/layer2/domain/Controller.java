@@ -5,6 +5,8 @@
  */
 package layer2.domain;
 
+import layer2.domain.bean.Project;
+import layer2.domain.bean.User;
 import layer3.dataSource.DBFacade;
 
 /**
@@ -17,6 +19,11 @@ public class Controller {
     
     public Controller() {
         dbf = DBFacade.getInstance();
+    }
+    
+    
+    public boolean createProject(Project newProject, User creator){
+        return dbf.createProject(newProject, creator);
     }
     
 }
