@@ -45,21 +45,18 @@ public class UIServlet extends HttpServlet {
             session.setAttribute("Controller", ctrl);
         }
 
+        
         String command = (String) request.getParameter("command");
         String Main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
         switch (command) {
             case "log-in":
                 //dummy code starts here
-                Company resellComp = new Company("Reseller", 1);
-                Company dell = new Company("Dell", 1000000);
-                User user1 = new User(1, "Nos", "1234", "nos@paok.gr", "Greece", NamingConv.RESELLER, resellComp);
-                User user2 = new User(1, "Bo", "1234", "bo@cph.dk", "Denmark", NamingConv.ADMIN, dell);
                 String input = request.getParameter("email");
                 if (input.equals("admin")) {
-                    session.setAttribute("user", user2);
+                    session.setAttribute("user", ctrl.getAdmin());
                 }else{
-                    session.setAttribute("user", user1);
+                    session.setAttribute("user", ctrl.getReseller());
                 }
                 dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                 dispatcher.forward(request, response);

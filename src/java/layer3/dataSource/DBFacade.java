@@ -58,4 +58,15 @@ public class DBFacade {
         return projectManager.insert(conn, newProject);
     }
     
+    
+    //dummy methods start here
+    public User getAdmin(){
+        return userManager.getRow(conn, 83);
+    }
+    
+    public User getReseller(){
+        return userManager.getRow(conn, 84);
+    }
+    //dummy methods end here
+    
 } // End of Class :: DBFacade

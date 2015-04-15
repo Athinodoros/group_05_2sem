@@ -26,4 +26,14 @@ public class Controller {
         return dbf.createProject(newProject, creator);
     }
     
+    //dummy methods start here
+    public User getAdmin(){
+        return dbf.getAdmin();
+    }
+    
+    public User getReseller(){
+        return dbf.getReseller();
+    }
+    //dummy methods end here
+    
 }
