@@ -1,8 +1,4 @@
-<%-- 
-    Document   : menus
-    Created on : Apr 8, 2015, 12:21:16 PM
-    Author     : Athinodoros
---%>
+
 
 <%@page import="java.io.PrintWriter"%>
 <%@page import="layer2.domain.interfaces.NamingConv"%>

@@ -38,6 +38,10 @@ public class Controller {
     public User getReseller(){
         return dbf.getReseller();
     }
+    
+    public Project getAllProjects(){
+        return dbf.getAllProjects();
+    }
     //dummy methods end here
     
 }

@@ -70,6 +70,11 @@ public class DBFacade {
     public User getReseller(){
         return userManager.getRow(conn, 84);
     }
+    
+    public Project getAllProjects(){
+    
+        return projectManager.getAllRows(conn);
+    }
     //dummy methods end here
     
 } // End of Class :: DBFacade

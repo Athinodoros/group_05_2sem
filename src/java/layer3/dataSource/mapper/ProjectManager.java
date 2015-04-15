@@ -163,5 +163,46 @@ public class ProjectManager {
             DBConnector.processException(e);
             return false;
         }
-    } // End of method :: update()
+    }
+    public Project getAllRows(Connection conn){
+        
+        String sql = "SELECT * FROM projects";
+        ResultSet rs = null;
+        Project bean = new Project();
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            //stmt.setInt(1, projectid);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                bean.setProjectID(rs.getInt("projectid"));
+                bean.setTitle(rs.getNString("title"));
+                bean.setStartDate(Convert.sqlDate2Date(rs.getDate("startdate")));
+                bean.setEndDate(Convert.sqlDate2Date(rs.getDate("enddate")));
+                bean.setStage(rs.getNString("stage"));
+                bean.setBudget(rs.getInt("budget"));
+                bean.setPOE(Convert.string2Boolean(rs.getNString("poe")));
+                bean.setComments(rs.getNString("comments"));
+                
+//                int authorID = rs.getInt("authorid");
+//                UserManager userManager = new UserManager();
+//                User author = userManager.getRow(conn, authorID);
+//                bean.setAuthor(author);
+            }
+            
+            return bean;
+            
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return null;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    DBConnector.processException(ex);
+                }
+            }
+        }
+    }// End of method :: update()
 } // End of Class :: ProjectManager

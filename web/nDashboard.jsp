@@ -1,8 +1,4 @@
-<%-- 
-    Document   : nDashboard
-    Created on : Apr 15, 2015, 1:52:54 PM
-    Author     : Athinodoros
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
