@@ -22,16 +22,16 @@
                 <jsp:include page="PageComponents/header.jsp" />
             </div>
             <%-- left menu item --%>
-            <div style="background-color: #31b0d5" class="col-md-3">
+            <div style="height: 80vh;" class="col-md-2 sidebar">
                 Top area header etc.  <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
-            <div style="background-color: #bce8f1" class="col-md-9">
-                Top area header etc.   <jsp:include page="DashBoardPicker.jsp" /> 
+            <div style="height: 80vh;background-color: #f2dede; " class="col-md-10">
+                  <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>
-            <div class="col-md-12 col-sm-12">
-                This is the footer area
+            <div style="background-color: #ac2925; height: 20vh;" class="col-md-12 col-sm-12">
+                <a style="font-size: 2em;color: #ffffff">CopyRight Group_05_2_semester </a>
             </div>
         </div>
     </body>
