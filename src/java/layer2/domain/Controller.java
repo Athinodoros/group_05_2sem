@@ -5,6 +5,7 @@
  */
 package layer2.domain;
 
+import java.util.ArrayList;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBFacade;
@@ -39,7 +40,7 @@ public class Controller {
         return dbf.getReseller();
     }
     
-    public Project getAllProjects(){
+    public ArrayList<Project> getAllProjects(){
         return dbf.getAllProjects();
     }
     //dummy methods end here

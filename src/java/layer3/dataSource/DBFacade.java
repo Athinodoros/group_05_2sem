@@ -7,6 +7,7 @@ package layer3.dataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.User;
 import layer3.dataSource.mapper.CompanyManager;
@@ -71,7 +72,7 @@ public class DBFacade {
         return userManager.getRow(conn, 84);
     }
     
-    public Project getAllProjects(){
+    public ArrayList<Project> getAllProjects(){
     
         return projectManager.getAllRows(conn);
     }

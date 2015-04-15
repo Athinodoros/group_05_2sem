@@ -6,8 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
@@ -164,17 +163,19 @@ public class ProjectManager {
             return false;
         }
     }
-    public Project getAllRows(Connection conn){
+    public ArrayList<Project> getAllRows(Connection conn){
         
         String sql = "SELECT * FROM projects";
         ResultSet rs = null;
-        Project bean = new Project();
+        
+        ArrayList<Project> allproj = new ArrayList<Project>();
         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             //stmt.setInt(1, projectid);
             rs = stmt.executeQuery();
             
-            if (rs.next()) {
+            while (rs.next()) {
+                Project bean = new Project();
                 bean.setProjectID(rs.getInt("projectid"));
                 bean.setTitle(rs.getNString("title"));
                 bean.setStartDate(Convert.sqlDate2Date(rs.getDate("startdate")));
@@ -184,13 +185,14 @@ public class ProjectManager {
                 bean.setPOE(Convert.string2Boolean(rs.getNString("poe")));
                 bean.setComments(rs.getNString("comments"));
                 
-//                int authorID = rs.getInt("authorid");
-//                UserManager userManager = new UserManager();
-//                User author = userManager.getRow(conn, authorID);
-//                bean.setAuthor(author);
+                int authorID = rs.getInt("authorid");
+                UserManager userManager = new UserManager();
+                User author = userManager.getRow(conn, authorID);
+                bean.setAuthor(author);
+                allproj.add(bean);
             }
+            return allproj;
             
-            return bean;
             
         } catch (SQLException e) {
             DBConnector.processException(e);
