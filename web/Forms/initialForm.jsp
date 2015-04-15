@@ -30,10 +30,10 @@
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>
-                Start Date: <input type="sdate" name="SDate" value=""/>
+                Start Date: <input type="date" name="SDate" value=""/>
                 <br>
                 <br>
-                End Date: <input type="edate" name="EDate" value=""/> 
+                End Date: <input type="date" name="EDate" value=""/> 
                 <br>
                 <br>
                 Approve : <input type="checkbox" name="Approve" value="ON" readonly="" disabled />
