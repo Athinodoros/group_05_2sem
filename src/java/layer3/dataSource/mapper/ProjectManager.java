@@ -58,7 +58,7 @@ public class ProjectManager {
             stmt.setDate(5, Convert.date2SqlDate(bean.getEndDate()));
             stmt.setString(6, bean.getStage());
             stmt.setInt(7, bean.getBudget());
-            stmt.setString(8, Convert.Boolean2String(bean.hasPOE()));
+            stmt.setString(8, Convert.boolean2String(bean.hasPOE()));
             stmt.setString(9, bean.getComments());
             rowsInserted = stmt.executeUpdate();
 
@@ -95,7 +95,7 @@ public class ProjectManager {
                 bean.setEndDate(Convert.sqlDate2Date(rs.getDate("enddate")));
                 bean.setStage(rs.getNString("stage"));
                 bean.setBudget(rs.getInt("budget"));
-                bean.setPOE(Convert.String2Boolean(rs.getNString("poe")));
+                bean.setPOE(Convert.string2Boolean(rs.getNString("poe")));
                 bean.setComments(rs.getNString("comments"));
                 
                 int authorID = rs.getInt("authorid");
@@ -119,4 +119,49 @@ public class ProjectManager {
             }
         }
     } // End of method :: getRow()
+    
+    
+    public boolean delete(Connection conn, int projectid){
+        String sql = "DELETE FROM projects WHERE projectid = ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, projectid);
+            
+            int affected = stmt.executeUpdate();
+            if (affected == 1) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: delete()
+    
+    
+    public boolean update(Connection conn, Project bean){
+        String sql = "UPDATE projects SET enddate = ? , stage = ? , budget = ? , poe = ? , comments = ? WHERE projectid = ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDate(1, Convert.date2SqlDate(bean.getEndDate()));
+            stmt.setNString(2, bean.getStage());
+            stmt.setInt(3, bean.getBudget());
+            stmt.setNString(4, Convert.boolean2String(bean.hasPOE()));
+            stmt.setNString(5, bean.getComments());
+            stmt.setInt(6, bean.getProjectID());
+            
+            int affected = stmt.executeUpdate();
+            if (affected == 1) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: update()
 } // End of Class :: ProjectManager
