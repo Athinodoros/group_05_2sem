@@ -36,6 +36,12 @@
                 End Date: <input type="date" name="EDate" value=""/> 
                 <br>
                 <br>
+                Budget: <input type="number" name="Budget" />
+                <br>
+                <br>
+                Proof of execution: <input type="boolean" name="Proof">                
+                <br>
+                <br>
                 Approve : <input type="checkbox" name="Approve" value="ON" readonly="" disabled />
 
                 <br>
