@@ -40,6 +40,11 @@ public class Company {
         this.budget = budget;
     }
 
+    public Company(Company company) {
+        this.companyName = company.getCompanyName();
+        this.budget = company.getBudget();
+    }
+    
     public String getCompanyName() {
         return companyName;
     }
