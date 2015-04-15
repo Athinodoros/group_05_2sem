@@ -10,5 +10,5 @@ package layer3.dataSource;
  * @author bo
  */
 public enum DBType {
-    ORACLE_THIN, SOME_OTHER_DATA_BASE
+    ORACLE_THIN, ORACLE_THIN_TEST_DATABASE, SOME_OTHER_DATA_BASE
 }

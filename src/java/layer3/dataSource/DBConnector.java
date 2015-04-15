@@ -15,19 +15,6 @@ public class DBConnector {
 
     private static DBConnector instance = null;
     
-    private final String USERNAME = "cphbm75";
-    private final String PASSWORD = "cphbm75";
-    
-    // This is the data Oracle base to connect to:
-    private static final String M_CONN_STRING    = "jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat";
-    // driver is not needed anymore since jave 7 , so I have commented out the driver below
-    // but since the programm doesn't work! I included it again
-    public static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    
-    // If you want more data-bases to connect to, then write them here.
-    // private static final String SOME_OTHER_DATA_BASE = "write a url to the data-base here"
-    
-    
     private DBType dbType = DBType.ORACLE_THIN;
 
     
@@ -66,10 +53,15 @@ public class DBConnector {
             switch (dbType) {
 
                 case ORACLE_THIN:
-                    Class.forName(ORACLE_DRIVER);
-                    conn = DriverManager.getConnection(M_CONN_STRING, USERNAME, PASSWORD);
+                    Class.forName(Oracle.DRIVER);
+                    conn = DriverManager.getConnection(Oracle.URL, Oracle.USERNAME, Oracle.PASSWORD);
                     return true;
-
+                    
+                case ORACLE_THIN_TEST_DATABASE:
+                    Class.forName(Oracle.DRIVER);
+                    conn = DriverManager.getConnection(OracleTest.URL, OracleTest.USERNAME, OracleTest.PASSWORD);
+                    return true;
+                    
                 case SOME_OTHER_DATA_BASE:
                     // Class.forName(SOME_OTHER_DATA_BASE_DRIVER);
                     // return DriverManager.getConnection(SOME_OTHER_DATA_BASE, USERNAME, PASSWORD);
