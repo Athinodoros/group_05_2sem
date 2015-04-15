@@ -5,23 +5,18 @@
  */
 package layer2.domain;
 
+import layer3.dataSource.DBFacade;
+
 /**
  *
  * @author Bancho
  */
 public class Controller {
     
-    private static Controller instance;
+    private DBFacade dbf;
     
-    public static Controller getInstance(){
-        if (instance == null) {
-            instance = new Controller();
-        }
-        return instance;
-    }
-    
-    private Controller(){
-        
+    public Controller() {
+        dbf = DBFacade.getInstance();
     }
     
 }
