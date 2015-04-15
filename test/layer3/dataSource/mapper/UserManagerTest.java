@@ -63,6 +63,8 @@ public class UserManagerTest {
                                                 COUNTRY_UPDATED, ROLE_UPDATED,
                                                 company_updated);
     
+    boolean isCompanyInserted = false;
+    
     public UserManagerTest() {} // End of constructor
     
     
@@ -80,78 +82,140 @@ public class UserManagerTest {
     }
     
     @Before
-    public void setUp() {}
+    public void setUp() {
+    
+        isCompanyInserted  = companyInstance.insert(conn, company);
+        
+        if( isCompanyInserted ) {
+            System.out.println("Setup       :: Company created");
+        }
+        else {
+            System.out.println("setup       :: ! Something whent wrong when creating a company");
+        }
+    } // End of method :: setup()
     
     @After
-    public void tearDown() {}
+    public void tearDown() {
+        
+        if( isCompanyInserted ) {
+            boolean isCompanyDeleted = companyInstance.delete(conn, company.getCompanyName());
+            
+            if( isCompanyDeleted ) {
+                System.out.println("TearDown    :: Company deleted");
+            }
+            else {
+                System.out.println("TearDown    :: ! Company was not deleted");
+            }
+        }
+    } // End of method :: tearDown()
 
+    
+    
+    // Tests starts here ->
+    // -------------------------------------------------------------------------
+    
+    
+    
     /**
-     * Test of insert method, of class UserManager.
+     * Test of insert() method, of class UserManager.
      */
     @Test
-    public void test_A_Insert() {
-        System.out.println("Testing :: UserManager.insert()");
+    public void test_A_UserManager_Insert() {
+        System.out.println("    Testing :: UserManager.insert()");
         
-        boolean isInserted  = companyInstance.insert(conn, company);
+        boolean result = false;
+        if( isCompanyInserted ) result = insertRow(user);      
         
-        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
+        assertTrue("            :: Row not inserted", result);
         
-        boolean expResult   = true;
-        boolean result      = insertRow();      
-        
-        assertEquals("        :: Row not inserted", expResult, result);
-        
-        deleteRow();
+        // Clean up
+        deleteRow(user);
     } // End of method :: testInert()
     
+    
+    
+    /**
+     * Test of delete() method, of class UserManager.
+     */
     @Test
-    public void test_B_Delete() {
-        System.out.println("Testing :: UserManager.delete()");
+    public void test_B_UserManager_Delete() {
+        System.out.println("    Testing :: UserManager.delete()");
 
-        boolean isInserted  = companyInstance.insert(conn, company);
-        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
+        // Seting up Test :: By inserting a user (Row)
+        // ---------------------------------------------------------------------
+        boolean isRowInserted = false;
         
-        // Seting up :: by inserting a row
-        insertRow();
+        if( isCompanyInserted ) {
+            
+            isRowInserted = insertRow(user);
+            if( isRowInserted ) {
+                System.out.println("            :: A user (Row) is inserted");
+            }
+            else {
+                System.out.println("            :: ! User (Row) was not inserted");
+            }
+        } 
+        // ---------------------------------------------------------------------
         
-        boolean result = deleteRow();
-
-        assertTrue("        :: Row not deleted", result);
+        boolean result = deleteRow(user);
+        assertTrue("            :: ! Row not deleted", result);
     } // End of method :: testDelete()
     
     
     /**
-     * Test of getRow method, of class UserManager.
+     * Test of getRow() method, of class UserManager.
      */
     @Test
-    public void testGetRow() {
-        System.out.println("Testing :: UserManager.getRow()");
+    public void test_C_UserManager_GetRow() {
+        System.out.println("    Testing :: UserManager.getRow()");
         
-        boolean isInserted  = companyInstance.insert(conn, company);
+        // Seting up Test :: By inserting a user (Row)
+        // ---------------------------------------------------------------------
+        boolean isRowInserted = false;
         
-        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
-        
-        insertRow();
+        if( isCompanyInserted ) {
+            
+            isRowInserted = insertRow(user);
+            if( isRowInserted ) {
+                System.out.println("            :: A user (Row) is inserted");
+            }
+            else {
+                System.out.println("            :: ! User (Row) was not inserted");
+            }
+        } 
+        // ---------------------------------------------------------------------
         
         User expResult   = user;
         User result      = userInstance.getRow(conn, user.getUserID());
         
         assertTrue(
-                "        :: Retrieved data is not as expected",
+                "            :: ! Retrieved data is not as expected",
                 expResult.toString().equals(result.toString()));
+        
+        // Cleaning up
+        deleteRow(user);
     } // End of method :: testgetRow
     
     
      @Test
-    public void test_C_Update() {
-        System.out.println("Testing :: UserManager.Update()");
+    public void test_D_UserManager_Update() {
+        System.out.println("    Testing :: UserManager.Update()");
 
-        boolean isInserted  = companyInstance.insert(conn, company);
+         // Seting up Test :: By inserting a user (Row)
+        // ---------------------------------------------------------------------
+        boolean isRowInserted = false;
         
-        if( ! isInserted ) System.err.println("        :: Something whent wrong when creating a company");
-        
-        // Seting up :: by inserting a row
-        insertRow();
+        if( isCompanyInserted ) {
+            
+            isRowInserted = insertRow(user);
+            if( isRowInserted ) {
+                System.out.println("            :: A user (Row) is inserted");
+            }
+            else {
+                System.out.println("            :: ! User (Row) was not inserted");
+            }
+        } 
+        // ---------------------------------------------------------------------
         userUpdated.setUserID(user.getUserID());
         
         
@@ -162,31 +226,31 @@ public class UserManagerTest {
 
         if (isUpdated) {
             
-            System.out.println("        :: Row updated ... now retrieving the same row from database ");
+            System.out.println("            :: Row updated ... now retrieving the same row from database ");
             result = userInstance.getRow(conn, userUpdated.getUserID());
         } else {
             
-            System.err.println("Something went wrong when updating the database");
+            System.err.println("            :: Something went wrong when updating the database");
         } // End of if-else()
         
         assertTrue(
-                "        :: Retrieved data is not as expected",
+                "            :: ! Retrieved data is not as expected",
                 expResult.toString().equals(result.toString()));
         
         // cleaning up :: by deleting a row
-        deleteRow();
+        deleteRow(userUpdated);
     } // End of Method :: testUpdate()
     
     
     
-    private boolean insertRow() {
+    private boolean insertRow(User _user) {
         
-        return userInstance.insert(conn, user);
+        return userInstance.insert(conn, _user);
     }
     
-    private boolean deleteRow() {
+    private boolean deleteRow(User _user) {
         
-        return userInstance.delete(conn, user.getUserID()); 
+        return userInstance.delete(conn, _user.getUserID()); 
     }
     
 } // End of class :: UserManagerTest
