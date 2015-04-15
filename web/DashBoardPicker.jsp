@@ -18,6 +18,8 @@
         <jsp:include page="Forms/initialForm.jsp"/>
         <% } else if (pagepoint == NamingConv.CREATECOMPANY) { %>
         <jsp:include page="Forms/createCompanyForm.jsp" />
+        <% } else if (pagepoint == NamingConv.USERFORM) { %>
+        <jsp:include page="Forms/addUser.jsp" />
         <% } else  { %>
         <p>no jsp was loaded </p>
         <% }%>

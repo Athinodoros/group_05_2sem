@@ -10,7 +10,7 @@
 
 
         <div class="form-user">
-            <form class="lead"></br>
+            <form class="lead" action="beanHandlers/userHandler.jsp"></br>
                 <a>Name</a> <input type="text" name="Name" value="" /></br></br>
                 
                 <a>Last Name</a> <input type="text" name="LastName" value="" /></br></br>
@@ -19,6 +19,7 @@
                 <div>
                     </br>
                     </br>
+                    <input type="hidden" name=""
                 <a>Country <span style="margin:2px;">:</span>  </a> <select name="country">
                     <option>DK</option>
                     <option>IS</option>
@@ -36,7 +37,9 @@
                     <option>Re-Seller</option>
                     <option>Partner</option>
                 </select>
-
+                </br>
+                
+                <input type="submit" value="Submit" />
 
             </form>
         </div>

@@ -40,6 +40,7 @@ public class NamingConv {
     public static final String BUDGET = "budget";
     public static final String PROJECTLIST = "projectlist";
     public static final String CREATECOMPANY = "createCompany";
+    public static final String USERFORM = "userForm";
     
     
     

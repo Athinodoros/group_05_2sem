@@ -23,7 +23,7 @@
             </div>
             <%-- left menu item --%>
             <div style="height: 80vh;" class="col-md-2 sidebar">
-                <a style="font-size: 2em; font-style: italic;">DashBoard</a> <jsp:include page="menus.jsp"/>
+                <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
             <div style="height: 80vh;background-color: #f2dede; " class="col-md-10">
