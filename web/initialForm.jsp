@@ -11,24 +11,30 @@
 <!DOCTYPE html>
 <html>
     <body>
-    
-    <link href="bootstrap.min.css" rel="stylesheet">
-    
+
+        <link href="bootstrap.min.css" rel="stylesheet">
+
         <div>
             <%@page import="layer2.domain.bean.User"  %>
             <%@page import="layer2.domain.bean.*" %>  
-            
-            <% User user = (User)session.getAttribute("user") ; %>
-           
 
-            
-            <%  if (user.getRole().equals(NamingConv.RESELLER) ) {%>
+            <% User user = (User) session.getAttribute("user"); %>
+
+
+
+            <%  if (user.getRole().equals(NamingConv.RESELLER)) {%>
             <form class="lead" action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>
+                Start Date: <input type="sdate" name="SDate" value=""/>
+                <br>
+                <br>
+                End Date: <input type="edate" name="EDate" value=""/> 
+                <br>
+                <br>
                 Approve : <input type="checkbox" name="Approve" value="ON" readonly="" disabled />
-                
+
                 <br>
                 Old Comments:
                 <br>
@@ -37,21 +43,21 @@
                 <br>
                 Comment input field:
                 <br>
-                
+
                 <textarea name="PastComments" rows="6" cols="80" >
                 </textarea>
                 <br>
                 <br>
                 <input type="submit" value="Submit" />
             </form>
-            <% }else if(user.getRole().equals("admin")){%> 
-            
+            <% } else if (user.getRole().equals("admin")) {%> 
+
             <form class="lead" action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>
                 Approve : <input type="checkbox" name="Approve" value="ON" readonly="" />
-                
+
                 <br>
                 Old Comments:
                 <br>
@@ -60,21 +66,21 @@
                 <br>
                 Comment input field:
                 <br>
-                
+
                 <textarea name="PastComments" rows="6" cols="80" >
                 </textarea>
                 <br>
                 <br>
                 <input type="submit" value="Submit" />
             </form>
-            
-            <%}else if(user.getRole().equals("admin")){%> 
-                 <form class="lead" action="StartProject">
+
+            <%} else if (user.getRole().equals("admin")) {%> 
+            <form class="lead" action="StartProject">
                 Title: <input type="text" name="Tiltle" value="Title" />
                 <br>
                 <br>
                 Approve : <input type="checkbox" name="Approve" value="ON" readonly="" disabled checked />
-                
+
                 <br>
                 Old Comments:
                 <br>
@@ -83,7 +89,7 @@
                 <br>
                 Comment input field:
                 <br>
-                
+
                 <textarea name="PastComments" rows="6" cols="80" >
                 </textarea>
                 <br>
@@ -93,5 +99,5 @@
             <%}%>
 
         </div>
-</body>
+    </body>
 </html>

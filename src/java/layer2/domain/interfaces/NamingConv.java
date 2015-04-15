@@ -35,6 +35,7 @@ public class NamingConv {
     public static final String MAINAREA = "mainArea";
     
    //pages
+    public static final String CREATEPROJECT ="createProject";
     public static final String DASHBOARD = "dashboard";
     public static final String BUDGET = "budget";
     public static final String PROJECTLIST = "projectList";
