@@ -17,7 +17,7 @@
     
     <link href="bootstrap.min.css" rel="stylesheet">
     
-        <div>
+    <div style="padding-top: 10px;">
             <%@page import="layer2.domain.bean.User"  %>
             <%@page import="layer2.domain.bean.*" %>  
 
@@ -102,9 +102,6 @@
             <%}%>
 
         </div>
-<<<<<<< HEAD:web/initialForm.jsp
+
     </body>
 </html>
-=======
-
->>>>>>> origin/master:web/Forms/initialForm.jsp
