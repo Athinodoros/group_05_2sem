@@ -41,7 +41,7 @@ public class UIServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
         if (ctrl == null) {
-            ctrl = Controller.getInstance();
+            ctrl = new Controller();
             session.setAttribute("Controller", ctrl);
         }
 
