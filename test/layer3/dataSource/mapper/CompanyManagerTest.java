@@ -10,6 +10,7 @@ import java.util.*;
 import layer2.domain.bean.Company;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
+import layer3.dataSource.mapper.utility.Delete;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class CompanyManagerTest {
 
     private static Connection conn;
     
-    CompanyManager classUnderTest = new CompanyManager();
+    CompanyManager companyManager = new CompanyManager();
     
     Random random = new Random();
 
@@ -57,7 +58,7 @@ public class CompanyManagerTest {
     @Before
     public void setUp() {
         
-        classUnderTest.deleteAllRows(conn, "yes");
+        Delete.database(conn, "yes");
     }
 
     @After
@@ -73,9 +74,9 @@ public class CompanyManagerTest {
     public void test_A_CompanyManager_Insert() {
         System.out.println("Testing :: CompanyManager.insert()");
         
-        boolean result = classUnderTest.insert(conn, company);
+        boolean result = companyManager.insert(conn, company);
 
-        assertTrue("        :: Row not inserted", result);
+        assertTrue(result);
     } // End of method :: testInsert()
 
     
@@ -87,12 +88,16 @@ public class CompanyManagerTest {
     public void test_B_CompanyManager_Delete() {
         System.out.println("Testing :: CompanyManager.delete()");
 
-        // Setting up test by inserting a row
-        classUnderTest.insert(conn, company);
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to delete something
+        boolean status = companyManager.insert(conn, company);
         
-        boolean result = classUnderTest.delete(conn, company.getCompanyName());
-
-        assertTrue("        :: Row not deleted", result);
+        boolean result = false;
+        if( status ) {
+            result = companyManager.delete(conn, company.getCompanyName());
+        }
+        
+        assertTrue(result);
     } // End of method :: testDelete()
     
     
@@ -104,13 +109,16 @@ public class CompanyManagerTest {
     public void test_C_CompanyManager_GetRow() {
         System.out.println("Testing :: CompanyManager.getRow()");
         
-        // Setting up test by inserting a row
-        classUnderTest.insert(conn, company);
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to get something out
+        boolean status = companyManager.insert(conn, company);
         
-        Company result = classUnderTest.getRow(conn, company.getCompanyName());
-
-        assertNotNull("        :: Retrieved data is not as expected", result);
+        Company result = null;
+        if( status ) {
+            result = companyManager.getRow(conn, company.getCompanyName());
+        }
         
+        assertNotNull(result);
     } // End of method :: testgetRow
 
     
@@ -123,27 +131,25 @@ public class CompanyManagerTest {
     public void test_D_CompanyManager_Update() {
         System.out.println("Testing :: CompanyManager.Update()");
 
-        // Setting up test by inserting a row
-        classUnderTest.insert(conn, company);
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to update something
+        boolean status1 = companyManager.insert(conn, company);
         
+        //  Create a new company with the same name as 'company',
+        //  but with a new budget
         Company companyUpdated = new Company(company);
         companyUpdated.setBudget(BUDGET + 100);
 
-        // update company data in the database
-        boolean isUpdated   = classUnderTest.update(conn, companyUpdated);
+        // Update company data in the database
+        boolean status2   = companyManager.update(conn, companyUpdated);
 
         Company result = company;
-        if(isUpdated) {
+        if( status1 & status2 ) {
             // retrieve updated data from database
-            result = classUnderTest.getRow(conn, companyUpdated.getCompanyName());
-        } else {
-            
-            System.out.println("            :: Something went wrong when updating the database");
+            result = companyManager.getRow(conn, companyUpdated.getCompanyName());
         }
         
-        assertFalse("           :: Retrieved data was not updated",
-                                company.getBudget() == result.getBudget());
-       
+        assertFalse(company.getBudget() == result.getBudget());
     } // End of Method :: testUpdate()
     
     
@@ -157,18 +163,21 @@ public class CompanyManagerTest {
         System.out.println("Testing :: CompanyManager.getAllRows()");
         
         // setting up test by creating two companies and inserting them in the database
-        Company company1 = new Company(COMPANY_NAME + "_one", BUDGET);
-        Company company2 = new Company(COMPANY_NAME + "_Two", BUDGET);
-        classUnderTest.insert(conn, company1);
-        classUnderTest.insert(conn, company2);
+        Company company1    = new Company(COMPANY_NAME + "_one", BUDGET);
+        Company company2    = new Company(COMPANY_NAME + "_Two", BUDGET);
+        boolean status1     = companyManager.insert(conn, company1);
+        boolean status2     = companyManager.insert(conn, company2);
 
-        // retrieve the two inserted companies from the database
-        ArrayList<Company> rows = new ArrayList<>(classUnderTest.getAllRows(conn));
-     
+        ArrayList<Company> rows = new ArrayList<>();
+        
+        if( status1 & status2 ) {
+            // retrieve the two inserted companies from the database
+            rows = new ArrayList<>(companyManager.getAllRows(conn));
+        }
+        
         int expResult   = 2;
         int result      = rows.size();
 
-        assertTrue("        :: Retrieved data is not as expected", expResult == result);
-        
+        assertTrue(expResult == result);
     }
 } // End of Class :: CompanyManagerTest
