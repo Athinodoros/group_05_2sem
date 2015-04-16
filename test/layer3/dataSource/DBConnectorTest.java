@@ -21,47 +21,36 @@ import static org.junit.Assert.*;
  */
 public class DBConnectorTest {
     
-    private static StringBuffer output = new StringBuffer();
     
-    
-    public DBConnectorTest() {
-    }
+    public DBConnectorTest() {}
     
     
     @AfterClass
     public static void tearDownClass() {
-        System.out.println(output.toString());
+        
         DBConnector.getInstance().close();
     }
     
     @Before
-    public void setUp() {
-        output.append("\n");
-        
-    }
+    public void setUp() {}
     
     @After
-    public void tearDown() {
-        output.append("\n");
-    }
+    public void tearDown() {}
 
     /**
      * Test of getInstance method, of class DBConnector.
      */
     @Test
-    public void testGetInstance() {
+    public void test_A_DBConnector_GetInstance() {
+        System.out.println("Testing :: DBConnector.getInstance()");
         
-        output.append("----------- Test GetInstance -----------------\n\n");
-        
+        //  Get a Instance of DBConnector
         DBConnector result1 = DBConnector.getInstance();
-        output.append("Test 1. Can there be established a late instantiation of object DBConnector\n");
         assertNotNull(result1);
         
+        //  Do singleton object DBConnector work?
         DBConnector result2 = DBConnector.getInstance();
-        output.append("Test 2. Do singleton object DBConnector work\n");
         assertSame(result1, result2);
-        
-     
     } // End of test testGetInstance()
 
    
@@ -70,16 +59,16 @@ public class DBConnectorTest {
      * Test of getConnection method, of class DBConnector.
      */
     @Test
-    public void testGetConnection() {
-        output.append("---------- getConnection -----------\n\n");
+    public void test_B_DBConnector_GetConnection() {
+        System.out.println("Testing :: DBConnector.getConnection()");
         
         DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
         
-        output.append("Test 1. Get a connection to the data base\n");
+        //  Get a connection to the data base
         Connection result1 = DBConnector.getInstance().getConnection();
         assertNotNull(result1);
         
-        output.append("Test 2. Get the samme connection to the data base\n");
+        //  Get the samme connection to the data base
         Connection result2 = DBConnector.getInstance().getConnection();
         assertSame(result1, result2);
        
@@ -91,119 +80,17 @@ public class DBConnectorTest {
      * Test of close method, of class DBConnector.
      */
     @Test
-    public void testClose() {
-        output.append("------------- close Connection --------------\n\n");
+    public void test_C_DBConnector_Close() {
+        System.out.println("Testing :: DBConnector.close()");
         
+        //  Get a connection to the data base
         Connection oldConnection = DBConnector.getInstance().getConnection();
-        output.append("closing the connection\n");
+        //  Closing the connection
         DBConnector.getInstance().close();
-        output.append("initiates a new connection\n");
+        //  Initiates a new connection
         Connection newConnection = DBConnector.getInstance().getConnection();
         
-        output.append("Test 1. See if the old and the new connections are the same\n");
+        //  See if the old and the new connections are the same
         assertNotSame(newConnection, oldConnection);
     } // End of method :: testClose()
-
-    
-    
 } // End of Class :: DBConnectorTest
-
-
-
-
-
-
-
-
-
-
-///**
-// *
-// * @author bo
-// */
-//public class DBConnectorTest {
-//    
-//    public DBConnectorTest() {
-//    }
-//    
-//    @BeforeClass
-//    public static void setUpClass() {
-//    }
-//    
-//    @AfterClass
-//    public static void tearDownClass() {
-//    }
-//    
-//    @Before
-//    public void setUp() {
-//    }
-//    
-//    @After
-//    public void tearDown() {
-//    }
-//
-//    /**
-//     * Test of getInstance method, of class DBConnector.
-//     */
-//    @Test
-//    public void testGetInstance() {
-//        System.out.println("getInstance");
-//        DBConnector expResult = null;
-//        DBConnector result = DBConnector.getInstance();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getConnection method, of class DBConnector.
-//     */
-//    @Test
-//    public void testGetConnection() {
-//        System.out.println("getConnection");
-//        DBConnector instance = null;
-//        Connection expResult = null;
-//        Connection result = instance.getConnection();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of setDBType method, of class DBConnector.
-//     */
-//    @Test
-//    public void testSetDBType() {
-//        System.out.println("setDBType");
-//        DBType dbType = null;
-//        DBConnector instance = null;
-//        instance.setDBType(dbType);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of close method, of class DBConnector.
-//     */
-//    @Test
-//    public void testClose() {
-//        System.out.println("close");
-//        DBConnector instance = null;
-//        instance.close();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of processException method, of class DBConnector.
-//     */
-//    @Test
-//    public void testProcessException() {
-//        System.out.println("processException");
-//        SQLException e = null;
-//        DBConnector.processException(e);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
-//}
