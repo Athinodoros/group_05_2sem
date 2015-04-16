@@ -93,7 +93,6 @@ public class DBConnector {
         StringBuilder sb = new StringBuilder();
         
         sb.append("One or more Error(s) or Exception(s) are thrown form the Data Base :: ");
-        sb.append(DBType.values());
         sb.append("\n\n");
         
         sb.append("Error message    :: ");  sb.append( e.getMessage() );    sb.append("\n");
