@@ -67,6 +67,16 @@ public class User {
         this.company = company;
     }
 
+     public User(User user) {
+        this.userID = user.userID;
+        this.name = user.name;
+        this.password = user.password;
+        this.email = user.email;
+        this.country = user.country;
+        this.role = user.role;
+        this.company = user.company;
+    }
+    
     public int getUserID() {
         return userID;
     }
