@@ -158,7 +158,7 @@ public class CompanyManagerTest {
         
         // setting up test by creating two companies and inserting them in the database
         Company company1 = new Company(COMPANY_NAME + "_one", BUDGET);
-        Company company2 = new Company(COMPANY_NAME + "_two", BUDGET);
+        Company company2 = new Company(COMPANY_NAME + "_Two", BUDGET);
         classUnderTest.insert(conn, company1);
         classUnderTest.insert(conn, company2);
 

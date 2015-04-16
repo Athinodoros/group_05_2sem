@@ -18,7 +18,6 @@ public class CompanyManager {
     
      public Collection getAllRows(Connection conn) { 
 
-//        List<Company> rows = new ArrayList();
         Collection<Company> rows = new ArrayList();
         
         String sql = "SELECT companyname, budget FROM companies";
@@ -39,12 +38,7 @@ public class CompanyManager {
             DBConnector.processException(e);
         }
         return rows;
-    } // End of method :: displayAllrows()
-    
-    
-    
-    
-    
+    } // End of method :: gitAllRows()
     
     
     

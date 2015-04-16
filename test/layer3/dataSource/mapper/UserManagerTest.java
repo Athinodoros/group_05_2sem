@@ -6,6 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Random;
 import layer2.domain.bean.Company;
 import layer2.domain.bean.User;
@@ -31,13 +32,13 @@ public class UserManagerTest {
     
     private Random random = new Random();
     
-    UserManager             userInstance        = new UserManager();
+    UserManager             classUnderTest      = new UserManager();
     CompanyManager          companyInstance     = new CompanyManager();
     
     private final String    COMPANY_NAME        = "CompanyNameTest_"+ random.nextInt(100_000_000);
     private final int       BUDGET              = 600;
     
-    private final int       USER_ID             = 0;
+    private final int       USER_ID             = 0; // this value will be set in the call to insetRow()
     private final String    USER_NAME           = "UserNameTest";           
     private final String    PASSWORD            = "PassWordTest";
     private final String    EMAIL               = "email@Test";
@@ -45,33 +46,19 @@ public class UserManagerTest {
     private final String    ROLE                = "RoleTest";
     private final Company   company             = new Company(COMPANY_NAME, BUDGET);
     
-    private final int       USER_ID_UPDATED     = USER_ID;
-    private final String    USER_NAME_UPDATED   = USER_NAME + "Updated";        
-    private final String    PASSWORD_UPDATED    = PASSWORD  + "Updated";
-    private final String    EMAIL_UPDATED       = EMAIL     + "Updated";
-    private final String    COUNTRY_UPDATED     = COUNTRY   + "Updated";
-    private final String    ROLE_UPDATED        = ROLE      + "Updated";
-    private final Company   company_updated     = company;
-   
     
     private final User user = new User(
                                                 USER_ID, USER_NAME, PASSWORD,
                                                 EMAIL, COUNTRY, ROLE, company);
-    private final User userUpdated= new User(
-                                                USER_ID_UPDATED, USER_NAME_UPDATED,
-                                                PASSWORD_UPDATED, EMAIL_UPDATED,
-                                                COUNTRY_UPDATED, ROLE_UPDATED,
-                                                company_updated);
+
     
-    boolean isCompanyInserted = false;
-    
-    public UserManagerTest() {} // End of constructor
+    public UserManagerTest() {}
     
     
     @BeforeClass
     public static void setUpClass() {
         
-        DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
+        DBConnector.getInstance().setDBType(DBType.ORACLE_THIN_TEST_DATABASE);
         conn = DBConnector.getInstance().getConnection();
     }
     
@@ -84,36 +71,22 @@ public class UserManagerTest {
     @Before
     public void setUp() {
     
-        isCompanyInserted  = companyInstance.insert(conn, company);
+        // Delete all data in the database
+        classUnderTest.deleteAllRows(conn, "yes");
+        boolean isCompanyDeleted = companyInstance.deleteAllRows(conn, "yes");
         
-        if( isCompanyInserted ) {
-            System.out.println("Setup       :: Company created");
-        }
-        else {
-            System.out.println("setup       :: ! Something whent wrong when creating a company");
+        // Insert a company (row) in database
+        boolean isCompanyInserted  = companyInstance.insert(conn, company);
+        
+        if( ! (isCompanyDeleted & isCompanyInserted ) ) {
+       
+            System.out.println("Test setup   :: ! Something whent wrong");
         }
     } // End of method :: setup()
     
     @After
-    public void tearDown() {
-        
-        if( isCompanyInserted ) {
-            boolean isCompanyDeleted = companyInstance.delete(conn, company.getCompanyName());
-            
-            if( isCompanyDeleted ) {
-                System.out.println("TearDown    :: Company deleted");
-            }
-            else {
-                System.out.println("TearDown    :: ! Company was not deleted");
-            }
-        }
-    } // End of method :: tearDown()
+    public void tearDown() {}
 
-    
-    
-    // Tests starts here ->
-    // -------------------------------------------------------------------------
-    
     
     
     /**
@@ -123,13 +96,9 @@ public class UserManagerTest {
     public void test_A_UserManager_Insert() {
         System.out.println("    Testing :: UserManager.insert()");
         
-        boolean result = false;
-        if( isCompanyInserted ) result = insertRow(user);      
-        
-        assertTrue("            :: Row not inserted", result);
-        
-        // Clean up
-        deleteRow(user);
+        boolean result = classUnderTest.insert(conn, user);
+
+        assertTrue("        :: Row not inserted", result);
     } // End of method :: testInert()
     
     
@@ -141,24 +110,17 @@ public class UserManagerTest {
     public void test_B_UserManager_Delete() {
         System.out.println("    Testing :: UserManager.delete()");
 
-        // Seting up Test :: By inserting a user (Row)
-        // ---------------------------------------------------------------------
-        boolean isRowInserted = false;
+        // Setting up Test by inserting a user (Row)  
+        boolean isRowInserted = classUnderTest.insert(conn, user);
+        if( ! isRowInserted ) {
+            System.out.println("            :: ! User (Row) was not inserted");
+        }
         
-        if( isCompanyInserted ) {
-            
-            isRowInserted = insertRow(user);
-            if( isRowInserted ) {
-                System.out.println("            :: A user (Row) is inserted");
-            }
-            else {
-                System.out.println("            :: ! User (Row) was not inserted");
-            }
-        } 
-        // ---------------------------------------------------------------------
+        // Delete user (row)
+        boolean result = classUnderTest.delete(conn, user.getUserID());
+
+        assertTrue("        :: Row not deleted", result);
         
-        boolean result = deleteRow(user);
-        assertTrue("            :: ! Row not deleted", result);
     } // End of method :: testDelete()
     
     
@@ -169,88 +131,76 @@ public class UserManagerTest {
     public void test_C_UserManager_GetRow() {
         System.out.println("    Testing :: UserManager.getRow()");
         
-        // Seting up Test :: By inserting a user (Row)
-        // ---------------------------------------------------------------------
-        boolean isRowInserted = false;
-        
-        if( isCompanyInserted ) {
-            
-            isRowInserted = insertRow(user);
-            if( isRowInserted ) {
-                System.out.println("            :: A user (Row) is inserted");
-            }
-            else {
-                System.out.println("            :: ! User (Row) was not inserted");
-            }
-        } 
-        // ---------------------------------------------------------------------
-        
-        User expResult   = user;
-        User result      = userInstance.getRow(conn, user.getUserID());
-        
-        assertTrue(
-                "            :: ! Retrieved data is not as expected",
-                expResult.toString().equals(result.toString()));
-        
-        // Cleaning up
-        deleteRow(user);
+        // Setting up Test by inserting a user (Row)  
+        boolean isRowInserted = classUnderTest.insert(conn, user);
+        if( ! isRowInserted ) {
+            System.out.println("            :: ! User (Row) was not inserted");
+        }
+        // Get user (row)
+        User result = classUnderTest.getRow(conn, user.getUserID());
+
+        assertNotNull("        :: Retrieved data is not as expected", result);
+       
     } // End of method :: testgetRow
     
     
-     @Test
+    
+    /**
+     * Test of update() method, of class UserManager.
+     */
+    @Test
     public void test_D_UserManager_Update() {
         System.out.println("    Testing :: UserManager.Update()");
 
-         // Seting up Test :: By inserting a user (Row)
-        // ---------------------------------------------------------------------
-        boolean isRowInserted = false;
+        // Setting up Test by inserting a user (Row)  
+        boolean isRowInserted = classUnderTest.insert(conn, user);
+        if( ! isRowInserted ) {
+            System.out.println("            :: ! User (Row) was not inserted");
+        }
         
-        if( isCompanyInserted ) {
-            
-            isRowInserted = insertRow(user);
-            if( isRowInserted ) {
-                System.out.println("            :: A user (Row) is inserted");
-            }
-            else {
-                System.out.println("            :: ! User (Row) was not inserted");
-            }
-        } 
-        // ---------------------------------------------------------------------
-        userUpdated.setUserID(user.getUserID());
-        
-        
-        User expResult   = userUpdated;
-        User result      = user;
+        // Create new usser and update user name
+        User userUpdated = new User(user);
+        userUpdated.setName(USER_NAME + "_Update");
 
-        boolean isUpdated = userInstance.update(conn, userUpdated);
+        // Update User data in the database
+        boolean isUpdated   = classUnderTest.update(conn, userUpdated);
 
-        if (isUpdated) {
-            
-            System.out.println("            :: Row updated ... now retrieving the same row from database ");
-            result = userInstance.getRow(conn, userUpdated.getUserID());
+        User result = user;
+        if(isUpdated) {
+            // retrieve updated data from database
+            result = classUnderTest.getRow(conn, userUpdated.getUserID());
         } else {
             
-            System.err.println("            :: Something went wrong when updating the database");
-        } // End of if-else()
+            System.out.println("            :: Something went wrong when updating the database");
+        }
         
-        assertTrue(
-                "            :: ! Retrieved data is not as expected",
-                expResult.toString().equals(result.toString()));
-        
-        // cleaning up :: by deleting a row
-        deleteRow(userUpdated);
+        assertFalse("           :: Retrieved data was not updated",
+                                user.getName().equals(result.getName()));
+       
     } // End of Method :: testUpdate()
     
     
     
-    private boolean insertRow(User _user) {
+    /**
+     * Test of displayAllRows() method, of class CompanyManager.
+     */
+    @Test
+    public void test_E_CompanyManager_getAllRows() {
+        System.out.println("Testing :: CompanyManager.getAllRows()");
         
-        return userInstance.insert(conn, _user);
-    }
-    
-    private boolean deleteRow(User _user) {
+        // setting up test by creating two companies and inserting them in the database
+        User user1 = new User(user);
+        User user2 = new User(user);
+        classUnderTest.insert(conn, user1);
+        classUnderTest.insert(conn, user2);
+
+        // retrieve the two inserted companies from the database
+        ArrayList<Company> rows = new ArrayList<>(classUnderTest.getAllRows(conn));
+     
+        int expResult   = 2;
+        int result      = rows.size();
+
+        assertTrue("        :: Retrieved data is not as expected", expResult == result);
         
-        return userInstance.delete(conn, _user.getUserID()); 
     }
-    
 } // End of class :: UserManagerTest

@@ -6,6 +6,8 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import layer2.domain.bean.Company;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
@@ -16,6 +18,51 @@ import layer3.dataSource.utility.Convert;
  * @author bo
  */
 public class UserManager {
+    
+    public Collection getAllRows(Connection conn) { 
+
+        Collection<User> rows = new ArrayList();
+        
+        String sql = "SELECT userid, uname, password, email, country, urole, company FROM users";
+//        String sql = "SELECT * FROM users";
+        
+        try (   Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery( sql );
+            ) {
+
+            while (rs.next()) {
+                CompanyManager cm = new CompanyManager();
+                User bean = new User();
+                
+                bean.setUserID(rs.getInt("userid"));
+                bean.setName(rs.getNString("uname"));
+                bean.setPassword(rs.getNString("password"));
+                bean.setEmail(rs.getNString("email"));
+                bean.setCountry(rs.getNString("country"));
+                bean.setRole(rs.getNString("urole"));
+                bean.setCompany( cm.getRow(conn, rs.getNString("company")) );
+                
+                rows.add(bean);
+////                Company company = new Company();
+//                User user = new User();
+//                
+//                
+//                
+////                company.setCompanyName(rs.getString("companyname"));
+////                company.setBudget(rs.getInt("budget"));
+////                rows.add(company);
+            }
+            
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+        }
+        return rows;
+    } // End of method :: gitAllRows()
+    
+    
+    
+    
+    
     
      public boolean insert(Connection conn, User bean) { 
 
@@ -182,5 +229,33 @@ public class UserManager {
             return false;
         }
     } // End of method :: Delete() 
+    
+    public boolean deleteAllRows(Connection conn, String confirm) { 
+        
+        if( confirm.equalsIgnoreCase("yes") ) {
+            
+        
+            String sql = "DELETE FROM users";
+
+            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+
+                int effected = stmt.executeUpdate();
+
+                if(effected == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (SQLException e) {
+                DBConnector.processException(e);
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    } // End of method :: DeleteAllRows() 
+    
     
 } // End of Class :: UserManager
