@@ -6,9 +6,10 @@
 package layer3.dataSource.mapper.utility;
 
 import java.sql.Connection;
-import layer3.dataSource.mapper.CompanyManager;
-import layer3.dataSource.mapper.ProjectManager;
-import layer3.dataSource.mapper.UserManager;
+import layer3.dataSource.mapper.UserInfoManager;
+//import layer3.dataSource.mapper.CompanyManager;
+//import layer3.dataSource.mapper.ProjectManager;
+//import layer3.dataSource.mapper.UserManager;
 
 /**
  *
@@ -16,10 +17,11 @@ import layer3.dataSource.mapper.UserManager;
  */
 public class Delete {
     
-    private static final CompanyManager companyManager  = new CompanyManager();
-    private static final UserManager    userManager     = new UserManager();
-    private static final ProjectManager projectManager  = new ProjectManager();
+//    private static final CompanyManager companyManager  = new CompanyManager();
+//    private static final UserManager    userManager     = new UserManager();
+//    private static final ProjectManager projectManager  = new ProjectManager();
     
+    private static final UserInfoManager userInforManager = new UserInfoManager();
     
     private Delete() {}
     
@@ -28,9 +30,10 @@ public class Delete {
         
         // Delete all data in the database
         
-        //projectManager.deleteAllRows(conn, confirm);
-        userManager.deleteAllRows(conn, confirm);
-        companyManager.deleteAllRows(conn, confirm);
+        userInforManager.deleteAllRows(conn, confirm);
+//        //projectManager.deleteAllRows(conn, confirm);
+//        userManager.deleteAllRows(conn, confirm);
+//        companyManager.deleteAllRows(conn, confirm);
     }
     
     
