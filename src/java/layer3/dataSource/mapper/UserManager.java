@@ -8,8 +8,9 @@ package layer3.dataSource.mapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import layer2.domain.bean.Company;
+import layer2.domain.bean.Reseller;
 import layer2.domain.bean.User;
+import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.utility.Convert;
 
@@ -35,15 +36,17 @@ public class UserManager {
                 User bean = new User();
                 
                 bean.setUserID(rs.getInt("userid"));
-                bean.setName(rs.getNString("uname"));
-                bean.setPassword(rs.getNString("password"));
-                bean.setEmail(rs.getNString("email"));
+                bean.setUserName(rs.getNString("uname"));
+                bean.setPassWord(rs.getNString("password"));
+                bean.seteMail(rs.getNString("email"));
                 bean.setCountry(rs.getNString("country"));
                 bean.setRole(rs.getNString("urole"));
-                bean.setCompany( cm.getRow(conn, rs.getNString("company")) );
+                if (rs.getNString("urole").equals(NamingConv.RESELLER)) {
+                bean.setResellerID(cm.getRow(conn, rs.getInt("resellers")) );
+                }
                 
                 rows.add(bean);
-////                Company company = new Company();
+////                Reseller company = new Reseller();
 //                User user = new User();
 //                
 //                
@@ -98,13 +101,14 @@ public class UserManager {
             //--------------------------------
      
             //== insert tuple
-            stmt.setInt     (1, bean.getUserID());
-            stmt.setString  (2, bean.getName());
-            stmt.setString  (3, bean.getPassword());
-            stmt.setString  (4, bean.getEmail());
-            stmt.setString  (5, bean.getCountry());
-            stmt.setString  (6, bean.getRole());
-            stmt.setString  (7, bean.getCompany().getCompanyName());        
+            stmt.setString  (1, bean.getFirstName());
+            stmt.setString  (2,  bean.getLastName());
+            stmt.setString  (3, bean.geteMail());
+            stmt.setString  (4, bean.getUserName());
+            stmt.setString  (5, bean.getPassWord());
+            stmt.setString  (6, bean.getCountry());
+            stmt.setString  (7, bean.getRole());//.getCompanyName());    
+            //stmt.
             rowsInserted  = stmt.executeUpdate();
             
 
@@ -139,12 +143,12 @@ public class UserManager {
                 User bean = new User();
                 
                 bean.setUserID(userid);
-                bean.setName(rs.getNString("uname"));
-                bean.setPassword(rs.getNString("password"));
-                bean.setEmail(rs.getNString("email"));
+                bean.setUserName(rs.getNString("uname"));
+                bean.setPassWord(rs.getNString("password"));
+                bean.seteMail(rs.getNString("email"));
                 bean.setCountry(rs.getNString("country"));
                 bean.setRole(rs.getNString("urole"));
-                bean.setCompany( cm.getRow(conn, rs.getNString("company")) );
+               // bean.setk( cm.getRow(conn, rs.getNString("company")) );
                 
                 return bean;
             } else {

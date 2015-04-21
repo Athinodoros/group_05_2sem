@@ -7,7 +7,7 @@ package layer3.dataSource.mapper;
 
 import java.sql.*;
 import java.util.*;
-import layer2.domain.bean.Company;
+import layer2.domain.bean.Reseller;
 import layer3.dataSource.DBConnector;
 
 /**
@@ -18,7 +18,7 @@ public class CompanyManager {
     
      public Collection getAllRows(Connection conn) { 
 
-        Collection<Company> rows = new ArrayList();
+        Collection<Reseller> rows = new ArrayList();
         
         String sql = "SELECT companyname, budget FROM companies";
         
@@ -27,7 +27,7 @@ public class CompanyManager {
             ) {
 
             while (rs.next()) {
-                Company company = new Company();
+                Reseller company = new Reseller();
                 
                 company.setCompanyName(rs.getString("companyname"));
                 company.setBudget(rs.getInt("budget"));
@@ -42,7 +42,7 @@ public class CompanyManager {
     
     
     
-     public boolean insert(Connection conn, Company bean) { 
+     public boolean insert(Connection conn, Reseller bean) { 
 
         int rowsInserted = 0;
         
@@ -65,7 +65,7 @@ public class CompanyManager {
     
     
      
-     public Company getRow(Connection conn, String companyName) { 
+     public Reseller getRow(Connection conn, String companyName) { 
 
         String sql = "SELECT * FROM companies WHERE companyname = ?";
         ResultSet rs = null;
@@ -76,7 +76,7 @@ public class CompanyManager {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Company bean = new Company();
+                Reseller bean = new Reseller();
                 bean.setCompanyName(companyName);
                 bean.setBudget(rs.getInt("budget"));
                 return bean;
@@ -99,7 +99,7 @@ public class CompanyManager {
     } // End of method :: getRow() 
      
      
-    public boolean update(Connection conn, Company bean) { 
+    public boolean update(Connection conn, Reseller bean) { 
 
         String sql
                 = "UPDATE companies SET "

@@ -10,7 +10,7 @@ import java.util.Calendar;
 import static java.util.Calendar.MONTH;
 import java.util.Date;
 import java.util.Random;
-import layer2.domain.bean.Company;
+import layer2.domain.bean.Reseller;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.User;
 import layer2.domain.interfaces.NamingConv;
@@ -37,7 +37,7 @@ public class ProjectManagerTest {
     
     private Project project;
     private User author;
-    private Company dummyCompany;
+    private Reseller dummyCompany;
     private final Date startDate;
     private final Date endDate;
     
@@ -51,7 +51,7 @@ public class ProjectManagerTest {
         Date oneMonthLater = cal.getTime();
         endDate = oneMonthLater;
         
-        dummyCompany = new Company("dummy_" + new Random().nextInt(), 42);
+        dummyCompany = new Reseller("dummy_" + new Random().nextInt(), 42);
         author = new User(0, "Bob", "PassWordTest", "test@sth.whatever", "Testlandia", NamingConv.RESELLER, dummyCompany);
 
         project = new Project(0, author, ">>> Title test <<<", startDate, endDate, ">>> Stage test <<<", 42, false, ">>> This is a test <<<");

@@ -12,5 +12,6 @@
 
 
 <jsp:include page="../DashBoardPicker.jsp" />
+<jsp:getProperty name="user" property="*" />
 
 <%= user.getName() %>

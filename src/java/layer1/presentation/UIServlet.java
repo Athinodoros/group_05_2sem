@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import layer2.domain.Controller;
 import layer2.domain.bean.User;
 import layer2.domain.interfaces.NamingConv;
-import layer2.domain.bean.Company;
+import layer2.domain.bean.Reseller;
 
 //comment
 /**

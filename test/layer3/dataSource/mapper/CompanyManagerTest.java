@@ -7,7 +7,7 @@ package layer3.dataSource.mapper;
 
 import java.sql.Connection;
 import java.util.*;
-import layer2.domain.bean.Company;
+import layer2.domain.bean.Reseller;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
 import layer3.dataSource.mapper.utility.Delete;
@@ -36,7 +36,7 @@ public class CompanyManagerTest {
     private final String COMPANY_NAME           = "CompanyNameTest_" + random.nextInt(100_000_000);
     private final int BUDGET                    = 600;
 
-    private final Company company               = new Company(COMPANY_NAME, BUDGET);
+    private final Reseller company               = new Reseller(COMPANY_NAME, BUDGET);
 
     public CompanyManagerTest() {}
 
@@ -113,7 +113,7 @@ public class CompanyManagerTest {
         //  before I try to get something out
         boolean status = companyManager.insert(conn, company);
         
-        Company result = null;
+        Reseller result = null;
         if( status ) {
             result = companyManager.getRow(conn, company.getCompanyName());
         }
@@ -137,13 +137,13 @@ public class CompanyManagerTest {
         
         //  Create a new company with the same name as 'company',
         //  but with a new budget
-        Company companyUpdated = new Company(company);
+        Reseller companyUpdated = new Reseller(company);
         companyUpdated.setBudget(BUDGET + 100);
 
         // Update company data in the database
         boolean status2   = companyManager.update(conn, companyUpdated);
 
-        Company result = company;
+        Reseller result = company;
         if( status1 & status2 ) {
             // retrieve updated data from database
             result = companyManager.getRow(conn, companyUpdated.getCompanyName());
@@ -163,12 +163,12 @@ public class CompanyManagerTest {
         System.out.println("Testing :: CompanyManager.getAllRows()");
         
         // setting up test by creating two companies and inserting them in the database
-        Company company1    = new Company(COMPANY_NAME + "_one", BUDGET);
-        Company company2    = new Company(COMPANY_NAME + "_Two", BUDGET);
+        Reseller company1    = new Reseller(COMPANY_NAME + "_one", BUDGET);
+        Reseller company2    = new Reseller(COMPANY_NAME + "_Two", BUDGET);
         boolean status1     = companyManager.insert(conn, company1);
         boolean status2     = companyManager.insert(conn, company2);
 
-        ArrayList<Company> rows = new ArrayList<>();
+        ArrayList<Reseller> rows = new ArrayList<>();
         
         if( status1 & status2 ) {
             // retrieve the two inserted companies from the database

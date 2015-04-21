@@ -8,7 +8,7 @@ package layer3.dataSource.mapper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Random;
-import layer2.domain.bean.Company;
+import layer2.domain.bean.Reseller;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
@@ -45,7 +45,7 @@ public class UserManagerTest {
     private final String    EMAIL               = "email@Test";
     private final String    COUNTRY             = "CountryTest";
     private final String    ROLE                = "RoleTest";
-    private final Company   company             = new Company(COMPANY_NAME, BUDGET);
+    private final Reseller   company             = new Reseller(COMPANY_NAME, BUDGET);
     
     
     private final User user = new User(
@@ -189,7 +189,7 @@ public class UserManagerTest {
         boolean status2 = userManager.insert(conn, user1);
         boolean status3 = userManager.insert(conn, user2);
 
-        ArrayList<Company> rows = new ArrayList();
+        ArrayList<Reseller> rows = new ArrayList();
         
         if( status1 & status2 & status3 ) {
             //  Retrieve the two inserted companies from the database
