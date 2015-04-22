@@ -4,7 +4,7 @@
     Author     : Athinodoros
 --%>
 
-<jsp:useBean id="newProject" class="layer2.domain.bean.Project" />
+<jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
 <jsp:setProperty name="newProject" property="*" />
 
 <%= newProject.getTitle() %>

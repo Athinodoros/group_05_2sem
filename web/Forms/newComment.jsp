@@ -14,6 +14,7 @@
         <input type="text" name="projectID" value="${Project.projectID}" hidden/>
         <input type="text" name="usedID" value="${User.userID}" hidden />
         <a> Write a comment :</a></br> <textarea name="comment" rows="4" cols="30"></textarea>
-        </br> <input type="submit" value="Submit comment" />
+        </br> <input type="submit" value="Submit comment" /></br>
+        
     </form>
 </div>
