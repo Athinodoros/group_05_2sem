@@ -19,6 +19,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+// Import TestData
+import static layer3.dataSource.mapper.utility.TestData.*;
 /**
  *
  * @author bo
@@ -27,16 +29,16 @@ public class UserInfoManagerTest {
 
     private static Connection conn;
 
-    private final UserInfoManager userInfoManager = new UserInfoManager();
-
-    // USER_ID will be set in the call to insetRow()
-    private final int USER_ID = 0;
-    private final String FIRST_NAME = "firstNameTest";
-    private final String LAST_NAME = "lastNameTest";
-    private final String COUNTRY = "Test";
-    private final String U_ROLE = "roleTest";
-
-    private final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, U_ROLE);
+//    private final UserInfoManager userInfoManager = new UserInfoManager();
+//
+//    // USER_ID will be set in the call to insetRow()
+//    private final int USER_ID = 0;
+//    private final String FIRST_NAME = "firstNameTest";
+//    private final String LAST_NAME = "lastNameTest";
+//    private final String COUNTRY = "Test";
+//    private final String U_ROLE = "roleTest";
+//
+//    private final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, U_ROLE);
 
     public UserInfoManagerTest() {
     }
