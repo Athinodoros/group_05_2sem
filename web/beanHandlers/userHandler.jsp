@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <!-- creating the userinfo bean-->
 i am here 
-<jsp:useBean id="newUserInfo" class="layer2.domain.bean.UserInfo" scope="session" />
+<jsp:useBean id="userInfo" class="layer2.domain.bean.UserInfo" scope="session" />
 <jsp:setProperty name="userInfo" property="*"  />
 
 
@@ -18,9 +18,10 @@ i am here
 <%--
 <jsp:include page="../DashBoardPicker.jsp" />
 <jsp:getProperty name="user" property="*" />--%>
-
+userinfo
 <%= userInfo.getFirstname() %>
-<%= newUserInfo.getLastname() %>
-<%= newUserInfo.getUrole() %>
+<%= userInfo.getLastname() %>
+<%= userInfo.getUrole() %>
+userauth
 <%= newUserAth.getEmail() %>
 <%--  Shouldn't it be <jsp:getProperty etc. ??? --%>
