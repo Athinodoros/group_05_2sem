@@ -55,13 +55,13 @@ public class DBFacade {
     
     
     
-    public boolean createProject(Project newProject, User creator) {
+    public boolean createProject(Project newProject) {
         return projectManager.insert(conn, newProject);
     }
     
-    public boolean editProject(Project project) {
-        return projectManager.update(conn, project);
-    }
+//    public boolean editProject(Project project) {
+//        return projectManager.update(conn, project);
+//    }
     
     //dummy methods start here
     public User getAdmin(){
@@ -72,10 +72,10 @@ public class DBFacade {
         return userManager.getRow(conn, 84);
     }
     
-    public ArrayList<Project> getAllProjects(){
-    
-        return projectManager.getAllRows(conn);
-    }
+//    public ArrayList<Project> getAllProjects(){
+//    
+//        return projectManager.getAllRows(conn);
+//    }
     //dummy methods end here
     
 } // End of Class :: DBFacade

@@ -26,31 +26,34 @@
 
 
             <%  if (user.getRole().equals(NamingConv.RESELLER)) {%>
-            <form class="lead" action="StartProject">
-                Title: <input type="text" name="Tiltle" value="Title" />
-                <br>
-                <br>
-                Start Date: <input type="date" name="SDate" value=""/>
-                <br>
-                <br>
-                End Date: <input type="date" name="EDate" value=""/> 
-                <br>
-                <br>
-                Budget: <input type="number" name="Budget" />
-                <br>
-                <br>
-                Proof of execution: <input type="boolean" name="Proof">                
-                <br>
-                <br>
+            <form class="lead" action="UIServlet">
                 
+
+                Company Name: <input type="text" name="companyName" value="" />
+                <br>
+                <br> 
+                Title: <input type="text" name="title" value="" />
+                <br>
+                <br>
+                Start Date: <input type="date" name="sDate" value=""/>
+                <br>
+                <br>
+                End Date: <input type="date" name="fDate" value=""/> 
+                <br>
+                <br>
+                Project Budget: <input type="number" name="budget" />
+                <br>
+                <br>
+                              
                
-                Comment input field:
+                Description:
                 <br>
 
-                <textarea name="PastComments" rows="6" cols="80" >
+                <textarea name="description" rows="6" cols="80" >
                 </textarea>
                 <br>
                 <br>
+                <input type="hidden" name="command" value="createProject">
                 <input type="submit" value="Submit" />
             </form>
             <% } else if (user.getRole().equals("admin")) {%> 

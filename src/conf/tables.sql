@@ -1,5 +1,6 @@
 alter session set nls_date_format = 'yyyy-mm-dd';
 
+
 drop table budget;
 drop TABLE POE;
 drop TABLE comments;
@@ -40,7 +41,7 @@ projectID integer primary key,
 companyName varchar(30) references Partner(companyName) references dell(companyName),
 title varchar(40),
 description varchar(1200),
-stage integer,
+stage varchar(40),
 sdate date,
 fdate date,
 projectBudget integer);

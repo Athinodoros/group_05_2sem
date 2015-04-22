@@ -16,6 +16,7 @@ import oracle.sql.DATE;
  * @author Bancho
  */
 public class Project {
+
     private String mydate="yyyy-mm-dd";
     private int projectID;
     private String companyName;
@@ -35,6 +36,7 @@ public class Project {
     }
 
     public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget, boolean hasPOE, String comments) {
+
         this.projectID = projectID;
         this.companyName = companyName;
         this.title = title;
@@ -43,9 +45,7 @@ public class Project {
         this.sdate = sdate;
         this.fdate = fdate;
         this.projectBudget = projectBudget;
-        this.hasPOE = hasPOE;
-        this.comments = comments;
-        
+
     }
 
     public int getProjectID() {
@@ -54,6 +54,7 @@ public class Project {
 
     public void setProjectID(int projectID) {
         this.projectID = projectID;
+
     }
 
     public String getCompanyName() {
@@ -114,20 +115,12 @@ public class Project {
         this.projectBudget = projectBudget;
     }
 
-    public boolean isHasPOE() {
-        return hasPOE;
+    @Override
+    public String toString() {
+        return "Project{" + "projectID=" + projectID + ", companyName=" + companyName + ", title=" + title + ", description=" + description + ", stage=" + stage + ", sdate=" + sdate + ", fdate=" + fdate + ", projectBudget=" + projectBudget + '}';
     }
-
-    public void setHasPOE(boolean hasPOE) {
-        this.hasPOE = hasPOE;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+    
+    
+    
 
 }

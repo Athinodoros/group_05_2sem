@@ -34,16 +34,14 @@ public class UserManager {
             while (rs.next()) {
                 CompanyManager cm = new CompanyManager();
                 User bean = new User();
-                
+              
                 bean.setUserID(rs.getInt("userid"));
                 bean.setUserName(rs.getNString("uname"));
                 bean.setPassWord(rs.getNString("password"));
                 bean.seteMail(rs.getNString("email"));
                 bean.setCountry(rs.getNString("country"));
                 bean.setRole(rs.getNString("urole"));
-                if (rs.getNString("urole").equals(NamingConv.RESELLER)) {
-                bean.setResellerID(cm.getRow(conn, rs.getInt("resellers")) );
-                }
+                
                 
                 rows.add(bean);
 ////                Reseller company = new Reseller();
@@ -54,6 +52,12 @@ public class UserManager {
 ////                company.setCompanyName(rs.getString("companyname"));
 ////                company.setBudget(rs.getInt("budget"));
 ////                rows.add(company);
+                
+                
+                
+                
+                                                                                        
+               
             }
             
         } catch (SQLException e) {
@@ -189,9 +193,9 @@ public class UserManager {
 
             CompanyManager cm = new CompanyManager();
             
-            stmt.setString(1, bean.getName());
-            stmt.setString(2, bean.getPassword());
-            stmt.setString(3, bean.getEmail());
+            //stmt.setString(1, bean.getLastName());
+            //stmt.setString(2, bean.getPassword());
+            //stmt.setString(3, bean.getEmail());
             stmt.setString(4, bean.getCountry());
             stmt.setString(5, bean.getRole());
             //stmt.setString(6, bean.getCompany().getCompanyName());
