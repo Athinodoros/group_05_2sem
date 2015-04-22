@@ -18,8 +18,9 @@ public class User {
   private String passWord;
   private String country;
   private String role;
-  private int resellerID;
+  private String companyName;
   private int userID;
+  
 
     public User() {
     }
@@ -88,13 +89,6 @@ public class User {
         this.role = role;
     }
 
-    public int getResellerID() {
-        return resellerID;
-    }
-
-    public void setResellerID(int resellerID) {
-        this.resellerID = resellerID;
-    }
-  
+    
     
 }
