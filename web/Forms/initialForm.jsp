@@ -42,14 +42,8 @@
                 Proof of execution: <input type="boolean" name="Proof">                
                 <br>
                 <br>
-                Approve : <input type="checkbox" name="Approve" value="ON" readonly="" disabled />
-
-                <br>
-                Old Comments:
-                <br>
-                <textarea name="PastComments" rows="6" cols="80" disabled>
-                </textarea>
-                <br>
+                
+               
                 Comment input field:
                 <br>
 

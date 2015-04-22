@@ -3,44 +3,40 @@
     Created on : Apr 10, 2015, 12:15:40 PM
     Author     : Athinodoros
 
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
---%>
 <link href="bootstrap.min.css" rel="stylesheet">
 
 
-        <div class="form-user">
-            <form class="lead" action="beanHandlers/userHandler.jsp"></br>
-                <a>Name</a> <input type="text" name="Name" value="" /></br></br>
-                
-                <a>Last Name</a> <input type="text" name="LastName" value="" /></br></br>
-                <a>Password</a> <input type="text" name="Password" value="" /></br></br>
-                <a>e-mail</a> <input type="text" name="email" value="" /></br></br>
-                <div>
-                    </br>
-                    </br>
-                    <input type="hidden" name=""
-                <a>Country <span style="margin:2px;">:</span>  </a> <select name="country">
-                    <option>DK</option>
-                    <option>IS</option>
-                    <option>NO</option>
-                    <option>SE</option>
-                    <option>IS</option>
-                    <option>ALL</option>
-                </select>
-                </div>
-                </br>
-                </br>
-                <a>Role<span style="margin:2px;">:</span>   </a> <select name="role">
-                    <option>Super User</option>
-                    <option>Administrator</option>
-                    <option>Re-Seller</option>
+<div class="form-user" style="line-height: 2em;">
+            <form class="lead" action="beanHandlers/userHandler.jsp" ></br></br>
+                <a>First Name : </a></br><input type="text" name="firstName" value="" required=""/></br>
+                <a>Last Name : </a></br><input type="text" name="lastName" value="" required=""/></br>
+                <a>User Name : </a></br><input type="text" name="userName" value="" required=""/></br>
+                <a>Password : </a></br><input type="text" name="password" value="" required=""/></br>
+                <a>e-mail : </a></br><input type="text" name="eMail" value="" required=""/></br>
+                <a>User Type : </a></br> <select name="role" required="">
                     <option>Partner</option>
+                    <option>DELL User</option>
+                    <option>*region manager</option>
+                </select></br>
+                <a>Country : </a></br> <select name="country" required="" >
+                    <option>DK</option>
+                    <option>SE</option>
+                    <option>FI</option>
+                    <option>NO</option>
+                    <option>IS</option>
                 </select>
-                </br>
-                
-                <input type="submit" value="Submit" />
-
+                <a>company : </a></br> <select name="companyName" required="" >
+                    <option>DK</option>
+                    <option>SE</option>
+                    <option>FI</option>
+                    <option>NO</option>
+                    <option>IS</option>
+                </select>
+                </br></br>
+                <input type="submit" value="Create new User" />
             </form>
         </div>
     
