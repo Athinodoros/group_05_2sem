@@ -9,7 +9,7 @@ package layer2.domain.bean;
  *
  * @author bo
  */
-public class UserAutentication {
+public class UserAuthentication {
     
     private UserInfo userInfo; // primary key (userID)
     private String uname;
@@ -17,15 +17,15 @@ public class UserAutentication {
     private String email;
 
     
-    public UserAutentication() {}
+    public UserAuthentication() {}
     
-    public UserAutentication(UserInfo userInfo, String uname, String password, String email) {
+    public UserAuthentication(UserInfo userInfo, String uname, String password, String email) {
         this.userInfo = userInfo;
         this.uname = uname;
         this.password = password;
         this.email = email;
     }
-    public UserAutentication(UserAutentication ua) {
+    public UserAuthentication(UserAuthentication ua) {
         this.userInfo = ua.userInfo;
         this.uname = ua.uname;
         this.password = ua.password;
