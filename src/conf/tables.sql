@@ -2,7 +2,7 @@ drop table budget;
 drop TABLE POE;
 drop TABLE comments;
 drop table Project;
---drop table partners;
+drop table partner;
 drop table dell;
 drop table userAthentication;
 drop table userInfo;
@@ -25,14 +25,17 @@ uname     varchar(30),
 password     varchar(32),
 email     varchar(30));
 
-create table POE (
-projectID integer,
-filrPath varchar(50)
-);
+create table partner (
+companyName varchar(30) primary key,
+companyID integer);
+
+create table dell (
+companyName varchar(30) primary key ,
+companyID integer);
 
 create table project (
-projectID integer primary key references POE(projectID),
-companyName varchar(30),
+projectID integer primary key,
+companyName varchar(30) references Partner(companyName) references dell(companyName),
 title varchar(40),
 description varchar(1200),
 stage integer,
@@ -40,21 +43,14 @@ sdate date,
 fdate date,
 projectBudget integer);
 
-create table partner (
-companyName varchar(30) primary key references project(companyName),
-companyID integer);
+create table POE (
+projectID integer primary key references Project(projectID),
+filrPath varchar(50));
 
-create table dell (
-companyName varchar(30) primary key references project(companyName),
-companyID integer);
-
-
-
-create table comments(
-commentID integer,
-projectID integer,
+create table comments (
+commentID integer primary key,
+projectID integer references project(projectID),
 userID integer,
-comment varchar (max)
-);
+"comment" varchar(10));
 
 commit;

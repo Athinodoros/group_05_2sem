@@ -5,14 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<jsp:useBean id="user" class="layer2.domain.bean.User" scope="session" />
+<!-- creating the userinfo bean-->
+i am here 
+<jsp:useBean id="newUserInfo" class="layer2.domain.bean.UserInfo" scope="session" />
+<jsp:setProperty name="userInfo" property="*"  />
 
-<jsp:setProperty name="user" property="*" />
 
-
+<jsp:useBean id="newUserAth" class="layer2.domain.bean.UserAuthentication" scope="session" />
+<jsp:setProperty name="newUserAth" property="*"  />
+<%--
 <jsp:include page="../DashBoardPicker.jsp" />
-<jsp:getProperty name="user" property="*" />
+<jsp:getProperty name="user" property="*" />--%>
 
-<%= user.getName() %>
+<%= userInfo.getFirstname() %>
+<%= newUserInfo.getLastname() %>
+<%= newUserInfo.getUrole() %>
+<%= newUserAth.getEmail() %>
 <%--  Shouldn't it be <jsp:getProperty etc. ??? --%>
