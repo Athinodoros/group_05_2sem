@@ -30,6 +30,7 @@ int projectBudget;
         this.sdate = sdate;
         this.fdate = fdate;
         this.projectBudget = projectBudget;
+
     }
 
     public int getProjectID() {
@@ -38,6 +39,7 @@ int projectBudget;
 
     public void setProjectID(int projectID) {
         this.projectID = projectID;
+
     }
 
     public String getCompanyName() {
@@ -103,4 +105,5 @@ int projectBudget;
     
     
     
+
 }

@@ -45,7 +45,7 @@ public class CompanyManagerTest {
     @BeforeClass
     public static void setUpClass() {
 
-        DBConnector.getInstance().setDBType(DBType.ORACLE_THIN_TEST_DATABASE);
+        DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
         conn = DBConnector.getInstance().getConnection();
     }
 
