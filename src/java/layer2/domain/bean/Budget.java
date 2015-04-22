@@ -13,12 +13,12 @@ public class Budget {
     
     private int quarter;    // maybe this shoud be a special type fx. num.?
     private int qyear;      // maybe this should be a data and not integer?
-    private int budget;
+    private int qbudget;
 
     public Budget(int quarter, int qyear, int budget) {
         this.quarter = quarter;
         this.qyear = qyear;
-        this.budget = budget;
+        this.qbudget = budget;
     }
 
     public Budget() {
@@ -40,12 +40,12 @@ public class Budget {
         this.qyear = qyear;
     }
 
-    public int getBudget() {
-        return budget;
+    public int getQbudget() {
+        return qbudget;
     }
 
-    public void setBudget(int budget) {
-        this.budget = budget;
+    public void setQbudget(int budget) {
+        this.qbudget = budget;
     }
     
 }

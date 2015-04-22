@@ -13,7 +13,7 @@ drop table userInfo;
 create table budget(
 quarter integer,
 qyear integer,
-budget integer );
+qbudget integer );
 
 create table userInfo (
 userID integer primary key ,
