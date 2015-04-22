@@ -23,13 +23,13 @@ public class Controller {
     }
     
     
-    public boolean createProject(Project newProject, User creator){
-        return dbf.createProject(newProject, creator);
+    public boolean createProject(Project newProject){
+        return dbf.createProject(newProject);
     }
     
-    public boolean editProject(Project project) {
-        return dbf.editProject(project);
-    }
+//    public boolean editProject(Project project) {
+//        return dbf.editProject(project);
+//    }
     
     //dummy methods start here
     public User getAdmin(){
@@ -40,9 +40,9 @@ public class Controller {
         return dbf.getReseller();
     }
     
-    public ArrayList<Project> getAllProjects(){
-        return dbf.getAllProjects();
-    }
+//    public ArrayList<Project> getAllProjects(){
+//        return dbf.getAllProjects();
+//    }
     //dummy methods end here
     
 }

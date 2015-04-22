@@ -12,141 +12,95 @@ import java.util.Date;
  * @author Bancho
  */
 public class Project {
-    
-    private int projectID;
-    private User author;
-    private String title;
-    private Date startDate;
-    private Date endDate;
-    private String stage;
-    private int budget;
-    private boolean hasPOE;
-    private String comments;
+ int   projectID;
+String companyName;
+ String title;
+String description;
+String stage;
+Date sdate;
+Date fdate;
+int projectBudget;
 
-    public Project(int projectID, User author, String title, Date startDate, Date endDate, String stage, int budget, boolean hasPOE, String comments) {
+    public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget) {
         this.projectID = projectID;
-        this.author = author;
+        this.companyName = companyName;
         this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.description = description;
         this.stage = stage;
-        this.budget = budget;
-        this.hasPOE = hasPOE;
-        this.comments = comments;
-    }
-
-    public Project() {
-        //empty constructor
+        this.sdate = sdate;
+        this.fdate = fdate;
+        this.projectBudget = projectBudget;
     }
 
     public int getProjectID() {
         return projectID;
     }
 
-    public User getAuthor() {
-        return author;
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStage() {
         return stage;
     }
 
-    public int getBudget() {
-        return budget;
-    }
-
-    public boolean hasPOE() {
-        return hasPOE;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public void setStage(String stage) {
         this.stage = stage;
     }
 
-    public void setBudget(int budget) {
-        this.budget = budget;
+    public Date getSdate() {
+        return sdate;
     }
 
-    public void setPOE(boolean hasPOE) {
-        this.hasPOE = hasPOE;
+    public void setSdate(Date sdate) {
+        this.sdate = sdate;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public Date getFdate() {
+        return fdate;
+    }
+
+    public void setFdate(Date fdate) {
+        this.fdate = fdate;
+    }
+
+    public int getProjectBudget() {
+        return projectBudget;
+    }
+
+    public void setProjectBudget(int projectBudget) {
+        this.projectBudget = projectBudget;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" + "projectID=" + projectID + ", companyName=" + companyName + ", title=" + title + ", description=" + description + ", stage=" + stage + ", sdate=" + sdate + ", fdate=" + fdate + ", projectBudget=" + projectBudget + '}';
     }
     
-    @Override
-    public String toString(){
-        String str = "";
-        
-        str += "\n";
-        str += "-------------- Project ----------------";
-        str += "\n";
-        
-        str += "Project ID     :: ";
-        str += projectID;
-        str += "\n";
-        str += "Author ID      :: ";
-        str += author.getUserID();
-        str += "\n";
-        str += "Title    :: ";
-        str += title;
-        str += "\n";
-        str += "Start Date       :: ";
-        str += startDate.toString();
-        str += "\n";
-        str += "End Date     :: ";
-        str += endDate.toString();
-        str += "\n";
-        str += "Stage        :: ";
-        str += stage;
-        str += "\n";
-        str += "Budget       :: ";
-        str += budget;
-        str += "\n";
-        str += "hasPOE       :: ";
-        str += hasPOE;
-        str += "\n";
-        str += "Comments       :: ";
-        str += comments;
-        
-        return str;
-    }
+    
     
 }

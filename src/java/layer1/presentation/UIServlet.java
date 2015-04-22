@@ -6,6 +6,11 @@
 package layer1.presentation;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import layer2.domain.Controller;
-import layer2.domain.bean.User;
+import layer2.domain.bean.Project;
 import layer2.domain.interfaces.NamingConv;
-import layer2.domain.bean.Reseller;
 
 //comment
 /**
@@ -45,7 +49,6 @@ public class UIServlet extends HttpServlet {
             session.setAttribute("Controller", ctrl);
         }
 
-        
         String command = (String) request.getParameter("command");
         String Main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
@@ -55,21 +58,22 @@ public class UIServlet extends HttpServlet {
                 String input = request.getParameter("email");
                 if (input.equals("admin")) {
                     session.setAttribute("user", ctrl.getAdmin());
-                }else{
+                } else {
                     session.setAttribute("user", ctrl.getReseller());
                 }
                 dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                 dispatcher.forward(request, response);
                 //dummy code ends here
-                
+
                 //validate credentials
                 break;
-                
+
             case "initialForm":
                 dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                 dispatcher.forward(request, response);
                 break;
-                
+            case "createProject":
+
             case "reloadMain":
                 //dummy code start
                 switch (Main) {
@@ -93,13 +97,33 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                        
+
                 }
                 dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                 dispatcher.forward(request, response);
                 //dummy code end
                 break;
         }
+    }
+
+    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException, ParseException {
+
+        String companyName = request.getParameter("companyName");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String stage = request.getParameter("stage");
+        DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
+        Date startdate = format.parse(request.getParameter("sDate"));
+        Date findate = format.parse(request.getParameter("fDate"));
+        Date sdate = startdate;
+        Date fdate = findate;
+        int projectBudget = Integer.parseInt(request.getParameter("budget"));
+        Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
+
+        con.createProject(project);
+        request.setAttribute("project", project);
+        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
