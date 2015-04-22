@@ -16,8 +16,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     
     layer3.dataSource.DBConnectorTest.class,
-    layer3.dataSource.mapper.CompanyManagerTest.class,
-    layer3.dataSource.mapper.UserManagerTest.class
+    layer3.dataSource.mapper.UserInfoManagerTest.class,
+    layer3.dataSource.mapper.UserAutenticationManagerTest.class
+//    layer3.dataSource.mapper.CompanyManagerTest.class,
+//    layer3.dataSource.mapper.UserManagerTest.class
     
 })
 public class TestSuite {
