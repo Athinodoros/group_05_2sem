@@ -15,13 +15,12 @@ i am here
 
 <jsp:useBean id="newUserAth" class="layer2.domain.bean.UserAuthentication" scope="session" />
 <jsp:setProperty name="newUserAth" property="*"  />
-<%--
+
 <jsp:include page="../DashBoardPicker.jsp" />
-<jsp:getProperty name="user" property="*" />--%>
+<jsp:getProperty name="user" property="*" />
 userinfo
 <%= userInfo.getFirstname() %>
 <%= userInfo.getLastname() %>
 <%= userInfo.getUrole() %>
 userauth
 <%= newUserAth.getEmail() %>
-<%--  Shouldn't it be <jsp:getProperty etc. ??? --%>
