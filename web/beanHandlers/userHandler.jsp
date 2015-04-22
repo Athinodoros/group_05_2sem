@@ -15,3 +15,4 @@
 <jsp:getProperty name="user" property="*" />
 
 <%= user.getName() %>
+<%--  Shouldn't it be <jsp:getProperty etc. ??? --%>
