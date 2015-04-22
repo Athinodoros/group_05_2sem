@@ -121,7 +121,7 @@ public class UIServlet extends HttpServlet {
         Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
 
         con.createProject(project);
-        request.setAttribute("project", project);
+        
         
 
     }
