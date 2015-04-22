@@ -8,7 +8,7 @@ package layer3.dataSource.mapper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
-import layer2.domain.bean.UserAutentication;
+import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
@@ -26,12 +26,12 @@ import static layer3.dataSource.mapper.utility.TestData.*;
  *
  * @author bo
  */
-public class UserAutenticationManagerTest {
+public class UserAuthenticationManagerTest {
     
     private static Connection conn;
 
     
-    public UserAutenticationManagerTest() {}
+    public UserAuthenticationManagerTest() {}
     
     
     
@@ -112,7 +112,7 @@ public class UserAutenticationManagerTest {
         boolean status1 = userInfoManager.insert(conn, userInfo);
         boolean status2 = userAutenticationManager.insert(conn, userAutenticantion);
         
-        UserAutentication result = null;
+        UserAuthentication result = null;
         if( status1 & status2 ) {
             result = userAutenticationManager.getRow(conn, userAutenticantion.getUserInfo().getUserID());
         }
@@ -135,12 +135,12 @@ public class UserAutenticationManagerTest {
         boolean status2 = userAutenticationManager.insert(conn, userAutenticantion);
         //  Create a new user with the same userid as 'user',
         //  but with a new user name
-        UserAutentication userAutenciationUpdate = new UserAutentication(userAutenticantion);
+        UserAuthentication userAutenciationUpdate = new UserAuthentication(userAutenticantion);
         userAutenciationUpdate.setUname(UNAME + "_Update");
         // Update the new user's data in the database
         boolean status3 = userAutenticationManager.update(conn, userAutenciationUpdate);
         
-        UserAutentication result = userAutenticantion;
+        UserAuthentication result = userAutenticantion;
         if( status1 & status2 & status3 ) {
             result = userAutenticationManager.getRow(conn, userAutenciationUpdate.getUserInfo().getUserID());
         }
@@ -162,13 +162,13 @@ public class UserAutenticationManagerTest {
         UserInfo userInfo2 = new UserInfo(userInfo);
         boolean status2 = userInfoManager.insert(conn, userInfo2);
        
-        UserAutentication user1 = new UserAutentication(userAutenticantion);
+        UserAuthentication user1 = new UserAuthentication(userAutenticantion);
         userAutenticantion.setUserInfo(userInfo2);
-        UserAutentication user2 = new UserAutentication(userAutenticantion);
+        UserAuthentication user2 = new UserAuthentication(userAutenticantion);
         boolean status3 = userAutenticationManager.insert(conn, user1);
         boolean status4 = userAutenticationManager.insert(conn, user2);
 
-        ArrayList<UserAutentication> rows = new ArrayList();
+        ArrayList<UserAuthentication> rows = new ArrayList();
         
         if( status1 & status2 & status3 & status4) {
             //  Retrieve the two inserted companies from the database
