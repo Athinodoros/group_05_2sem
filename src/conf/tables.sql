@@ -54,6 +54,6 @@ create table comments (
 commentID integer primary key,
 projectID integer references project(projectID),
 userID integer,
-"comment" varchar(10));
+"comment" varchar(2000));
 
 commit;

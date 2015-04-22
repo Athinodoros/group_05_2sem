@@ -13,7 +13,7 @@ import oracle.sql.DATE;
 
 /**
  *
- * @author Bancho
+ * @author Bancho , athinodwros
  */
 public class Project {
 

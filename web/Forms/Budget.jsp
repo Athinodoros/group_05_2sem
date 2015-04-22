@@ -4,4 +4,8 @@
     Author     : Athinodoros
 --%>
 
-<p>Budget</p>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<link href="../bootstrap.min.css" rel="stylesheet"/>
