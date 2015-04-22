@@ -6,7 +6,7 @@
 package layer3.dataSource.mapper.utility;
 
 import java.sql.Connection;
-import layer2.domain.bean.UserAutentication;
+import layer2.domain.bean.UserAuthentication;
 import layer3.dataSource.mapper.UserAutenticationManager;
 import layer3.dataSource.mapper.UserInfoManager;
 //import layer3.dataSource.mapper.CompanyManager;

@@ -5,7 +5,7 @@
  */
 package layer3.dataSource.mapper.utility;
 
-import layer2.domain.bean.UserAutentication;
+import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer3.dataSource.mapper.UserAutenticationManager;
 import layer3.dataSource.mapper.UserInfoManager;
@@ -37,7 +37,7 @@ public final class TestData {
     
     
     public static final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, U_ROLE);
-    public static final UserAutentication userAutenticantion = new UserAutentication(userInfo, UNAME, PASSWORD, EMAIL);
+    public static final UserAuthentication userAutenticantion = new UserAuthentication(userInfo, UNAME, PASSWORD, EMAIL);
     
     
 
