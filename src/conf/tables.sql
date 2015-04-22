@@ -1,3 +1,5 @@
+alter session set nls_date_format = 'yyyy-mm-dd';
+
 drop table budget;
 drop TABLE POE;
 drop TABLE comments;

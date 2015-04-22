@@ -5,27 +5,33 @@
  */
 package layer2.domain.bean;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import oracle.sql.DATE;
 
 /**
  *
  * @author Bancho
  */
 public class Project {
-
+    private String mydate="yyyy-mm-dd";
     private int projectID;
     private String companyName;
     private String title;
     private String description;
     private String stage;
-    private Date sdate;
+    private Date sdate ;
     private Date fdate;
     private int projectBudget;
     private boolean hasPOE;
     private String comments;
-
+    
+    //private d
     //private User user;
     public Project() {
+        
     }
 
     public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget, boolean hasPOE, String comments) {
@@ -39,6 +45,7 @@ public class Project {
         this.projectBudget = projectBudget;
         this.hasPOE = hasPOE;
         this.comments = comments;
+        
     }
 
     public int getProjectID() {
@@ -85,16 +92,18 @@ public class Project {
         return sdate;
     }
 
-    public void setSdate(Date sdate) {
-        this.sdate = sdate;
+    public void setSdate(String sdate) throws ParseException{
+        DateFormat df = new SimpleDateFormat(mydate);
+        this.sdate = df.parse("yyy-mm-dd");
     }
 
     public Date getFdate() {
         return fdate;
     }
 
-    public void setFdate(Date fdate) {
-        this.fdate = fdate;
+    public void setFdate(String fdate) throws ParseException{
+        DateFormat df = new SimpleDateFormat(mydate);
+        this.fdate = df.parse(fdate);
     }
 
     public int getProjectBudget() {
