@@ -35,7 +35,7 @@ public class Project {
         
     }
 
-    public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget, boolean hasPOE, String comments) {
+    public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget, String comments) {
 
         this.projectID = projectID;
         this.companyName = companyName;

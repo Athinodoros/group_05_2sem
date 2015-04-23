@@ -68,10 +68,10 @@ public class UIServlet extends HttpServlet {
                 //validate credentials
                 break;
 
-            case "initialForm":
-                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
-                dispatcher.forward(request, response);
-                break;
+//            case "initialForm":
+//                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
+//                dispatcher.forward(request, response);
+//                break;
             case "createProject":
 
             case "reloadMain":
@@ -97,6 +97,11 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("nDashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
+                    case NamingConv.CREATEPROJECT:
+                        request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
+                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
 
                 }
                 dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
@@ -118,7 +123,8 @@ public class UIServlet extends HttpServlet {
         Date sdate = startdate;
         Date fdate = findate;
         int projectBudget = Integer.parseInt(request.getParameter("budget"));
-        Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
+        Project project = new Project(projectBudget, companyName, title, description, stage, sdate, fdate, projectBudget, stage);
+       // Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
 
         con.createProject(project);
         

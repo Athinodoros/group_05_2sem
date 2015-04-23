@@ -2,8 +2,8 @@ alter session set nls_date_format = 'yyyy-mm-dd';
 
 
 drop table budget;
-drop TABLE POE;
-drop TABLE comments;
+drop table POE;
+drop table comments;
 drop table Project;
 drop table partner;
 drop table dell;
@@ -48,7 +48,7 @@ projectBudget integer);
 
 create table POE (
 projectID integer primary key references Project(projectID),
-filrPath varchar(50));
+filePath varchar(50));
 
 create table comments (
 commentID integer primary key,

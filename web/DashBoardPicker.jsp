@@ -16,6 +16,8 @@
         <jsp:include page="Forms/Budget.jsp"/>
         <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
         <jsp:include page="Forms/initialForm.jsp"/>
+        <%} else if (pagepoint == NamingConv.CREATEPROJECT) { %>
+        <jsp:include page="Forms/newProject.jsp"/>
         <% } else if (pagepoint == NamingConv.CREATECOMPANY) { %>
         <jsp:include page="Forms/createCompanyForm.jsp" />
         <% } else if (pagepoint == NamingConv.USERFORM) { %>
