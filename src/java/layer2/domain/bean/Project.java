@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import oracle.sql.DATE;
 
 /**
@@ -17,22 +18,22 @@ import oracle.sql.DATE;
  */
 public class Project {
 
-    private String mydate="yyyy-mm-dd";
+    private String mydate = "yyyy-mm-dd";
     private int projectID;
     private String companyName;
     private String title;
     private String description;
     private String stage;
-    private Date sdate ;
+    private Date sdate;
     private Date fdate;
     private int projectBudget;
     private boolean hasPOE;
     private String comments;
-    
+
     //private d
     //private User user;
     public Project() {
-        
+
     }
 
     public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget, String comments) {
@@ -93,18 +94,20 @@ public class Project {
         return sdate;
     }
 
-    public void setSdate(String sdate) throws ParseException{
+    public void setSdate(DATE sdate) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
         DateFormat df = new SimpleDateFormat(mydate);
-        this.sdate = df.parse("yyy-mm-dd");
+        this.sdate = format.parse(sdate.toString());
     }
 
     public Date getFdate() {
         return fdate;
     }
 
-    public void setFdate(String fdate) throws ParseException{
+    public void setFdate(String fdate) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
         DateFormat df = new SimpleDateFormat(mydate);
-        this.fdate = df.parse(fdate);
+        this.fdate = format.parse(fdate);
     }
 
     public int getProjectBudget() {
@@ -119,8 +122,5 @@ public class Project {
     public String toString() {
         return "Project{" + "projectID=" + projectID + ", companyName=" + companyName + ", title=" + title + ", description=" + description + ", stage=" + stage + ", sdate=" + sdate + ", fdate=" + fdate + ", projectBudget=" + projectBudget + '}';
     }
-    
-    
-    
 
 }

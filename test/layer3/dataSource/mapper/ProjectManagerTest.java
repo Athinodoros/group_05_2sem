@@ -52,9 +52,10 @@ public class ProjectManagerTest {
         endDate = oneMonthLater;
         
         dummyCompany = new Reseller("dummy_" + new Random().nextInt(), 42);
-        author = new User(0, "Bob", "PassWordTest", "test@sth.whatever", "Testlandia", NamingConv.RESELLER, dummyCompany);
-
-        project = new Project(0, author, ">>> Title test <<<", startDate, endDate, ">>> Stage test <<<", 42, false, ">>> This is a test <<<");
+        author = new User("Bo", "Vilstrup", , null, null, null, null, null, MONTH);
+//        author = new User(0, "Bob", "PassWordTest", "test@sth.whatever", "Testlandia", NamingConv.RESELLER, dummyCompany);
+//
+//        project = new Project(0, author, ">>> Title test <<<", startDate, endDate, ">>> Stage test <<<", 42, false, ">>> This is a test <<<");
         
         projectManager = new ProjectManager();
         userManager = new UserManager();

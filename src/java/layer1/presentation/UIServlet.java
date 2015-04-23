@@ -63,7 +63,7 @@ public class UIServlet extends HttpServlet {
                 } else {
                     session.setAttribute("user", ctrl.getReseller());
                 }
-                dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                 dispatcher.forward(request, response);
                 //dummy code ends here
 
@@ -83,27 +83,27 @@ public class UIServlet extends HttpServlet {
                 switch (main) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
-                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.BUDGET:
                         request.setAttribute("mainArea", NamingConv.BUDGET);
-                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.CREATECOMPANY:
                         request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
-                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.USERFORM:
                         request.setAttribute("mainArea", NamingConv.USERFORM);
-                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.CREATEPROJECT:
                         request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
-                        dispatcher = request.getRequestDispatcher("nDashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
 
