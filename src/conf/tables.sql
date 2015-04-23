@@ -13,7 +13,8 @@ drop table dell;
 create table budget(
 quarter integer,
 qyear integer,
-qbudget integer );
+qbudget integer,
+primary key (quarter, qyear));
 
 create table partner (
 companyName varchar(30) primary key,
