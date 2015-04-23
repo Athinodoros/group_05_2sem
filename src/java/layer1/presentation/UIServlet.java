@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,7 +52,7 @@ public class UIServlet extends HttpServlet {
         }
 
         String command = (String) request.getParameter("command");
-        String Main = (String) request.getParameter("mainArea");
+        String main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
         switch (command) {
             case "log-in":
@@ -73,10 +75,12 @@ public class UIServlet extends HttpServlet {
                 dispatcher.forward(request, response);
                 break;
             case "createProject":
+                createProject(request, response, ctrl);
+                break;
 
             case "reloadMain":
                 //dummy code start
-                switch (Main) {
+                switch (main) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
                         dispatcher = request.getRequestDispatcher("nDashboard.jsp");
@@ -99,28 +103,30 @@ public class UIServlet extends HttpServlet {
                         break;
 
                 }
-                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
-                dispatcher.forward(request, response);
                 //dummy code end
                 break;
         }
     }
 
-    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException, ParseException {
+    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
 
-        String companyName = request.getParameter("companyName");
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String stage = request.getParameter("stage");
-        DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
-        Date startdate = format.parse(request.getParameter("sDate"));
-        Date findate = format.parse(request.getParameter("fDate"));
-        Date sdate = startdate;
-        Date fdate = findate;
-        int projectBudget = Integer.parseInt(request.getParameter("budget"));
-        Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
-
-        con.createProject(project);
+        try {
+            String companyName = request.getParameter("companyName");
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
+            String stage = request.getParameter("stage");
+            DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
+            Date startdate = format.parse(request.getParameter("sDate"));
+            Date findate = format.parse(request.getParameter("fDate"));
+            Date sdate = startdate;
+            Date fdate = findate;
+            int projectBudget = Integer.parseInt(request.getParameter("budget"));
+            Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
+            
+            con.createProject(project);
+        } catch (ParseException ex) {
+            Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
 
