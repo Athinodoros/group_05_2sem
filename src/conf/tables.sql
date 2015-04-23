@@ -5,29 +5,15 @@ drop table budget;
 drop table POE;
 drop table comments;
 drop table Project;
-drop table partner;
-drop table dell;
 drop table userAthentication;
 drop table userInfo;
+drop table partner;
+drop table dell;
 
 create table budget(
 quarter integer,
 qyear integer,
 qbudget integer );
-
-create table userInfo (
-userID integer primary key ,
-firstname varchar(20),
-lastname varchar(20),
-country  varchar(4),
-companyName varchar(30),
-urole varchar(20));
-
-create table userAthentication (
-userID integer primary key references userInfo(userID),
-uname     varchar(30),
-password     varchar(32),
-email     varchar(30));
 
 create table partner (
 companyName varchar(30) primary key,
@@ -36,6 +22,21 @@ companyID integer);
 create table dell (
 companyName varchar(30) primary key ,
 companyID integer);
+
+create table userInfo (
+userID integer primary key ,
+firstname varchar(20),
+lastname varchar(20),
+country  varchar(4),
+companyName varchar(30) references partner(companyName) references dell(companyName) ,
+urole varchar(20));
+
+create table userAthentication (
+userID integer primary key references userInfo(userID),
+uname     varchar(30),
+password     varchar(32),
+email     varchar(30));
+
 
 create table project (
 projectID integer primary key,
