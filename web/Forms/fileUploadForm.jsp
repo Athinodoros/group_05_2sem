@@ -11,7 +11,9 @@
     <form action="../beanHandlers/POEHandler.jsp" >
         <input type="file" name="file" />
         <input type="submit" value="submit" />
+        <input type="email" name=""/>
     </form>
+    
     
     
 </div>
