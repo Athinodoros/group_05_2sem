@@ -10,38 +10,44 @@ package layer2.domain.interfaces;
  * @author Bancho
  */
 public class NamingConv {
-
+    
     //roles
     public static final String ROLE = "role";
     public static final String RESELLER = "reseller";
     public static final String PARTNER = "partner";
     public static final String ADMIN = "admin";
     public static final String SUPER_USER = "superUser"; //not sure if we'll use it
-
+    
     //attributes
     public static final String USER_NAME = "userName";
     public static final String PASSWORD = "password";
-
+    
     //stages
     public static final String STAGE = "stage";
     public static final String PRE_APPROVED = "pre-approved";
     public static final String APPROVED = "approved";
     public static final String FINISHED = "finished";
 
-    //----------------------------------------------------Nos--------------------------------------------------------
+    
+    
+    //Nos
     //pageloader
     public static final String MAINAREA = "mainArea";
-    //pages
-    public static final String CREATEPROJECT = "createProject";
+    
+   //pages
+    public static final String CREATEPROJECT ="createProject";
     public static final String DASHBOARD = "dashboard";
     public static final String BUDGET = "budget";
     public static final String PROJECTLIST = "projectlist";
     public static final String CREATECOMPANY = "createCompany";
     public static final String USERFORM = "userForm";
-    public static final String NEWPROJECTBEAN = "projectbean";
-    //
-
+    
+    
+    
+    
+    
     //-------------------------------------Setters and getters----------------------------------------------//
+
     public static String getROLE() {
         return ROLE;
     }
@@ -101,5 +107,7 @@ public class NamingConv {
     public static String getPROJECTLIST() {
         return PROJECTLIST;
     }
-
+    
+    
+    
 }

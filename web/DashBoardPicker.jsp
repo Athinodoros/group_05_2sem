@@ -23,8 +23,11 @@
         <jsp:include page="Forms/createCompanyForm.jsp" />
         <% } else if (pagepoint == NamingConv.USERFORM) { %>
         <jsp:include page="Forms/addUser.jsp" />
+<<<<<<< HEAD
         <% } else if (pagepoint == NamingConv.NEWPROJECTBEAN ) { %>
         <jsp:include page="beanHandlers/newProjectHandling.jsp" /> 
+=======
+>>>>>>> parent of 128f3f2... trying to fix 404 error after submit
         <% } else  { %>
         <p>no jsp was loaded </p>
         <% }%>
