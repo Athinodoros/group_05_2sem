@@ -17,7 +17,8 @@ import org.junit.runners.Suite;
     
     layer3.dataSource.DBConnectorTest.class,
     layer3.dataSource.mapper.UserInfoManagerTest.class,
-    layer3.dataSource.mapper.UserAuthenticationManagerTest.class
+    layer3.dataSource.mapper.UserAuthenticationManagerTest.class,
+    layer3.dataSource.mapper.BudgetManagerTest.class
 //    layer3.dataSource.mapper.CompanyManagerTest.class,
 //    layer3.dataSource.mapper.UserManagerTest.class
     

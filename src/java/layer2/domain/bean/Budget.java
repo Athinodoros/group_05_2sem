@@ -47,5 +47,12 @@ public class Budget {
     public void setQbudget(int budget) {
         this.qbudget = budget;
     }
+
+    @Override
+    public String toString() {
+        return "Budget{" + "quarter=" + quarter + ", qyear=" + qyear + ", qbudget=" + qbudget + '}';
+    }
+    
+    
     
 }
