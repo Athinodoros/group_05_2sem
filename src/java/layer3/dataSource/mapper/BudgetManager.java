@@ -6,8 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import layer2.domain.bean.Budget;
 import layer3.dataSource.DBConnector;
 
@@ -83,6 +82,72 @@ public class BudgetManager {
                     DBConnector.processException(ex);
                 }
             }
+        }
+    }
+    
+    
+    public boolean delete(Connection conn, int quarter, int qyear){
+        String sql = "DELETE FROM budget WHERE quarter = ? AND qyear = ?";
+        int rowsAffected = 0;
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, quarter);
+            stmt.setInt(2, qyear);
+            rowsAffected = stmt.executeUpdate();
+            
+            return rowsAffected == 1;
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    }
+    
+    
+    public ArrayList<Budget> getAllRows(Connection conn){
+        String sql = "SELECT * FROM budget";
+        ResultSet rs = null;
+        ArrayList<Budget> rows = new ArrayList<Budget>();
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Budget budget = new Budget();
+                budget.setQuarter(rs.getInt("quarter"));
+                budget.setQyear(rs.getInt("qyear"));
+                budget.setQbudget(rs.getInt("qbudget"));
+                rows.add(budget);
+            }
+            
+            return rows;
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return null;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    DBConnector.processException(ex);
+                }
+            }
+        }
+    }
+    
+    
+    public boolean deleteAllRows(Connection conn, boolean confirm){
+        if (confirm) {
+            String sql = "DELETE FROM budget";
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                DBConnector.processException(e);
+                return false;
+            }
+        }else{
+            return false;
         }
     }
     
