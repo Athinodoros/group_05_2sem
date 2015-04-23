@@ -135,18 +135,19 @@ public class BudgetManager {
     }
     
     
-    public int deleteAllRows(Connection conn, boolean confirm){
+    public boolean deleteAllRows(Connection conn, boolean confirm){
         if (confirm) {
             String sql = "DELETE FROM budget";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                return stmt.executeUpdate();
+                stmt.executeUpdate();
+                return true;
             } catch (SQLException e) {
                 DBConnector.processException(e);
-                return -1;
+                return false;
             }
         }else{
-            return -1;
+            return false;
         }
     }
     
