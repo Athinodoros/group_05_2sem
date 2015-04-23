@@ -22,6 +22,8 @@
         <jsp:include page="Forms/createCompanyForm.jsp" />
         <% } else if (pagepoint == NamingConv.USERFORM) { %>
         <jsp:include page="Forms/addUser.jsp" />
+        <%--<% } else if (pagepoint == NamingConv.NEWPROJECTBEAN) { %>
+        <jsp:include page="beanHandlers/newProjectsHandler.jsp" /> --%>
         <% } else  { %>
         <p>no jsp was loaded </p>
         <% }%>
