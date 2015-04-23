@@ -126,7 +126,7 @@ public class UIServlet extends HttpServlet {
             Date sdate = startdate;
             Date fdate = findate;
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(1,companyName,title,description,stage,sdate,fdate,projectBudget);
+            Project project = new Project(projectBudget, companyName, title, description, stage, sdate, fdate, projectBudget, stage);
             
             con.createProject(project);
         } catch (ParseException ex) {
