@@ -143,17 +143,17 @@ public class ProjectManager {
 //    
 //    
 //    public boolean update(Connection conn, Project bean){
-//        String sql = "UPDATE projects SET enddate = ? , stage = ? , budget = ? , poe = ? , comments = ? WHERE projectid = ?";
+//        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , fdate = ?, sdate = ?, projectBudget = ?  WHERE projectid = ?";
 //        
 //        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            stmt.setInt(1, bean.getProjectID());
-//            stmt.setString(2, bean.getCompanyName());
-//            stmt.setString(3, bean.getTitle());
-//            stmt.setString(4, bean.getDescription());
-//            stmt.setString(5, bean.getStage());
-//            stmt.setDate(6, Convert.date2SqlDate(bean.getSdate()));
-//            stmt.setDate(7, Convert.date2SqlDate(bean.getFdate()));
-//            stmt.setInt(8, bean.getProjectBudget()); 
+//            
+//            stmt.setString(1, bean.getCompanyName());
+//            stmt.setString(2, bean.getTitle());
+//            stmt.setString(3, bean.getDescription());
+//            stmt.setString(4, bean.getStage());
+//            stmt.setDate(5, Convert.date2SqlDate(bean.getSdate()));
+//            stmt.setDate(6, Convert.date2SqlDate(bean.getFdate()));
+//            stmt.setInt(7, bean.getProjectBudget()); 
 //            
 //            int affected = stmt.executeUpdate();
 //            if (affected == 1) {
