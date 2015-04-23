@@ -20,6 +20,7 @@ userID integer primary key ,
 firstname varchar(20),
 lastname varchar(20),
 country  varchar(4),
+companyName varchar(30),
 urole varchar(20));
 
 create table userAthentication (
