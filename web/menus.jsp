@@ -38,6 +38,7 @@
             <li class="active"><a href="#">Overview of projects <span class="sr-only">(current)</span></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.BUDGET %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Company Budget</button></form></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.CREATEPROJECT %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Launch new project</button></form></a></li>
+            <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.NEWPROJECTBEAN %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">newbean</button></form></a></li>
         </ul>
         <% } else if (user.getRole().equals(NamingConv.PARTNER)) { %>
         <ul class="nav nav-sidebar ">

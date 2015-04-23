@@ -6,6 +6,7 @@
 package layer1.presentation;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -86,11 +87,16 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-//                    case NamingConv.NEWPROJECTBEAN:
-//                        request.setAttribute("mainArea", NamingConv.NEWPROJECTBEAN);
-//                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-//                        dispatcher.forward(request, response);
-//                        break;
+                    case NamingConv.NEWPROJECTBEAN:
+                        try {
+                        request.setAttribute("mainArea", NamingConv.NEWPROJECTBEAN);
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                        dispatcher.forward(request, response);
+                        } catch (Exception e) {
+                          PrintWriter pw = new PrintWriter("qweqwe");
+                          
+                        }
+                        break;
                     case NamingConv.BUDGET:
                         request.setAttribute("mainArea", NamingConv.BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");

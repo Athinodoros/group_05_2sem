@@ -11,6 +11,7 @@
 <link href="bootstrap.min.css" rel="stylesheet">
 
 <div class="col-md-5">
+    
         <% String pagepoint = (String) request.getAttribute("mainArea");
             if (pagepoint == NamingConv.BUDGET) { %>
         <jsp:include page="Forms/Budget.jsp"/>
@@ -22,8 +23,8 @@
         <jsp:include page="Forms/createCompanyForm.jsp" />
         <% } else if (pagepoint == NamingConv.USERFORM) { %>
         <jsp:include page="Forms/addUser.jsp" />
-        <%--<% } else if (pagepoint == NamingConv.NEWPROJECTBEAN) { %>
-        <jsp:include page="beanHandlers/newProjectsHandler.jsp" /> --%>
+        <% } else if (pagepoint == NamingConv.NEWPROJECTBEAN ) { %>
+        <jsp:include page="beanHandlers/newProjectHandling.jsp" /> 
         <% } else  { %>
         <p>no jsp was loaded </p>
         <% }%>
