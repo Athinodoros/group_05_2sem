@@ -29,17 +29,6 @@ public class UserInfoManagerTest {
 
     private static Connection conn;
 
-//    private final UserInfoManager userInfoManager = new UserInfoManager();
-//
-//    // USER_ID will be set in the call to insetRow()
-//    private final int USER_ID = 0;
-//    private final String FIRST_NAME = "firstNameTest";
-//    private final String LAST_NAME = "lastNameTest";
-//    private final String COUNTRY = "Test";
-//    private final String U_ROLE = "roleTest";
-//
-//    private final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, U_ROLE);
-
     public UserInfoManagerTest() {
     }
 
@@ -72,8 +61,15 @@ public class UserInfoManagerTest {
     public void test_A_UserInfoManager_Insert() {
         System.out.println("Testing :: UserInfoManager.insert()");
 
-        boolean result = userInfoManager.insert(conn, userInfo);
-
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to Insert something
+        boolean status = partnerManager.insert(conn, partner);
+        
+        boolean result = false;
+        if(status) {
+            result = userInfoManager.insert(conn, userInfo);
+        }
+            
         assertTrue(result);
 
     }
@@ -87,10 +83,11 @@ public class UserInfoManagerTest {
 
         //  Making sure I first insert all the necessary rows,
         //  before I try to delete something
-        boolean status1 = userInfoManager.insert(conn, userInfo);
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = userInfoManager.insert(conn, userInfo);
 
         boolean result = false;
-        if (status1) {
+        if (status1 & status2) {
             result = userInfoManager.delete(conn, userInfo.getUserID());
         }
 
@@ -107,10 +104,11 @@ public class UserInfoManagerTest {
 
         //  Making sure I first insert all the necessary rows,
         //  before I try to get something out
-        boolean status1 = userInfoManager.insert(conn, userInfo);
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = userInfoManager.insert(conn, userInfo);
 
         UserInfo result = null;
-        if (status1) {
+        if (status1 & status2) {
             result = userInfoManager.getRow(conn, userInfo.getUserID());
         }
 
@@ -126,7 +124,8 @@ public class UserInfoManagerTest {
 
         //  Making sure I first insert all the necessary rows,
         //  before I try to update something
-        boolean status1 = userInfoManager.insert(conn, userInfo);
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = userInfoManager.insert(conn, userInfo);
 
         //  Create a new user with the same userid as 'user',
         //  but with a new user name
@@ -134,10 +133,10 @@ public class UserInfoManagerTest {
         userInfoUpdated.setFirstname(FIRST_NAME + "_Update");
 
         // Update the new user's data in the database
-        boolean status2 = userInfoManager.update(conn, userInfoUpdated);
+        boolean status3 = userInfoManager.update(conn, userInfoUpdated);
 
         UserInfo result = userInfo;
-        if (status1 & status2) {
+        if (status1 & status2 & status3) {
             result = userInfoManager.getRow(conn, userInfoUpdated.getUserID());
         }
 
@@ -151,6 +150,10 @@ public class UserInfoManagerTest {
     public void test_E_UserInfoManager_getAllRows() {
         System.out.println("Testing :: UserInfoManager.getAllRows()");
 
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to get something out
+        boolean status3 = partnerManager.insert(conn, partner);
+        
         UserInfo user1 = new UserInfo(userInfo);
         UserInfo user2 = new UserInfo(userInfo);
         boolean status1 = userInfoManager.insert(conn, user1);
@@ -158,7 +161,7 @@ public class UserInfoManagerTest {
 
         ArrayList<UserInfo> rows = new ArrayList();
 
-        if (status1 & status2) {
+        if (status1 & status2 & status3) {
             //  Retrieve the two inserted companies from the database
             rows = new ArrayList<>(userInfoManager.getAllRows(conn));
         }
@@ -169,4 +172,19 @@ public class UserInfoManagerTest {
         assertTrue(expResult == result);
     }
 
+    @Test
+    public void test_F_UserInfoManager_DeleteAllRows() {
+        System.out.println("Testing :: UserInfoManager.DeleteAllRows");
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to update something
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = userInfoManager.insert(conn, userInfo);
+       
+        int rowsDeleted = 0;
+        if(status1 & status2) {
+            rowsDeleted = userInfoManager.deleteAllRows(conn, "yes");
+        }
+        assertTrue(rowsDeleted == 1);
+    }
+    
 }

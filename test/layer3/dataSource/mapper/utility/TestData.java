@@ -39,6 +39,7 @@ public final class TestData {
     public static final String FIRST_NAME = "firstNameTest";
     public static final String LAST_NAME = "lastNameTest";
     public static final String COUNTRY = "Test";
+    public static final Partner PARTNER = new Partner(COMPANY_NAME, COMPANY_ID);
     public static final String U_ROLE = "roleTest";
 
     // UserAutentication
@@ -50,7 +51,7 @@ public final class TestData {
     
     // Make some beans
     public static final Partner partner = new Partner(COMPANY_NAME, COMPANY_ID);
-    public static final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, U_ROLE);
+    public static final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, PARTNER, U_ROLE);
     public static final UserAuthentication userAutenticantion = new UserAuthentication(userInfo, UNAME, PASSWORD, EMAIL);
     
     

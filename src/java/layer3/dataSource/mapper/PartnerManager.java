@@ -34,11 +34,6 @@ public class PartnerManager {
                 partner.setCompanyID(rs.getInt("companyID"));
                 
                 rows.add(partner);
-//                Reseller company = new Reseller();
-//                
-//                company.setCompanyName(rs.getString("companyname"));
-//                company.setBudget(rs.getInt("budget"));
-//                rows.add(company);
             }
             
         } catch (SQLException e) {
@@ -87,10 +82,6 @@ public class PartnerManager {
                 bean.setCompanyName(companyName);
                 bean.setCompanyID(rs.getInt("companyID"));
                 return bean;
-//                Partner bean = new Reseller();
-//                bean.setCompanyName(companyName);
-//                bean.setBudget(rs.getInt("budget"));
-//                return bean;
             } else {
                 return null;
             }
@@ -156,32 +147,50 @@ public class PartnerManager {
         }
     } // End of method :: Delete() 
     
-    public boolean deleteAllRows(Connection conn, String confirm) { 
-     
+//    public boolean deleteAllRows(Connection conn, String confirm) { 
+//     
+//        if( confirm.equalsIgnoreCase("yes")) {
+//            
+//            String sql = "DELETE FROM partner";
+//
+//            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+//
+//                int effected = stmt.executeUpdate();
+//
+//                if(effected == 1) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//
+//            } catch (SQLException e) {
+//                DBConnector.processException(e);
+//                return false;
+//            }
+//        }
+//        else {
+//            return false;
+//        }
+//    } // End of method :: Delete() 
+    
+    
+    
+    public int deleteAllRows(Connection conn, String confirm){
+        
         if( confirm.equalsIgnoreCase("yes")) {
             
             String sql = "DELETE FROM partner";
-
-            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
-
-                int effected = stmt.executeUpdate();
-
-                if(effected == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                return stmt.executeUpdate();
             } catch (SQLException e) {
                 DBConnector.processException(e);
-                return false;
+                return -1;
             }
+        }else{
+            return -1;
         }
-        else {
-            return false;
-        }
-    } // End of method :: Delete() 
-    
+    }
     
     
 }

@@ -15,16 +15,18 @@ public class UserInfo {
     private String  firstname;
     private String  lastname;
     private String  country;
+    private Partner partner;
     private String  urole;      //
 
     public UserInfo() {
     }
 
-    public UserInfo(int userID, String firstname, String lastname, String country, String urole) {
+    public UserInfo(int userID, String firstname, String lastname, String country, Partner partner, String urole) {
         this.userID = userID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.country = country;
+        this.partner = partner;
         this.urole = urole;
     }
 
@@ -33,6 +35,7 @@ public class UserInfo {
         this.firstname = u.firstname;
         this.lastname = u.lastname;
         this.country = u.country;
+        this.partner = u.partner;
         this.urole = u.urole;
     }
 
@@ -68,6 +71,14 @@ public class UserInfo {
         this.country = country;
     }
 
+    public Partner getCompany() {
+        return partner;
+    }
+
+    public void setCompany(Partner partner) {
+        this.partner = partner;
+    }
+
     public String getUrole() {
         return urole;
     }
@@ -78,7 +89,8 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return "UserInfo{" + "userID=" + userID + ", firstname=" + firstname + ", lastname=" + lastname + ", country=" + country + ", urole=" + urole + '}';
+        return "UserInfo{" + "userID=" + userID + ", firstname=" + firstname + ", lastname=" + lastname + ", country=" + country + ", companyName=" + partner + ", urole=" + urole + '}';
     }
 
+   
 }

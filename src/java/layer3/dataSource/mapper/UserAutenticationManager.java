@@ -31,10 +31,10 @@ public class UserAutenticationManager {
         try (   Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery( sql );
             ) {
-
+            
+            UserInfoManager uim = new UserInfoManager();    
             while (rs.next()) {
 
-                UserInfoManager uim = new UserInfoManager();
                 UserAuthentication bean = new UserAuthentication();
                 
                 bean.setUserInfo(uim.getRow(conn, rs.getInt("userID")));
@@ -188,31 +188,49 @@ public class UserAutenticationManager {
         }
     } // End of method :: Delete() 
     
-    public boolean deleteAllRows(Connection conn, String confirm) { 
+//    public boolean deleteAllRows(Connection conn, String confirm) { 
+//        
+//        if( confirm.equalsIgnoreCase("yes") ) {
+//            
+//        
+//            String sql = "DELETE FROM userAthentication";
+//
+//            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+//
+//                int effected = stmt.executeUpdate();
+//
+//                if(effected == 1) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//
+//            } catch (SQLException e) {
+//                DBConnector.processException(e);
+//                return false;
+//            }
+//        }
+//        else {
+//            return false;
+//        }
+//    } // End of method :: DeleteAllRows() 
+    
+    public int deleteAllRows(Connection conn, String confirm){
         
-        if( confirm.equalsIgnoreCase("yes") ) {
+        if( confirm.equalsIgnoreCase("yes")) {
             
-        
             String sql = "DELETE FROM userAthentication";
-
-            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
-
-                int effected = stmt.executeUpdate();
-
-                if(effected == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                return stmt.executeUpdate();
             } catch (SQLException e) {
                 DBConnector.processException(e);
-                return false;
+                return -1;
             }
+        }else{
+            return -1;
         }
-        else {
-            return false;
-        }
-    } // End of method :: DeleteAllRows() 
+    }
+    
     
 }

@@ -30,34 +30,7 @@ import static layer3.dataSource.mapper.utility.TestData.*;
 public class PartnerManagerTest {
     
     private static Connection conn;
-//    
-//    
-//     public  final PartnerManager partnerManager = new PartnerManager();
-//   
-//    
-//    // Company
-//    // ------ 
-//    // 
-//    private final Random random = new Random();
-//    public  final String COMPANY_NAME = "CompanyNameTest_" + random.nextInt(100_000_000);
-//    public  final int COMPANY_ID = 0; // this value is probably not needed
-//
-//    
-//    // Make some beans
-//    public  final Partner partner = new Partner(COMPANY_NAME, COMPANY_ID);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     public PartnerManagerTest() {}
     
@@ -192,9 +165,19 @@ public class PartnerManagerTest {
         assertTrue(expResult == result);
     }
 
-
+    @Test
+    public void test_F_UserManager_DeleteAllRows() {
+        System.out.println("Testing :: UserManager.DeleteAllRows");
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to update something
+        boolean status1 = partnerManager.insert(conn, partner);
+       
+        int rowsDeleted = 0;
+        if(status1) {
+            rowsDeleted = partnerManager.deleteAllRows(conn, "yes");
+        }
+        assertTrue(rowsDeleted == 1);
+    }
     
 
-    
-    
 }

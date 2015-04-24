@@ -24,18 +24,21 @@ public class UserInfoManager {
 
         Collection<UserInfo> rows = new ArrayList();
 
-        String sql = "SELECT userID, firstname, lastname, country, urole FROM userInfo";
+        String sql = "SELECT userID, firstname, lastname, country, companyName, urole FROM userInfo";
 
         try (Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);) {
-
+            
+            PartnerManager pm = new PartnerManager();
             while (rs.next()) {
+                
                 UserInfo userInfo = new UserInfo();
 
                 userInfo.setUserID(rs.getInt("userID"));
                 userInfo.setFirstname(rs.getString("firstname"));
                 userInfo.setLastname(rs.getString("lastname"));
                 userInfo.setCountry(rs.getString("country"));
+                userInfo.setCompany((pm.getRow(conn, rs.getString("companyName"))));
                 userInfo.setUrole(rs.getString("urole"));
                 rows.add(userInfo);
             }
@@ -51,10 +54,8 @@ public class UserInfoManager {
 
         int rowsInserted = 0;
         
-//         String sql1 = "INSERT into users (userid, uname, password, email, country, urole, company) "
-//                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-         String sql1 = "INSERT into userInfo (userID, firstname, lastname, country, urole) "
-                + "VALUES (?, ?, ?, ?, ?)";
+         String sql1 = "INSERT into userInfo (userID, firstname, lastname, country, companyName, urole) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
@@ -82,12 +83,13 @@ public class UserInfoManager {
             }
             //--------------------------------
             
-            //== insert tuple
+            //== insert tuplet
             stmt.setInt     (1, bean.getUserID());
             stmt.setString  (2, bean.getFirstname());
             stmt.setString  (3, bean.getLastname());
             stmt.setString  (4, bean.getCountry());
-            stmt.setString  (5, bean.getUrole());
+            stmt.setString  (5, bean.getCompany().getCompanyName());
+            stmt.setString  (6, bean.getUrole());
               
             rowsInserted  = stmt.executeUpdate();
             
@@ -122,12 +124,14 @@ public class UserInfoManager {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
+                PartnerManager pm = new PartnerManager();
                 UserInfo bean = new UserInfo();
                 
                 bean.setUserID(userID);
                 bean.setFirstname(rs.getString("firstname"));
                 bean.setLastname(rs.getString("lastname"));
                 bean.setCountry(rs.getString("country"));
+                bean.setCompany((pm.getRow(conn, rs.getString("companyName"))));
                 bean.setUrole(rs.getString("urole"));
                 
                 return bean;
@@ -156,6 +160,7 @@ public class UserInfoManager {
                 + "firstname = ?, "
                 + "lastname = ?, "
                 + "country = ?, "
+                //+ "companyName = ?, "
                 + "urole = ? "
                 + "WHERE userID = ?";
 
@@ -164,6 +169,7 @@ public class UserInfoManager {
             stmt.setString(1, bean.getFirstname());
             stmt.setString(2, bean.getLastname());
             stmt.setString(3, bean.getCountry());
+            //stmt.setString(4, bean.getCompany().getCompanyName());
             stmt.setString(4, bean.getUrole());
             stmt.setInt(5, bean.getUserID());
 
@@ -204,29 +210,47 @@ public class UserInfoManager {
         }
     } // End of method :: Delete() 
 
-    public boolean deleteAllRows(Connection conn, String confirm) {
+//    public boolean deleteAllRows(Connection conn, String confirm) {
+//
+//        if (confirm.equalsIgnoreCase("yes")) {
+//
+//            String sql = "DELETE FROM userInfo";
+//
+//            try (PreparedStatement stmt = conn.prepareStatement(sql);) {
+//
+//                int effected = stmt.executeUpdate();
+//
+//                if (effected == 1) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//
+//            } catch (SQLException e) {
+//                DBConnector.processException(e);
+//                return false;
+//            }
+//        } else {
+//            return false;
+//        }
+//    } // End of method :: Delete() 
 
-        if (confirm.equalsIgnoreCase("yes")) {
-
+     public int deleteAllRows(Connection conn, String confirm){
+        
+        if( confirm.equalsIgnoreCase("yes")) {
+            
             String sql = "DELETE FROM userInfo";
-
-            try (PreparedStatement stmt = conn.prepareStatement(sql);) {
-
-                int effected = stmt.executeUpdate();
-
-                if (effected == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                return stmt.executeUpdate();
             } catch (SQLException e) {
                 DBConnector.processException(e);
-                return false;
+                return -1;
             }
-        } else {
-            return false;
+        }else{
+            return -1;
         }
-    } // End of method :: Delete() 
-
+    }
+    
+    
 }
