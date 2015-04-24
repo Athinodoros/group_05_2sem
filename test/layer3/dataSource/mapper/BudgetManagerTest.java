@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import java.sql.*;
 import layer3.dataSource.DBType;
+import layer3.dataSource.mapper.utility.Delete;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
@@ -38,7 +39,7 @@ public class BudgetManagerTest {
     
     @Before
     public void setUp() {
-        budgetManager.deleteAllRows(conn, true);
+        Delete.database(conn, "yes");
     }
     
     
@@ -93,7 +94,7 @@ public class BudgetManagerTest {
         Budget budget3 = new Budget(3, 2015, 500000);
         budgetManager.insert(conn, budget3);
         
-        int rowsDeleted = budgetManager.deleteAllRows(conn, true);
+        int rowsDeleted = budgetManager.deleteAllRows(conn, "yes");
         
         assertTrue(rowsDeleted == 3);
     }
