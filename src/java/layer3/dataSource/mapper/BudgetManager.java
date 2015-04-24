@@ -135,8 +135,8 @@ public class BudgetManager {
     }
     
     
-    public int deleteAllRows(Connection conn, boolean confirm){
-        if (confirm) {
+    public int deleteAllRows(Connection conn, String confirm){
+        if (confirm.equalsIgnoreCase("yes")) {
             String sql = "DELETE FROM budget";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
