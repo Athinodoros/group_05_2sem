@@ -8,4 +8,3 @@
 <jsp:setProperty name="newProject" property="*" />
 <%= newProject.getTitle() %>
 <%= newProject.getSdate() %>
-<jsp:include page="../Forms/newProject.jsp" />

@@ -91,6 +91,7 @@ public class UIServlet extends HttpServlet {
 //                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
 //                        dispatcher.forward(request, response);
 //                        break;
+                        //date format {d 'yyyy-mm-dd' } , corrent date sysdate
                     case NamingConv.BUDGET:
                         request.setAttribute("mainArea", NamingConv.BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -108,7 +109,7 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.CREATEPROJECT:
                         request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
-                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                        dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
                         dispatcher.forward(request, response);
                         break;
 
@@ -128,10 +129,10 @@ public class UIServlet extends HttpServlet {
             DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
             Date startdate = format.parse(request.getParameter("sDate"));
             Date findate = format.parse(request.getParameter("fDate"));
-            Date sdate = startdate;
+            System.out.println(request.getParameter("sDate"));
             Date fdate = findate;
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, companyName, title, description, stage, sdate, fdate, projectBudget, stage);
+            Project project = new Project(projectBudget, companyName, title, description, stage, null, fdate, projectBudget, stage);
             
             con.createProject(project);
         } catch (ParseException ex) {

@@ -95,6 +95,7 @@ public class Project {
     }
 
     public void setSdate(DATE sdate) throws ParseException {
+        
         DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
         DateFormat df = new SimpleDateFormat(mydate);
         this.sdate = format.parse(sdate.toString());
