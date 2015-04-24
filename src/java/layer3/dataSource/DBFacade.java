@@ -58,6 +58,10 @@ public class DBFacade {
     public boolean createProject(Project newProject) {
         return projectManager.insert(conn, newProject);
     }
+    public String getName(int projectid){
+    
+    return projectManager.getName(conn, projectid);
+    } 
     
 //    public boolean editProject(Project project) {
 //        return projectManager.update(conn, project);

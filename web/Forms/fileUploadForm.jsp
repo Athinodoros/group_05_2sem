@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <div>
    
-    <form action="../beanHandlers/POEHandler.jsp" >
+    <form action="UIServlet" >
         <input type="file" name="file" />
         <input type="submit" value="submit" />
         <input type="email" name=""/>

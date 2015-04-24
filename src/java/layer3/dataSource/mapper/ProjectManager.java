@@ -75,7 +75,37 @@ public class ProjectManager {
         return rowsInserted == 1;
     } // End of method :: insert()
     
+    public String getName(Connection conn,int projectid){
+    String sql = "SELECT companyName,projectid FROM project WHERE projectid=?";
+    ResultSet rs = null;
+    String comp = new String();
+    String id = new String();
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, projectid);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+            comp = rs.getString("companyName");
+            id = Integer.toString(rs.getInt("ProjectId"));
+                
+            }
+            
+            return comp.concat(id);
+            
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return null;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    DBConnector.processException(ex);
+                }
+            }
+        }
     
+    }
 //    public Project getRow(Connection conn, int projectid){
 //        
 //        String sql = "SELECT * FROM project WHERE projectid = ?";
