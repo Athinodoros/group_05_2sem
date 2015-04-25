@@ -6,11 +6,13 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.utility.Convert;
+import oracle.sql.DATE;
 
 /**
  *
@@ -106,98 +108,98 @@ public class ProjectManager {
         }
     
     }
-//    public Project getRow(Connection conn, int projectid){
-//        
-//        String sql = "SELECT * FROM project WHERE projectid = ?";
-//        ResultSet rs = null;
-//        Project bean = new Project();
-//        
-//        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            stmt.setInt(1, projectid);
-//            rs = stmt.executeQuery();
-//            
-//            if (rs.next()) {
-//                bean.setProjectID(rs.getInt("projectid"));
-//                bean.setTitle(rs.getNString("title"));
-//                //bean.setFdate();
-//                //bean.setEndDate(Convert.sqlDate2Date(rs.getDate("enddate")));
-//                bean.setStage(rs.getNString("stage"));
-//                bean.setProjectBudget(rs.getInt("budget"));
-//                bean.setCompanyName(rs.getNString("companyName"));
-//                bean.setDescription(rs.getNString("description"));
+    public Project getRow(Connection conn, int projectid) throws ParseException{
+        
+        String sql = "SELECT * FROM project WHERE projectid = ?";
+        ResultSet rs = null;
+        Project bean = new Project();
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, projectid);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                bean.setProjectID(rs.getInt("projectid"));
+                bean.setTitle(rs.getNString("title"));
+                bean.setSdate(rs.getDate("sdate"));
+                bean.setFdate(rs.getDate("fdate"));
+                bean.setStage(rs.getNString("stage"));
+                bean.setProjectBudget(rs.getInt("budget"));
+                bean.setCompanyName(rs.getNString("companyName"));
+                bean.setDescription(rs.getNString("description"));
     
     
-//    
-//                
-//                int authorID = rs.getInt("authorid");
-//                UserManager userManager = new UserManager();
-//                User author = userManager.getRow(conn, authorID);
-//                bean.setAuthor(author);
-//            }
-//            
-//            return bean;
-//            
-//        } catch (SQLException e) {
-//            DBConnector.processException(e);
-//            return null;
-//        } finally {
-//            if (rs != null) {
-//                try {
-//                    rs.close();
-//                } catch (SQLException ex) {
-//                    DBConnector.processException(ex);
-//                }
-//            }
-//        }
-//    } // End of method :: getRow()
-//    
-//    
-//    public boolean delete(Connection conn, int projectid){
-//        String sql = "DELETE FROM project WHERE projectid = ?";
-//        
-//        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            stmt.setInt(1, projectid);
-//            
-//            int affected = stmt.executeUpdate();
-//            if (affected == 1) {
-//                return true;
-//            }
-//            else{
-//                return false;
-//            }
-//        } catch (SQLException e) {
-//            DBConnector.processException(e);
-//            return false;
-//        }
-//    } // End of method :: delete()
-//    
-//    
-//    public boolean update(Connection conn, Project bean){
-//        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , fdate = ?, sdate = ?, projectBudget = ?  WHERE projectid = ?";
-//        
-//        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            
-//            stmt.setString(1, bean.getCompanyName());
-//            stmt.setString(2, bean.getTitle());
-//            stmt.setString(3, bean.getDescription());
-//            stmt.setString(4, bean.getStage());
-//            stmt.setDate(5, Convert.date2SqlDate(bean.getSdate()));
-//            stmt.setDate(6, Convert.date2SqlDate(bean.getFdate()));
-//            stmt.setInt(7, bean.getProjectBudget()); 
-//            
-//            int affected = stmt.executeUpdate();
-//            if (affected == 1) {
-//                return true;
-//            }
-//            else{
-//                return false;
-//            }
-//        } catch (SQLException e) {
-//            DBConnector.processException(e);
-//            return false;
-//        }
-//    }
-    public ArrayList<Project> getAllRows(Connection conn){
+    
+                
+                int authorID = rs.getInt("authorid");
+                UserManager userManager = new UserManager();
+                User author = userManager.getRow(conn, authorID);
+                //bean.setAuthor(author);
+            }
+            
+            return bean;
+            
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return null;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    DBConnector.processException(ex);
+                }
+            }
+        }
+    } // End of method :: getRow()
+    
+    
+    public boolean delete(Connection conn, int projectid){
+        String sql = "DELETE FROM project WHERE projectid = ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, projectid);
+            
+            int affected = stmt.executeUpdate();
+            if (affected == 1) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    } // End of method :: delete()
+    
+    
+    public boolean update(Connection conn, Project bean){
+        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , fdate = ?, sdate = ?, projectBudget = ?  WHERE projectid = ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, bean.getCompanyName());
+            stmt.setString(2, bean.getTitle());
+            stmt.setString(3, bean.getDescription());
+            stmt.setString(4, bean.getStage());
+            stmt.setDate(5, Convert.date2SqlDate(bean.getSdate()));
+            stmt.setDate(6, Convert.date2SqlDate(bean.getFdate()));
+            stmt.setInt(7, bean.getProjectBudget()); 
+            
+            int affected = stmt.executeUpdate();
+            if (affected == 1) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            DBConnector.processException(e);
+            return false;
+        }
+    }
+    public ArrayList<Project> getAllRows(Connection conn) throws ParseException{
         
         String sql = "SELECT * FROM project";
         ResultSet rs = null;
@@ -212,8 +214,8 @@ public class ProjectManager {
                 Project bean = new Project();
                 bean.setProjectID(rs.getInt("projectid"));
                 bean.setTitle(rs.getNString("title"));
-                //bean.setFdate();
-                //bean.setEndDate(Convert.sqlDate2Date(rs.getDate("enddate")));
+                bean.setSdate(rs.getDate("sdate"));
+                bean.setFdate(rs.getDate("enddate"));
                 bean.setStage(rs.getNString("stage"));
                 bean.setProjectBudget(rs.getInt("budget"));
                 bean.setCompanyName(rs.getNString("companyName"));

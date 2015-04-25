@@ -94,7 +94,7 @@ public class Project {
         return sdate;
     }
 
-    public void setSdate(DATE sdate) throws ParseException {
+    public void setSdate(Date sdate) throws ParseException {
         
         DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
         DateFormat df = new SimpleDateFormat(mydate);
@@ -105,10 +105,10 @@ public class Project {
         return fdate;
     }
 
-    public void setFdate(String fdate) throws ParseException {
+    public void setFdate(Date fdate) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
         DateFormat df = new SimpleDateFormat(mydate);
-        this.fdate = format.parse(fdate);
+        this.fdate = format.parse(fdate.toString());
     }
 
     public int getProjectBudget() {
