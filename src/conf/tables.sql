@@ -10,6 +10,8 @@ drop table userInfo;
 drop table partner;
 drop table dell;
 
+DROP SEQUENCE projectSequence; 
+
 create table budget(
 quarter integer,
 qyear integer,
@@ -29,7 +31,8 @@ userID integer primary key ,
 firstname varchar(20),
 lastname varchar(20),
 country  varchar(4),
-companyName varchar(30) references partner(companyName) references dell(companyName) ,
+-- companyName varchar(30) references partner(companyName) references dell(companyName) ,
+companyName varchar(30) references partner(companyName) ,
 urole varchar(20));
 
 create table userAthentication (
@@ -41,7 +44,8 @@ email     varchar(30));
 
 create table project (
 projectID integer primary key,
-companyName varchar(30) references Partner(companyName) references dell(companyName),
+-- companyName varchar(30) references Partner(companyName) references dell(companyName),
+companyName varchar(30) references Partner(companyName),
 title varchar(40),
 description varchar(1200),
 stage varchar(40),
@@ -58,5 +62,12 @@ commentID integer primary key,
 projectID integer references project(projectID),
 userID integer,
 "comment" varchar(2000));
+
+CREATE SEQUENCE projectSequence
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  START WITH 1000
+  INCREMENT BY 1
+  CACHE 20;
 
 commit;
