@@ -137,19 +137,19 @@ public class UserAuthenticationManagerTest {
         boolean status1 = partnerManager.insert(conn, partner);
         boolean status2 = userInfoManager.insert(conn, userInfo);
         boolean status3 = userAutenticationManager.insert(conn, userAutenticantion);
-        //  Create a new user with the same userid as 'user',
-        //  but with a new user name
-        UserAuthentication userAutenciationUpdate = new UserAuthentication(userAutenticantion);
-        userAutenciationUpdate.setPassword(PASSWORD + "_Update");
-        // Update the new user's data in the database
-        boolean status4 = userAutenticationManager.update(conn, userAutenciationUpdate);
+        
+        // Change password
+        UserAuthentication userAuthenciationUpdate = new UserAuthentication(userAutenticantion);
+        userAuthenciationUpdate.setPassword(PASSWORD + "_Update");
+        // Update the user's data in the database
+        boolean status4 = userAutenticationManager.update(conn, userAuthenciationUpdate);
         
         UserAuthentication result = userAutenticantion;
         if( status1 & status2 & status3 & status4) {
-            result = userAutenticationManager.getRow(conn, userAutenciationUpdate.getUname());
+            result = userAutenticationManager.getRow(conn, userAuthenciationUpdate.getUname());
         }
         
-        assertFalse(userAutenticantion.getUname().equals(result.getUname()));
+        assertFalse(userAutenticantion.getPassword().equals(result.getPassword()));
     } // End of Method :: testUpdate()
     
     
