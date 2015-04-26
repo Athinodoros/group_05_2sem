@@ -60,7 +60,7 @@ public class UserInfoManager {
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
         String sql2
-                = "select projectSequence.nextval " //= "select orderseq.nextval  "
+                = "select UserInfoSequence.nextval " //= "select orderseq.nextval  "
                 + "from dual";                      // <- this (dual) is a dummy table, and it is needed
                                                     // because of the select statemant (oracle data-base only)
         //--------------------------------------------------------------------------------
