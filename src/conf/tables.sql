@@ -11,6 +11,7 @@ drop table partner;
 drop table dell;
 
 DROP SEQUENCE projectSequence; 
+DROP SEQUENCE UserInfoSequence;
 
 create table budget(
 quarter integer,
@@ -36,8 +37,10 @@ companyName varchar(30) references partner(companyName) ,
 urole varchar(20));
 
 create table userAthentication (
-userID integer primary key references userInfo(userID),
-uname     varchar(30),
+--userID integer primary key references userInfo(userID),
+--uname     varchar(30),
+uname   varchar(30) primary key,
+userID integer references userInfo(userID),
 password     varchar(32),
 email     varchar(30));
 
@@ -64,6 +67,13 @@ userID integer,
 "comment" varchar(2000));
 
 CREATE SEQUENCE projectSequence
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  START WITH 1000
+  INCREMENT BY 1
+  CACHE 20;
+
+CREATE SEQUENCE UserInfoSequence
   MINVALUE 1
   MAXVALUE 999999999999999999999999999
   START WITH 1000
