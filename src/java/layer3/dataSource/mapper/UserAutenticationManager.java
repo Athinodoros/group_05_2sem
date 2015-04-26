@@ -54,10 +54,7 @@ public class UserAutenticationManager {
     
     
     
-    
-    
-    
-     public boolean insert(Connection conn, UserAuthentication bean) { 
+    public boolean insert(Connection conn, UserAuthentication bean) { 
 
         int rowsInserted = 0;
         
@@ -90,22 +87,62 @@ public class UserAutenticationManager {
     } // End of method :: insert()
     
      
-      public UserAuthentication getRow(Connection conn, int userid) { 
+     
+//    public UserAuthentication getRow(Connection conn, int userid) { 
+//
+//        String sql = "SELECT * FROM userAthentication WHERE userID = ?";
+//        ResultSet rs = null;
+//
+//        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+//            
+//            stmt.setInt(1, userid);
+//            rs = stmt.executeQuery();
+//            
+//            if (rs.next()) {
+//                UserInfoManager uim = new UserInfoManager();
+//                UserAuthentication bean = new UserAuthentication();
+//                
+//                bean.setUserInfo(uim.getRow(conn, rs.getInt("userID")));
+//                bean.setUname(rs.getString("uname"));
+//                bean.setUname(rs.getString("password"));
+//                bean.setUname(rs.getString("email"));
+//               
+//                
+//                return bean;
+//            } else {
+//                return null;
+//            }
+//
+//        } catch ( SQLException e) {
+//            DBConnector.processException(e);
+//            return null;
+//        } finally {
+//            if (rs != null) {
+//                try {
+//                    rs.close();
+//                } catch (SQLException e) {
+//                    DBConnector.processException(e);
+//                }
+//            }
+//        }
+//    } // End of method :: getRow() 
+     
+      public UserAuthentication getRow(Connection conn, String uname) { 
 
-        String sql = "SELECT * FROM userAthentication WHERE userID = ?";
+        String sql = "SELECT * FROM userAthentication WHERE uname = ?";
         ResultSet rs = null;
 
         try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
             
-            stmt.setInt(1, userid);
+            stmt.setString(1, uname);
             rs = stmt.executeQuery();
             
             if (rs.next()) {
                 UserInfoManager uim = new UserInfoManager();
                 UserAuthentication bean = new UserAuthentication();
                 
+                bean.setUname(uname);
                 bean.setUserInfo(uim.getRow(conn, rs.getInt("userID")));
-                bean.setUname(rs.getString("uname"));
                 bean.setUname(rs.getString("password"));
                 bean.setUname(rs.getString("email"));
                
@@ -131,14 +168,48 @@ public class UserAutenticationManager {
      
      
     
+//    public boolean update(Connection conn, UserAuthentication bean) { 
+//
+//        String sql
+//                = "UPDATE userAthentication SET "
+//                + "uname = ?, "
+//                + "password = ?, "
+//                + "email = ? "
+//                + "WHERE userID = ?";
+//        
+//        
+//        
+//        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+//
+//            UserInfoManager uim = new UserInfoManager();
+//            
+//            stmt.setString(1, bean.getUname());
+//            stmt.setString(2, bean.getPassword());
+//            stmt.setString(3, bean.getEmail());
+//            stmt.setInt(4, bean.getUserInfo().getUserID());
+//        
+//            int affected = stmt.executeUpdate();
+//            if (affected == 1) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//
+//        } catch (SQLException e) {
+//            DBConnector.processException(e);
+//            return false;
+//        }
+//    } // End of method :: update()
+    
+    
     public boolean update(Connection conn, UserAuthentication bean) { 
 
         String sql
                 = "UPDATE userAthentication SET "
-                + "uname = ?, "
+                + "userID = ?, "
                 + "password = ?, "
                 + "email = ? "
-                + "WHERE userID = ?";
+                + "WHERE uname = ?";
         
         
         
@@ -146,10 +217,11 @@ public class UserAutenticationManager {
 
             UserInfoManager uim = new UserInfoManager();
             
-            stmt.setString(1, bean.getUname());
+            stmt.setInt(1, bean.getUserInfo().getUserID());
             stmt.setString(2, bean.getPassword());
             stmt.setString(3, bean.getEmail());
-            stmt.setInt(4, bean.getUserInfo().getUserID());
+            stmt.setString(4, bean.getUname());
+            
         
             int affected = stmt.executeUpdate();
             if (affected == 1) {
@@ -164,16 +236,35 @@ public class UserAutenticationManager {
         }
     } // End of method :: update()
     
+//    public boolean delete(Connection conn, int userid) { 
+//        
+//        String sql = "DELETE FROM userAthentication WHERE userID = ?";
+//        
+//        try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
+//        
+//            stmt.setInt(1, userid);
+//            int effected = stmt.executeUpdate();
+//
+//            if(effected == 1) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//       
+//        } catch (SQLException e) {
+//            DBConnector.processException(e);
+//            return false;
+//        }
+//    } // End of method :: Delete() 
     
     
-    
-    public boolean delete(Connection conn, int userid) { 
+     public boolean delete(Connection conn, String uname) { 
         
-        String sql = "DELETE FROM userAthentication WHERE userID = ?";
+        String sql = "DELETE FROM userAthentication WHERE uname = ?";
         
         try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
         
-            stmt.setInt(1, userid);
+            stmt.setString(1, uname);
             int effected = stmt.executeUpdate();
 
             if(effected == 1) {
@@ -187,33 +278,8 @@ public class UserAutenticationManager {
             return false;
         }
     } // End of method :: Delete() 
-    
-//    public boolean deleteAllRows(Connection conn, String confirm) { 
-//        
-//        if( confirm.equalsIgnoreCase("yes") ) {
-//            
-//        
-//            String sql = "DELETE FROM userAthentication";
-//
-//            try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
-//
-//                int effected = stmt.executeUpdate();
-//
-//                if(effected == 1) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//
-//            } catch (SQLException e) {
-//                DBConnector.processException(e);
-//                return false;
-//            }
-//        }
-//        else {
-//            return false;
-//        }
-//    } // End of method :: DeleteAllRows() 
+     
+     
     
     public int deleteAllRows(Connection conn, String confirm){
         

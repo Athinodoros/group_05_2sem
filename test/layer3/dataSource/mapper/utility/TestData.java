@@ -45,7 +45,7 @@ public final class TestData {
     // UserAutentication
     // ------
     //public static final int USER_ID = 0;
-    public static final String UNAME = "unameTest";
+    public static final String UNAME = "unameTest" + random.nextInt(100_000_000);
     public static final String PASSWORD = "passwordTest";
     public static final String EMAIL = "email@Test.com";
     

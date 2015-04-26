@@ -11,8 +11,8 @@ package layer2.domain.bean;
  */
 public class UserAuthentication {
     
-    private UserInfo userInfo; // primary key (userID)
-    private String uname;
+    private UserInfo userInfo;  // foreign key
+    private String uname;       // primary key (userID)
     private String password;
     private String email;
 

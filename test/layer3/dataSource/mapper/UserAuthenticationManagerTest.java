@@ -96,7 +96,7 @@ public class UserAuthenticationManagerTest {
         
         boolean result = false;
         if(status1 & status2 & status3) {
-            result = userAutenticationManager.delete(conn, userAutenticantion.getUserInfo().getUserID());
+            result = userAutenticationManager.delete(conn, userAutenticantion.getUname());
         }
         
         assertTrue(result);
@@ -117,7 +117,7 @@ public class UserAuthenticationManagerTest {
         
         UserAuthentication result = null;
         if( status1 & status2 & status3 ) {
-            result = userAutenticationManager.getRow(conn, userAutenticantion.getUserInfo().getUserID());
+            result = userAutenticationManager.getRow(conn, userAutenticantion.getUname());
         }
         
         assertNotNull(result);
@@ -140,13 +140,13 @@ public class UserAuthenticationManagerTest {
         //  Create a new user with the same userid as 'user',
         //  but with a new user name
         UserAuthentication userAutenciationUpdate = new UserAuthentication(userAutenticantion);
-        userAutenciationUpdate.setUname(UNAME + "_Update");
+        userAutenciationUpdate.setPassword(PASSWORD + "_Update");
         // Update the new user's data in the database
         boolean status4 = userAutenticationManager.update(conn, userAutenciationUpdate);
         
         UserAuthentication result = userAutenticantion;
         if( status1 & status2 & status3 & status4) {
-            result = userAutenticationManager.getRow(conn, userAutenciationUpdate.getUserInfo().getUserID());
+            result = userAutenticationManager.getRow(conn, userAutenciationUpdate.getUname());
         }
         
         assertFalse(userAutenticantion.getUname().equals(result.getUname()));
@@ -156,41 +156,41 @@ public class UserAuthenticationManagerTest {
     /**
      * Test of getAllRows method, of class UserAutenticationManager.
      */
-//    @Test
-//    public void test_E_UserAuthenticationManager_getAllRows() {
-//        System.out.println("Testing :: CompanyManager.getAllRows()");
-//        
-//        //  Making sure I first insert all the necessary rows,
-//        //  before I try to get something out
-//        boolean status1 = partnerManager.insert(conn, partner);
-//        
-//        boolean status2 = userInfoManager.insert(conn, userInfo);
-//        UserInfo userInfo2 = new UserInfo(userInfo);
-//        boolean status3 = userInfoManager.insert(conn, userInfo2);
-//       
-//        UserAuthentication user1 = new UserAuthentication(userAutenticantion);
-//        userAutenticantion.setUserInfo(userInfo2);
-//        UserAuthentication user2 = new UserAuthentication(userAutenticantion);
-//        
-//        boolean status4 = userAutenticationManager.insert(conn, user1);
-//        boolean status5 = userAutenticationManager.insert(conn, user2);
-//
-//        ArrayList<UserAuthentication> rows = new ArrayList();
-//        
-//        if( status1 & status2 & status3 & status4 & status5) {
-//            //  Retrieve the two inserted companies from the database
-//            rows = new ArrayList<>( userAutenticationManager.getAllRows(conn) );
-//        }
-//        
-//        int expResult   = 2;
-//        int result      = rows.size();
-//
-//        assertTrue(expResult == result);
-//    }
+    @Test
+    public void test_E_UserAuthenticationManager_getAllRows() {
+        System.out.println("Testing :: CompanyManager.getAllRows()");
+        
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to get something out
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = userInfoManager.insert(conn, userInfo);
+        
+        UserAuthentication user1 = new UserAuthentication(userAutenticantion);
+        UserAuthentication user2 = new UserAuthentication(userAutenticantion);
+        
+        // create one user with TWO different usernames (unames)
+        user1.setUname(UNAME + "_ONE");
+        user2.setUname(UNAME + "_TWO");
+        
+        boolean status3 = userAutenticationManager.insert(conn, user1);
+        boolean status4 = userAutenticationManager.insert(conn, user2);
+
+        ArrayList<UserAuthentication> rows = new ArrayList();
+       
+        if( status1 & status2 & status3 & status4) {
+            //  Retrieve the two inserted companies from the database
+            rows = new ArrayList<>( userAutenticationManager.getAllRows(conn) );
+        }
+        
+        int expResult   = 2;
+        int result      = rows.size();
+
+        assertTrue(expResult == result);
+    }
 
     
     @Test
-    public void testDeleteAllRows(){
+    public void test_F_UserAuthenticationManager_testDeleteAllRows(){
         
         //  Making sure I first insert all the necessary rows,
         //  before I try to update something
@@ -198,15 +198,13 @@ public class UserAuthenticationManagerTest {
         boolean status2 = userInfoManager.insert(conn, userInfo);
         boolean status3 = userAutenticationManager.insert(conn, userAutenticantion);
         
-        System.out.println(status1 + " " + status2 + " " + status3);
+        
         int rowsDeleted = 0;
         if(status1 & status2 & status3) {
-            rowsDeleted = userAutenticationManager.deleteAllRows(conn, "yes");
-            System.out.println("rows deleted" + rowsDeleted);
             
+            rowsDeleted = userAutenticationManager.deleteAllRows(conn, "yes");
         }
-        
         assertTrue(rowsDeleted == 1);
     }
     
-}
+} // End of Class
