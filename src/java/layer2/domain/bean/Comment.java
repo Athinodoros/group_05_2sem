@@ -11,8 +11,8 @@ package layer2.domain.bean;
  */
 public class Comment {
     private int commentID;
-    private int projectID;
-    private int userID;
+    private Project projectID;
+    private User userID;
     private String comment;
 
     public Comment() {
@@ -26,22 +26,23 @@ public class Comment {
         this.commentID = commentID;
     }
 
-    public int getProjectID() {
+    public Project getProjectID() {
         return projectID;
     }
 
-    public void setProjectID(int projectID) {
+    public void setProjectID(Project projectID) {
         this.projectID = projectID;
     }
 
-    public int getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
+    
     public String getComment() {
         return comment;
     }
