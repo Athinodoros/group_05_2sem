@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -134,7 +133,7 @@ public class UIServlet extends HttpServlet {
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String stage = request.getParameter("stage");
-            DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
+            DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             Date sdate = format.parse(request.getParameter("sDate"));
             Date fdate = format.parse(request.getParameter("fDate"));
             System.out.println(request.getParameter("sDate"));
@@ -142,6 +141,7 @@ public class UIServlet extends HttpServlet {
             Project project = new Project(projectBudget, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
             ctrl.createProject(project);
         } catch (ParseException ex) {
+            //error handling here later
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
