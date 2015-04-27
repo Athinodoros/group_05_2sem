@@ -132,12 +132,11 @@ public class UIServlet extends HttpServlet {
             String description = request.getParameter("description");
             String stage = request.getParameter("stage");
             DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
-            Date startdate = format.parse(request.getParameter("sDate"));
-            Date findate = format.parse(request.getParameter("fDate"));
+            Date sdate = format.parse(request.getParameter("sDate"));
+            Date fdate = format.parse(request.getParameter("fDate"));
             System.out.println(request.getParameter("sDate"));
-            Date fdate = findate;
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, null, title, description, stage, stage, stage, projectBudget);
+            Project project = new Project(projectBudget, null, title, description, stage, sdate, fdate, projectBudget);
             con.createProject(project);
         } catch (ParseException ex) {
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
