@@ -64,7 +64,7 @@ create table comments (
 commentID integer primary key,
 projectID integer references project(projectID),
 userID integer,
-"comment" varchar(2000));
+comments varchar(2000));
 
 CREATE SEQUENCE projectSequence
   MINVALUE 1
@@ -83,7 +83,7 @@ CREATE SEQUENCE UserInfoSequence
 CREATE SEQUENCE commentSequence
   MINVALUE 1
   MAXVALUE 999999999999999999999999999
-  START WITH 1
+  START WITH 1000
   INCREMENT BY 1
   CACHE 20;
 
