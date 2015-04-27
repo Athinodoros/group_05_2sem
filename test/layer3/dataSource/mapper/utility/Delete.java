@@ -27,6 +27,7 @@ public class Delete {
     private static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
     private static final BudgetManager budgetManager = new BudgetManager();
     private static final ProjectManager projectManager = new ProjectManager();
+    private static final commentManager commentManager = new commentManager();
     
     private Delete() {}
     
@@ -40,6 +41,7 @@ public class Delete {
         userAutenticationManager.deleteAllRows(conn, confirm);
         userInforManager.deleteAllRows(conn, confirm);
         partnerManager.deleteAllRows(conn, confirm);
+        commentManager.deleteAllRows(conn, confirm);
 //        //projectManager.deleteAllRows(conn, confirm);
 //        userManager.deleteAllRows(conn, confirm);
 //        companyManager.deleteAllRows(conn, confirm);

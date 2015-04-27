@@ -21,6 +21,7 @@ public final class TestData {
     public static final PartnerManager partnerManager = new PartnerManager();
     public static final UserInfoManager userInfoManager = new UserInfoManager();
     public static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
+    public static final commentManager commentMan = new commentManager();
     
     
     // Company
@@ -67,9 +68,10 @@ public final class TestData {
     public static final Partner partner = new Partner(COMPANY_NAME, COMPANY_ID);
     public static final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, PARTNER, U_ROLE);
     public static final UserAuthentication userAutenticantion = new UserAuthentication(userInfo, UNAME, PASSWORD, EMAIL);
-    public static final Project project = new Project(USER_ID, partner, TITLE_PROJECT, DESCRIPTION, STAGE, SDATE, FDATE, PROJECT_BUDGET);
+    public static final Project project = new Project(USER_ID, partner, TITLE_PROJECT, DESCRIPTION, STAGE, SDATE.toString(), FDATE.toString(), PROJECT_BUDGET);
     
-    
+    //make some comment bean 
+    public static final Comment com1 = new Comment(random.nextInt(100_000), project ,new User(LAST_NAME, COUNTRY, EMAIL, COUNTRY, PASSWORD, COUNTRY, UNAME, FIRST_NAME, USER_ID), "comment comment comment comment comment comment comment ");
 //     Calendar cal = Calendar.getInstance();
 //    Date today = cal.getTime();
 //    //startDate = today;
