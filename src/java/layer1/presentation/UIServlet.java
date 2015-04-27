@@ -138,8 +138,7 @@ public class UIServlet extends HttpServlet {
             System.out.println(request.getParameter("sDate"));
             Date fdate = findate;
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, companyName, title, description, stage, null, fdate, projectBudget, stage);
-            
+            Project project = new Project(projectBudget, null, title, description, stage, fdate, fdate, projectBudget);
             con.createProject(project);
         } catch (ParseException ex) {
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);

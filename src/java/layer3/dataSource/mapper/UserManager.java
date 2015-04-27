@@ -8,11 +8,8 @@ package layer3.dataSource.mapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import layer2.domain.bean.Reseller;
 import layer2.domain.bean.User;
-import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.DBConnector;
-import layer3.dataSource.utility.Convert;
 
 /**
  *
