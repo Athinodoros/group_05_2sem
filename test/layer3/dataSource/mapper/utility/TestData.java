@@ -5,13 +5,11 @@
  */
 package layer3.dataSource.mapper.utility;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
-import layer2.domain.bean.Partner;
-import layer2.domain.bean.UserAuthentication;
-import layer2.domain.bean.UserInfo;
-import layer3.dataSource.mapper.PartnerManager;
-import layer3.dataSource.mapper.UserAutenticationManager;
-import layer3.dataSource.mapper.UserInfoManager;
+import layer2.domain.bean.*;
+import layer3.dataSource.mapper.*;
 
 /**
  *
@@ -19,6 +17,7 @@ import layer3.dataSource.mapper.UserInfoManager;
  */
 public final class TestData {
     
+    public static final ProjectManager projectManager = new ProjectManager();
     public static final PartnerManager partnerManager = new PartnerManager();
     public static final UserInfoManager userInfoManager = new UserInfoManager();
     public static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
@@ -49,12 +48,41 @@ public final class TestData {
     public static final String PASSWORD = "passwordTest";
     public static final String EMAIL = "email@Test.com";
     
+    // Project
+    // ----------
+    //
+    private static final Calendar cal = Calendar.getInstance();
+    private static final Date today = cal.getTime();
+    
+    //public static final USER_ID = 0;
+    public static final String TITLE_PROJECT = "Title_Project";
+    //public static final Partner partner;
+    public static final String DESCRIPTION = "Description";
+    public static final String STAGE = "Stage";
+    public static final Date SDATE = today;
+    public static final Date FDATE = today;
+    public static final int PROJECT_BUDGET = 1000;
+    
     // Make some beans
     public static final Partner partner = new Partner(COMPANY_NAME, COMPANY_ID);
     public static final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, PARTNER, U_ROLE);
     public static final UserAuthentication userAutenticantion = new UserAuthentication(userInfo, UNAME, PASSWORD, EMAIL);
+    public static final Project project = new Project(USER_ID, partner, TITLE_PROJECT, DESCRIPTION, STAGE, SDATE, FDATE, PROJECT_BUDGET);
     
     
+//     Calendar cal = Calendar.getInstance();
+//    Date today = cal.getTime();
+//    //startDate = today;
+//
+////    cal.add(MONTH, 1);
+////    Date oneMonthLater = cal.getTime();
+//    //endDate = oneMonthLater;
+//    
+//    
+//    Project project = new Project(USER_ID, partner, "Title_Project", "Descriiption", "Stage", today, today, 1000);
+//    
+//    
+//    
 
 private TestData() {
         //this prevents even the native class from 

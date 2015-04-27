@@ -18,35 +18,49 @@ import oracle.sql.DATE;
  */
 public class Project {
 
-    private String mydate = "yyyy-mm-dd";
-    private int projectID;
-    private String companyName;
+    
+    private int projectID;      // primary key
+    private Partner partner;    // foreign key (companyName)
     private String title;
     private String description;
     private String stage;
     private Date sdate;
     private Date fdate;
     private int projectBudget;
-    private boolean hasPOE;
-    private String comments;
+//    private boolean hasPOE;
+//    private String comments;
 
-    //private d
-    //private User user;
-    public Project() {
 
+//    DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
+//        DateFormat df = new SimpleDateFormat(mydate);
+//        this.sdate = format.parse(sdate.toString());
+    
+//    DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
+//        DateFormat df = new SimpleDateFormat(mydate);
+//        this.fdate = format.parse(fdate.toString());
+
+    public Project(){}
+    
+    public Project(Project p) {
+        this.projectID = p.projectID;
+        this.partner = p.partner;
+        this.title = p.title;
+        this.description = p.description;
+        this.stage = p.stage;
+        this.sdate = p.sdate;
+        this.fdate = p.fdate;
+        this.projectBudget = p.projectBudget;
     }
 
-    public Project(int projectID, String companyName, String title, String description, String stage, Date sdate, Date fdate, int projectBudget, String comments) {
-
+    public Project(int projectID, Partner partner, String title, String description, String stage, Date sdate, Date fdate, int projectBudget) {
         this.projectID = projectID;
-        this.companyName = companyName;
+        this.partner = partner;
         this.title = title;
         this.description = description;
         this.stage = stage;
         this.sdate = sdate;
         this.fdate = fdate;
         this.projectBudget = projectBudget;
-
     }
 
     public int getProjectID() {
@@ -55,15 +69,14 @@ public class Project {
 
     public void setProjectID(int projectID) {
         this.projectID = projectID;
-
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public Partner getPartner() {
+        return partner;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
 
     public String getTitle() {
@@ -94,21 +107,16 @@ public class Project {
         return sdate;
     }
 
-    public void setSdate(Date sdate) throws ParseException {
-        
-        DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
-        DateFormat df = new SimpleDateFormat(mydate);
-        this.sdate = format.parse(sdate.toString());
+    public void setSdate(Date sdate) {
+        this.sdate = sdate;
     }
 
     public Date getFdate() {
         return fdate;
     }
 
-    public void setFdate(Date fdate) throws ParseException {
-        DateFormat format = new SimpleDateFormat("yyyy,mm,dd", Locale.ENGLISH);
-        DateFormat df = new SimpleDateFormat(mydate);
-        this.fdate = format.parse(fdate.toString());
+    public void setFdate(Date fdate) {
+        this.fdate = fdate;
     }
 
     public int getProjectBudget() {
@@ -121,7 +129,9 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" + "projectID=" + projectID + ", companyName=" + companyName + ", title=" + title + ", description=" + description + ", stage=" + stage + ", sdate=" + sdate + ", fdate=" + fdate + ", projectBudget=" + projectBudget + '}';
+        return "Project{" + "projectID=" + projectID + ", partner=" + partner + ", title=" + title + ", description=" + description + ", stage=" + stage + ", sdate=" + sdate + ", fdate=" + fdate + ", projectBudget=" + projectBudget + '}';
     }
+    
+    
 
-}
+} // End of class
