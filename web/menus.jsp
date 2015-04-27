@@ -22,7 +22,7 @@
         <% UserInfo user = (UserInfo) session.getAttribute("user"); %>
         <% if (user.getUrole().equals(NamingConv.ADMIN) && true) { %>
         <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview of all projects <span class="sr-only">(current)</span></a></li>
+            <li><a href><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.PROJECT_OVERVIEW %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Overview of all projects</button></form></a></li>
 
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.CREATECOMPANY %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Add company</button></form></a></li>
 

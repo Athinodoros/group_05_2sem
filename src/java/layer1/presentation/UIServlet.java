@@ -171,7 +171,7 @@ public class UIServlet extends HttpServlet {
     
     private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
         String fileDirec = "../" + con.getFileDirec(Integer.parseInt(request.getParameter("projectid")));
-
+        //Code taken from ....
         if (ServletFileUpload.isMultipartContent(request)) {
             try {
                 List<FileItem> multiparts = new ServletFileUpload(

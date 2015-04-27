@@ -165,60 +165,14 @@ public class ProjectManager {
             return false;
         }
     }
-    
-    
-//    public ArrayList<Project> getAllRows(Connection conn) throws ParseException{
-//        
-//        String sql = "SELECT * FROM project";
-//        ResultSet rs = null;
-//        
-//        ArrayList<Project> allproj = new ArrayList<Project>();
-//        
-//        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            //stmt.setInt(1, projectid);
-//            rs = stmt.executeQuery();
-//            
-//            while (rs.next()) {
-//                Project bean = new Project();
-//                bean.setProjectID(rs.getInt("projectid"));
-//                bean.setTitle(rs.getNString("title"));
-//                bean.setSdate(rs.getDate("sdate"));
-//                bean.setFdate(rs.getDate("enddate"));
-//                bean.setStage(rs.getNString("stage"));
-//                bean.setProjectBudget(rs.getInt("budget"));
-//                bean.setCompanyName(rs.getNString("companyName"));
-//                bean.setDescription(rs.getNString("description"));
-//                
-//                int authorID = rs.getInt("authorid");
-//                UserManager userManager = new UserManager();
-//                User author = userManager.getRow(conn, authorID);
-//                //bean.setAuthor(author);
-//                allproj.add(bean);
-//            }
-//            return allproj;
-//            
-//            
-//        } catch (SQLException e) {
-//            DBConnector.processException(e);
-//            return null;
-//        } finally {
-//            if (rs != null) {
-//                try {
-//                    rs.close();
-//                } catch (SQLException ex) {
-//                    DBConnector.processException(ex);
-//                }
-//            }
-//        }
-//    }// End of method :: update()
+   
     
     
     public Collection getAllRows(Connection conn) { 
 
         Collection<Project> rows = new ArrayList();
         
-//        String sql = "SELECT userid, uname, password, email, country, urole, company FROM users";
-//        String sql = "SELECT * FROM users";
+
         String sql = "SELECT * FROM project";
         
         try (   Statement stmt = conn.createStatement();
