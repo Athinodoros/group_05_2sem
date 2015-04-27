@@ -59,8 +59,8 @@ public class DBFacade {
         return projectManager.insert(conn, newProject);
     }
     public String getName(int projectid){
-    
-    return projectManager.getName(conn, projectid);
+    //------------------------ needs fix? --------------------------------
+    return projectManager.getRow(conn, projectid).getTitle();
     } 
     
 //    public boolean editProject(Project project) {
