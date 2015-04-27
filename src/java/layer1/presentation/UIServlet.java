@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import layer2.domain.Controller;
 import layer2.domain.bean.Project;
 import layer2.domain.interfaces.NamingConv;
+import layer3.dataSource.mapper.ProjectManager;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -56,7 +57,7 @@ public class UIServlet extends HttpServlet {
             ctrl = new Controller();
             session.setAttribute("Controller", ctrl);
         }
-
+        
         String command = (String) request.getParameter("command");
         String main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
@@ -111,7 +112,7 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.CREATEPROJECT:
                         request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
-                        dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
 
@@ -133,7 +134,7 @@ public class UIServlet extends HttpServlet {
             System.out.println(request.getParameter("sDate"));
             Date fdate = findate;
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, null, title, description, stage, fdate, fdate, projectBudget);
+            Project project = new Project(projectBudget, null, title, description, stage, stage, stage, projectBudget);
             con.createProject(project);
         } catch (ParseException ex) {
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
