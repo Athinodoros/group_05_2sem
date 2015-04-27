@@ -8,11 +8,12 @@
 <!DOCTYPE html>
 <div>
    
-    <form action="UIServlet" >
+    <form action="UIServlet" method ="POST" enctype="multipart/form-data">
         <input type="file" name="file" />
         <input type="submit" value="submit" />
         <input type="email" name=""/>
     </form>
+    
     
     
     
