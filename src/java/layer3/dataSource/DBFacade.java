@@ -9,12 +9,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import layer2.domain.bean.Project;
-import layer2.domain.bean.User;
+import layer2.domain.bean.UserInfo;
 import layer3.dataSource.mapper.CompanyManager;
 import layer3.dataSource.mapper.ProjectManager;
-import layer3.dataSource.mapper.UserManager;
-//import layer2.domain.bean.Admin;
-//import layer3.dataSource.mapper.AdminManager;
+import layer3.dataSource.mapper.UserInfoManager;
 
 /**
  *
@@ -22,10 +20,9 @@ import layer3.dataSource.mapper.UserManager;
  */
 public class DBFacade {
     
-    //private AdminManager adminManager;
     private CompanyManager  companyManager;
     private ProjectManager  projectManager;
-    private UserManager     userManager;
+    private UserInfoManager     userInfoManager;
     
     private Connection conn;
     
@@ -36,10 +33,9 @@ public class DBFacade {
         DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
         conn = DBConnector.getInstance().getConnection();
         
-        //adminManager = new AdminManager();
         companyManager  = new CompanyManager();
         projectManager  = new ProjectManager();
-        userManager     = new UserManager();
+        userInfoManager     = new UserInfoManager();
     }
     
     public static DBFacade getInstance() {
@@ -66,15 +62,17 @@ public class DBFacade {
     
     //dummy log-in methods start here
     
-    public User getAdmin(){
-        return userManager.getRow(conn, 83);
+    public UserInfo getAdmin(){
+        return userInfoManager.getRow(conn, 83);
     }
     
-    public User getReseller(){
-        return userManager.getRow(conn, 84);
+    public UserInfo getReseller(){
+        return userInfoManager.getRow(conn, 84);
     }
     
     //dummy log-in methods end here
+    
+    
     
 //    public ArrayList<Project> getAllProjects(){
 //    

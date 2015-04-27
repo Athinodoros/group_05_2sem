@@ -7,7 +7,7 @@ package layer2.domain;
 
 import java.util.ArrayList;
 import layer2.domain.bean.Project;
-import layer2.domain.bean.User;
+import layer2.domain.bean.UserInfo;
 import layer3.dataSource.DBFacade;
 
 /**
@@ -31,14 +31,22 @@ public class Controller {
 //        return dbf.editProject(project);
 //    }
     
+    
+//    public ArrayList<Project> getAllProjects(){
+//        return dbf.getAllProjects();
+//    }
+    
+    
     //dummy methods start here
-    public User getAdmin(){
+    public UserInfo getAdmin(){
         return dbf.getAdmin();
     }
     
-    public User getReseller(){
+    public UserInfo getReseller(){
         return dbf.getReseller();
     }
+    //dummy methods end here
+    
     
     public String getFileDirec(int projectid){
         Project project = dbf.getProject(projectid);
@@ -47,9 +55,5 @@ public class Controller {
     
     }
     
-//    public ArrayList<Project> getAllProjects(){
-//        return dbf.getAllProjects();
-//    }
-    //dummy methods end here
     
 }

@@ -115,7 +115,10 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-
+                    case NamingConv.PROJECT_OVERVIEW:
+                        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+                        viewAllProjects();
+                        break;
                 }
                 break;
         }
@@ -142,6 +145,12 @@ public class UIServlet extends HttpServlet {
 
     }
 
+    
+    private void viewAllProjects() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
         String fileDirec = "../" + con.getFileDirec(Integer.parseInt(request.getParameter("projectid")));
 

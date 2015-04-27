@@ -16,7 +16,7 @@
         <h1>Hello World!</h1>
         <table>
             
-            <c:forEach var="Project" items="${list}">
+            <c:forEach var="Project" items="${projects}">
             <tr>
                 <td>Title:${Project.getTitle()}</td>
                 <td>Company Name:${Project.getCompanyName}</td>

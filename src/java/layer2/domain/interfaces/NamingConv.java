@@ -39,6 +39,7 @@ public class NamingConv {
     public static final String CREATECOMPANY = "createCompany";
     public static final String USERFORM = "userForm";
     public static final String NEWPROJECTBEAN = "projectbean";
+    public static final String PROJECT_OVERVIEW = "projectOverview";
     //
 
     //-------------------------------------Setters and getters----------------------------------------------//
