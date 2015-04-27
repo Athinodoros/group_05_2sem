@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import layer2.domain.Controller;
 import layer2.domain.bean.Project;
+import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.mapper.ProjectManager;
 import org.apache.commons.fileupload.FileItem;
@@ -78,7 +79,8 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "createProject":
-                createProject(request, response, ctrl);
+                UserInfo currentUser = (UserInfo) session.getAttribute("user");
+                createProject(request, response, ctrl, currentUser);
                 break;
 
             case "reloadMain":
@@ -124,10 +126,9 @@ public class UIServlet extends HttpServlet {
         }
     }
 
-    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
+    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller con, UserInfo user) throws ServletException, IOException {
 
         try {
-            String companyName = request.getParameter("companyName");
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String stage = request.getParameter("stage");
@@ -136,7 +137,7 @@ public class UIServlet extends HttpServlet {
             Date fdate = format.parse(request.getParameter("fDate"));
             System.out.println(request.getParameter("sDate"));
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, null, title, description, stage, sdate, fdate, projectBudget);
+            Project project = new Project(projectBudget, user.getCompany(), title, description, stage, sdate, fdate, projectBudget);
             con.createProject(project);
         } catch (ParseException ex) {
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
