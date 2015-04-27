@@ -12,7 +12,7 @@
     <form style="lead" action="../beanHandlers/commentHandler.jsp" >
         <input type="text" name="commentID" value="" hidden/>
         <input type="text" name="projectID" value="${Project.projectID}" hidden/>
-        <input type="text" name="usedID" value="${User.userID}" hidden />
+        <input type="text" name="usedID" value="${UserInfo.userID}" hidden />
         <a> Write a comment :</a></br> <textarea name="comment" rows="4" cols="30"></textarea>
         </br> <input type="submit" value="Submit comment" /></br>
         

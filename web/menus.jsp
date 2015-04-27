@@ -18,9 +18,9 @@
 
     <body>
         <%@page  import="layer2.domain.*"  %>
-        <%@page  import="layer2.domain.bean.User"  %>
-        <% User user = (User) session.getAttribute("user"); %>
-        <% if (user.getRole().equals(NamingConv.ADMIN) && true) { %>
+        <%@page  import="layer2.domain.bean.UserInfo"  %>
+        <% UserInfo user = (UserInfo) session.getAttribute("user"); %>
+        <% if (user.getUrole().equals(NamingConv.ADMIN) && true) { %>
         <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview of all projects <span class="sr-only">(current)</span></a></li>
 
@@ -33,13 +33,13 @@
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.PROJECTLIST %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">View pending projects</button></form></a></li>
             <li><a href="#">View approved projects</a></li>
         </ul>
-        <% } else if (user.getRole().equals(NamingConv.RESELLER)) { %>
+        <% } else if (user.getUrole().equals(NamingConv.PARTNER)) { %>
         <ul class="nav nav-sidebar ">
             <li class="active"><a href="#">Overview of projects <span class="sr-only">(current)</span></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.BUDGET %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Company Budget</button></form></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.CREATEPROJECT %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Launch new project</button></form></a></li>
         </ul>
-        <% } else if (user.getRole().equals(NamingConv.PARTNER)) { %>
+        <% } else if (user.getUrole().equals(NamingConv.PARTNER)) { %>
         <ul class="nav nav-sidebar ">
             <li class="active"><a href="#">Overview of projects <span class="sr-only">(current)</span></a></li>
             <li><a href="#">POE Inspect</a></li>
