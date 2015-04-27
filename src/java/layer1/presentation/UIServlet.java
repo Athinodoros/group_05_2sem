@@ -87,7 +87,7 @@ public class UIServlet extends HttpServlet {
             case "reloadMain":
                 //dummy code start
                 switch (main) {
-                    case NamingConv.PROJECTLIST:
+                    case NamingConv.PROJECTLIST:                        
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
