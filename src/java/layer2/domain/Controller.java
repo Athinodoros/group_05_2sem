@@ -40,8 +40,10 @@ public class Controller {
         return dbf.getReseller();
     }
     
-    public String getName(int projectid){
-    return dbf.getName(projectid);
+    public String getFileDirec(int projectid){
+        Project project = dbf.getProject(projectid);
+        String companyName = project.getPartner().getCompanyName();
+        return companyName + projectid;
     
     }
     
