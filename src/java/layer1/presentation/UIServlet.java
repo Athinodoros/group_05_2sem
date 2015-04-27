@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -27,7 +28,6 @@ import layer2.domain.Controller;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
-import layer3.dataSource.mapper.ProjectManager;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -62,6 +62,7 @@ public class UIServlet extends HttpServlet {
         String command = (String) request.getParameter("command");
         String main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
+        UserInfo currentUser;
         switch (command) {
             case "log-in":
                 //dummy code starts here
@@ -79,7 +80,7 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "createProject":
-                UserInfo currentUser = (UserInfo) session.getAttribute("user");
+                currentUser = (UserInfo) session.getAttribute("user");
                 createProject(request, response, ctrl, currentUser);
                 break;
 
@@ -119,14 +120,15 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.PROJECT_OVERVIEW:
                         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
-                        viewAllProjects();
+                        currentUser = (UserInfo) session.getAttribute("user");
+                        viewAllProjects(request, response, ctrl, currentUser);
                         break;
                 }
                 break;
         }
     }
 
-    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller con, UserInfo user) throws ServletException, IOException {
+    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
 
         try {
             String title = request.getParameter("title");
@@ -137,8 +139,8 @@ public class UIServlet extends HttpServlet {
             Date fdate = format.parse(request.getParameter("fDate"));
             System.out.println(request.getParameter("sDate"));
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, user.getCompany(), title, description, stage, sdate, fdate, projectBudget);
-            con.createProject(project);
+            Project project = new Project(projectBudget, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
+            ctrl.createProject(project);
         } catch (ParseException ex) {
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -146,8 +148,24 @@ public class UIServlet extends HttpServlet {
     }
 
     
-    private void viewAllProjects() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void viewAllProjects(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
+        ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
+        if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
+            request.setAttribute("projects", allProjects);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+            dispatcher.forward(request, response);
+        }
+        else if (currentUser.getUrole().equals(NamingConv.PARTNER)) {
+            ArrayList<Project> onlyPartnerProjects = new ArrayList<Project>();
+            for (Project project : allProjects) {
+                if (project.getPartner().getCompanyName().equals(currentUser.getCompany().getCompanyName())) {
+                    onlyPartnerProjects.add(project);
+                }
+            }
+            request.setAttribute("projects", onlyPartnerProjects);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+            dispatcher.forward(request, response);
+        }
     }
     
     

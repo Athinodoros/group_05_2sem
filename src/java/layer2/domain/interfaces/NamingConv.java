@@ -13,10 +13,8 @@ public class NamingConv {
 
     //roles
     public static final String ROLE = "role";
-    public static final String RESELLER = "reseller";
     public static final String PARTNER = "partner";
     public static final String ADMIN = "admin";
-    public static final String SUPER_USER = "superUser"; //not sure if we'll use it
 
     //attributes
     public static final String USER_NAME = "userName";
@@ -47,9 +45,6 @@ public class NamingConv {
         return ROLE;
     }
 
-    public static String getRESELLER() {
-        return RESELLER;
-    }
 
     public static String getPARTNER() {
         return PARTNER;
@@ -59,9 +54,6 @@ public class NamingConv {
         return ADMIN;
     }
 
-    public static String getSUPER_USER() {
-        return SUPER_USER;
-    }
 
     public static String getUSER_NAME() {
         return USER_NAME;
