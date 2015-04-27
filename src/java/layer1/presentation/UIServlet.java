@@ -76,18 +76,14 @@ public class UIServlet extends HttpServlet {
                 //validate credentials
                 break;
 
-//            case "initialForm":
-//                dispatcher = request.getRequestDispatcher("Forms/initialForm.jsp");
-//                dispatcher.forward(request, response);
-//                break;
             case "createProject":
                 createProject(request, response, ctrl);
                 break;
 
             case "reloadMain":
-                //dummy code start
+
                 switch (main) {
-                    case NamingConv.PROJECTLIST:                        
+                    case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
@@ -97,7 +93,7 @@ public class UIServlet extends HttpServlet {
 //                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
 //                        dispatcher.forward(request, response);
 //                        break;
-                        //date format {d 'yyyy-mm-dd' } , corrent date sysdate
+                    //date format {d 'yyyy-mm-dd' } , corrent date sysdate
                     case NamingConv.BUDGET:
                         request.setAttribute("mainArea", NamingConv.BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -120,7 +116,6 @@ public class UIServlet extends HttpServlet {
                         break;
 
                 }
-                //dummy code end
                 break;
         }
     }
@@ -143,50 +138,37 @@ public class UIServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
 
     }
-    private void Upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
-    String fileDirec = "../"+con.getName(Integer.parseInt(request.getParameter("projectid")));
-     
-                if(ServletFileUpload.isMultipartContent(request)){
-	            try {
-	                List<FileItem> multiparts = new ServletFileUpload(
-	                                         new DiskFileItemFactory()).parseRequest(request);
-	               
-	                for(FileItem item : multiparts){
-	                    if(!item.isFormField()){
-	                        String name = new File(item.getName()).getName();
-	                        item.write( new File(fileDirec + File.separator + name));
-	                    }
-	                }
-	            
-	               //File uploaded successfully
-	               request.setAttribute("message", "File Uploaded Successfully");
-	            } catch (Exception ex) {
-	               request.setAttribute("message", "File Upload Failed due to " + ex);
-	            }         
-	          
-	        }else{
-	            request.setAttribute("message",
-	                                 "Sorry this Servlet only handles file upload request");
-	        }
-	     
+
+    private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
+        String fileDirec = "../" + con.getFileDirec(Integer.parseInt(request.getParameter("projectid")));
+
+        if (ServletFileUpload.isMultipartContent(request)) {
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(
+                        new DiskFileItemFactory()).parseRequest(request);
+
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {
+                        String name = new File(item.getName()).getName();
+                        item.write(new File(fileDirec + File.separator + name));
+                    }
+                }
+
+                //File uploaded successfully
+                request.setAttribute("message", "File Uploaded Successfully");
+            } catch (Exception ex) {
+                request.setAttribute("message", "File Upload Failed due to " + ex);
+            }
+
+        } else {
+            request.setAttribute("message",
+                    "Sorry this Servlet only handles file upload request");
+        }
+
 	        //request.getRequestDispatcher("/result.jsp").forward(request, response);
-	      
-	    }
-	        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

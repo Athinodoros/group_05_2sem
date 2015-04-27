@@ -58,16 +58,14 @@ public class DBFacade {
     public boolean createProject(Project newProject) {
         return projectManager.insert(conn, newProject);
     }
-    public String getName(int projectid){
-    //------------------------ needs fix? --------------------------------
-    return projectManager.getRow(conn, projectid).getTitle();
-    } 
     
-//    public boolean editProject(Project project) {
-//        return projectManager.update(conn, project);
-//    }
+    public Project getProject(int projectid){
+        return projectManager.getRow(conn, projectid);
+    }
     
-    //dummy methods start here
+    
+    //dummy log-in methods start here
+    
     public User getAdmin(){
         return userManager.getRow(conn, 83);
     }
@@ -76,10 +74,17 @@ public class DBFacade {
         return userManager.getRow(conn, 84);
     }
     
+    //dummy log-in methods end here
+    
 //    public ArrayList<Project> getAllProjects(){
 //    
 //        return projectManager.getAllRows(conn);
 //    }
-    //dummy methods end here
+    
+    
+//    public boolean editProject(Project project) {
+//        return projectManager.update(conn, project);
+//    }
+    
     
 } // End of Class :: DBFacade
