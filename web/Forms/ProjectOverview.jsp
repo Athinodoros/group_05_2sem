@@ -18,10 +18,16 @@
             
             <c:forEach var="Project" items="${projects}">
             <tr>
-                <td>Title:${Project.getTitle()}</td>
-                <td>Company Name:${Project.getPartner().getCompanyName()}</td>
-                <td>Project Budget:${Project.getProjectBudget()}</td>
-                
+                <td>Title</td>
+                <td>Company Name</td>
+                <td>Project Budget</td>
+                <td>Start Date</td>
+            </tr>
+            <tr>
+                <td>${Project.getTitle()}</td>
+                <td>${Project.getPartner().getCompanyName()}</td>
+                <td>${Project.getProjectBudget()}</td>
+                <td>${Project.getSdate()}</td>
             </tr>
             
             
