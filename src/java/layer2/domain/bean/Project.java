@@ -5,22 +5,9 @@
  */
 package layer2.domain.bean;
 
-<<<<<<< HEAD
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-<<<<<<< Updated upstream
-import java.sql.Date;
-import java.util.Locale;
-import oracle.sql.DATE;
-=======
 import java.util.Date;
 
->>>>>>> Stashed changes
-=======
-import java.util.Date;
->>>>>>> 707b5f4df588cbd3dc5f54529a20bda33d3b24c8
+
 
 /**
  *
@@ -34,8 +21,8 @@ public class Project {
     private String title;
     private String description;
     private String stage;
-    private String sdate;
-    private String fdate;
+    private Date sdate;
+    private Date fdate;
     private int projectBudget;
 //    private boolean hasPOE;
 //    private String comments;
@@ -62,7 +49,7 @@ public class Project {
         this.projectBudget = p.projectBudget;
     }
 
-    public Project(int projectID, Partner partner, String title, String description, String stage, String sdate, String fdate, int projectBudget) {
+    public Project(int projectID, Partner partner, String title, String description, String stage, Date sdate, Date fdate, int projectBudget) {
         this.projectID = projectID;
         this.partner = partner;
         this.title = title;
@@ -113,19 +100,19 @@ public class Project {
         this.stage = stage;
     }
 
-    public String getSdate() {
+    public Date getSdate() {
         return sdate;
     }
 
-    public void setSdate(String sdate) {
+    public void setSdate(Date sdate) {
         this.sdate = sdate;
     }
 
-    public String getFdate() {
+    public Date getFdate() {
         return fdate;
     }
 
-    public void setFdate(String fdate) {
+    public void setFdate(Date fdate) {
         this.fdate = fdate;
     }
 

@@ -6,9 +6,7 @@
 package layer3.dataSource.mapper;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import layer2.domain.bean.Partner;
@@ -52,31 +50,22 @@ public class ProjectManager {
                 // ToDo - 
             }
             //--------------------------------
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            
             //== insert tuple
             stmt.setInt(1, bean.getProjectID());
             stmt.setString(2, bean.getPartner().getCompanyName());
             stmt.setString(3, bean.getTitle());
             stmt.setString(4, bean.getDescription());
             stmt.setString(5, bean.getStage());
-<<<<<<< Updated upstream
-            stmt.setDate(6, bean.getSdate());
-            stmt.setDate(7, bean.getFdate());
-=======
-            stmt.setDate(6, new java.sql.Date(df.parse(bean.getSdate()).getTime()));
-            stmt.setDate(7, new java.sql.Date(df.parse(bean.getFdate()).getTime()));
-//            stmt.setDate(6, Convert.date2SqlDate(bean.getSdate()));
-//            stmt.setDate(7, Convert.date2SqlDate(bean.getFdate()));
->>>>>>> Stashed changes
+            stmt.setDate(6, Convert.date2SqlDate(bean.getSdate()));
+            stmt.setDate(7, Convert.date2SqlDate(bean.getFdate()));
             stmt.setInt(8, bean.getProjectBudget());            
             rowsInserted = stmt.executeUpdate();
 
         } catch (SQLException e) {
             DBConnector.processException(e);
             return false;
-        } catch(ParseException e){
-            e.printStackTrace();
-        }finally {
+        } finally {
             if (keys != null) {
                 try {
                     keys.close();
@@ -108,8 +97,8 @@ public class ProjectManager {
                 bean.setTitle(rs.getString("title"));
                 bean.setDescription(rs.getString("description"));
                 bean.setStage(rs.getString("stage"));
-                bean.setSdate(rs.getString("sdate"));
-                bean.setFdate(rs.getString("fdate"));
+                bean.setSdate(rs.getDate("sdate"));
+                bean.setFdate(rs.getDate("fdate"));
                 bean.setProjectBudget(rs.getInt("projectBudget"));
             }
             
@@ -151,26 +140,16 @@ public class ProjectManager {
     
     
     public boolean update(Connection conn, Project bean){
-<<<<<<< Updated upstream
         String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate =TO_DATE(?,'yyyy-mm-dd'), fdate = TO_DATE(?,'yyyy-mm-dd'), projectBudget = ?  WHERE projectID = ?";
         
-=======
-        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate = ?, fdate = ?, projectBudget = ?  WHERE projectID = ?";
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
->>>>>>> Stashed changes
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, bean.getPartner().getCompanyName());
             stmt.setString(2, bean.getTitle());
             stmt.setString(3, bean.getDescription());
             stmt.setString(4, bean.getStage());
-<<<<<<< Updated upstream
-            stmt.setDate(5, bean.getSdate());
-            stmt.setDate(6, bean.getFdate());
-=======
-            stmt.setDate(5,  new java.sql.Date(df.parse(bean.getSdate()).getTime()));
-            stmt.setDate(6, new java.sql.Date(df.parse(bean.getFdate()).getTime()));
->>>>>>> Stashed changes
+            stmt.setDate(5, Convert.date2SqlDate(bean.getSdate()));
+            stmt.setDate(6, Convert.date2SqlDate(bean.getFdate()));
             stmt.setInt(7, bean.getProjectBudget()); 
             stmt.setInt(8, bean.getProjectID());
             
@@ -183,9 +162,6 @@ public class ProjectManager {
             }
         } catch (SQLException e) {
             DBConnector.processException(e);
-            return false;
-        } catch (ParseException e){
-            e.printStackTrace();
             return false;
         }
     }
@@ -208,14 +184,14 @@ public class ProjectManager {
 //                User bean = new User();
                 PartnerManager pm = new PartnerManager();
                 Project bean = new Project();
-                DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                
                 bean.setProjectID(rs.getInt("projectID"));
                 bean.setPartner(pm.getRow(conn, rs.getString("companyName")));
                 bean.setTitle(rs.getString("title"));
                 bean.setDescription(rs.getString("description"));
                 bean.setStage(rs.getString("stage"));
-                bean.setSdate(bean.getSdate());
-                bean.setFdate(bean.getFdate());
+                bean.setSdate(rs.getDate("sdate"));
+                bean.setFdate(rs.getDate("fdate"));
                 bean.setProjectBudget(rs.getInt("projectBudget"));
                 
                 rows.add(bean);
