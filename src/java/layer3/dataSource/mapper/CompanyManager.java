@@ -17,7 +17,7 @@ import layer3.dataSource.DBConnector;
 public class CompanyManager {
     
      public Collection getAllRows(Connection conn) { 
-
+         
         Collection<Reseller> rows = new ArrayList();
         
         String sql = "SELECT companyname, budget FROM companies";
