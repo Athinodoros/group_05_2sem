@@ -7,10 +7,7 @@ package layer3.dataSource.mapper;
 
 import java.sql.Connection;
 import java.util.*;
-//import static java.util.Calendar.MONTH;
-//import layer2.domain.bean.Reseller;
 import layer2.domain.bean.Project;
-//import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
 import layer3.dataSource.mapper.utility.Delete;
@@ -31,18 +28,6 @@ public class ProjectManagerTest {
 
     private static Connection conn;
 
-//    Calendar cal = Calendar.getInstance();
-//    Date today = cal.getTime();
-//    //startDate = today;
-//
-////    cal.add(MONTH, 1);
-////    Date oneMonthLater = cal.getTime();
-//    //endDate = oneMonthLater;
-//    
-//    ProjectManager projectManager = new ProjectManager();
-//    Project project = new Project(USER_ID, partner, "Title_Project", "Descriiption", "Stage", today, today, 1000);
-//    
-
     public ProjectManagerTest() {}
 
     @BeforeClass
@@ -60,9 +45,8 @@ public class ProjectManagerTest {
 
     @Before
     public void setUp() {
-        // projectManager.deleteAllRows(conn, "yes");
-        Delete.database(conn, "yes");
         
+        Delete.database(conn, "yes");
     }
 
     @After
@@ -99,7 +83,7 @@ public class ProjectManagerTest {
         boolean status2 = projectManager.insert(conn, project);
         
         Project result = null;
-        System.out.println(status1 + " " + status2);
+        
         if (status1 & status2) {
             result = projectManager.getRow(conn, project.getProjectID());
         }
@@ -134,7 +118,7 @@ public class ProjectManagerTest {
         boolean status2 = projectManager.insert(conn, project);
         
         Project projectUpdated = new Project(project);
-        projectUpdated.setDescription("kdsjflj");
+        projectUpdated.setDescription(DESCRIPTION + "_Updated");
         
         boolean status3 = projectManager.update(conn, projectUpdated);
         
@@ -178,6 +162,20 @@ public class ProjectManagerTest {
         assertTrue(expResult == result);
     }
     
+    @Test
+    public void test_F_UserInfoManager_DeleteAllRows() {
+        System.out.println("Testing :: ProjectManager.DeleteAllRows");
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to update something
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = projectManager.insert(conn, project);
+       
+        int rowsDeleted = 0;
+        if(status1 & status2) {
+            rowsDeleted = projectManager.deleteAllRows(conn, "yes");
+        }
+        assertTrue(rowsDeleted == 1);
+    }
     
     
 } // End of class :: 

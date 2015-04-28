@@ -8,7 +8,6 @@ package layer3.dataSource.mapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-//import layer2.domain.bean.Reseller;
 import layer2.domain.bean.UserInfo;
 import layer3.dataSource.DBConnector;
 
@@ -210,32 +209,8 @@ public class UserInfoManager {
         }
     } // End of method :: Delete() 
 
-//    public boolean deleteAllRows(Connection conn, String confirm) {
-//
-//        if (confirm.equalsIgnoreCase("yes")) {
-//
-//            String sql = "DELETE FROM userInfo";
-//
-//            try (PreparedStatement stmt = conn.prepareStatement(sql);) {
-//
-//                int effected = stmt.executeUpdate();
-//
-//                if (effected == 1) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//
-//            } catch (SQLException e) {
-//                DBConnector.processException(e);
-//                return false;
-//            }
-//        } else {
-//            return false;
-//        }
-//    } // End of method :: Delete() 
 
-     public int deleteAllRows(Connection conn, String confirm){
+    public int deleteAllRows(Connection conn, String confirm){
         
         if( confirm.equalsIgnoreCase("yes")) {
             
@@ -253,4 +228,4 @@ public class UserInfoManager {
     }
     
     
-}
+} // End of Class
