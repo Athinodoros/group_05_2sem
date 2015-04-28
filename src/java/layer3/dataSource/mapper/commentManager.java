@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import layer2.domain.bean.Budget;
 import layer2.domain.bean.Comment;
 import layer3.dataSource.DBConnector;
@@ -21,8 +22,9 @@ import layer3.dataSource.DBConnector;
 public class commentManager {
 
     public boolean insert(Connection conn, Comment bean) {
+        
         int rowsInserted = 0;
-        String sql1 = "INSERT into comments (commentID, projectID, userID, comments) VALUES (?,?,?,?) )";
+        String sql1 = "INSERT into comments (commentID, projectID, userID, comments) VALUES (?,?,?,?)";
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
         String sql2
@@ -36,7 +38,7 @@ public class commentManager {
                 PreparedStatement prep2 = conn.prepareStatement(sql2);) {
             //== (Henrik's code) get unique key
             //--------------------------------
-            keys = prep1.executeQuery();
+            keys = prep2.executeQuery();
             if (keys.next()) {
                 bean.setCommentID(keys.getInt(1)); // <- get the key from dummy table (dual)
             } else {
@@ -66,13 +68,18 @@ public class commentManager {
     } //end of method ->Insert
 
     public Comment getRow(Connection conn, int commentID) {
+        
         String sql1 = "SELECT * FROM comments WHERE commentID = ? ";
         ResultSet rs = null;
+        
         try (PreparedStatement prep = conn.prepareStatement(sql1);) {
+            
             prep.setInt(1, commentID);
             rs = prep.executeQuery();
+            
             if (rs.next()) {
                 Comment bean = new Comment();
+                
                 UserInfoManager um = new UserInfoManager();
                 ProjectManager pm = new ProjectManager();
 
@@ -100,16 +107,21 @@ public class commentManager {
         }
     }//end of method -> getrow
 
-    public ArrayList<Comment> getProjectComments(Connection conn, int projectID) {
-        ArrayList<Comment> commentList = new ArrayList<Comment>();
+    public Collection<Comment> getAllProjectComments(Connection conn, int projectID) {
+        
+        Collection<Comment> rows = new ArrayList();
+        
         String sql = "SELECT * FROM comments WHERE projectID = ? ";
         ResultSet rs = null;
 
         try (PreparedStatement prep = conn.prepareStatement(sql);) {
+            
             prep.setInt(1, projectID);
             rs = prep.executeQuery();
+            
             while (rs.next()) {
                 Comment bean = new Comment();
+                
                 ProjectManager pm = new ProjectManager();
                 UserInfoManager um = new UserInfoManager();
 
@@ -117,9 +129,11 @@ public class commentManager {
                 bean.setProject(pm.getRow(conn, rs.getInt("projectID")));
                 bean.setUser(um.getRow(conn, rs.getInt("userID")));
                 bean.setComment(rs.getString("comments"));
-                commentList.add(bean);
+                
+                rows.add(bean);
             }
-            return commentList;
+            return rows;
+            
         } catch (SQLException e) {
             DBConnector.processException(e);
         } finally {
@@ -131,8 +145,10 @@ public class commentManager {
                 }
             }
         }
-        return commentList;
+        return rows;
     }
+    
+    
     public int deleteAllRows(Connection conn,String confirm){
          if( confirm.equalsIgnoreCase("yes")) {
             

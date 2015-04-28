@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -128,9 +129,14 @@ public class UIServlet extends HttpServlet {
     }
 
     private void createProject(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
-        Project project = (Project) request.getAttribute("newProject");
-        //deal with date
-        //ctrl.createProject(project);
+        HttpSession session = request.getSession();
+        Project project = (Project) session.getAttribute("newProject");
+        project.setPartner(currentUser.getCompany());
+        project.setStage(NamingConv.PRE_APPROVED);
+        String sdate = (String) session.getAttribute("sdate");
+        String fdate = (String) session.getAttribute("fdate");
+        handleDates(project, sdate, fdate);
+        ctrl.createProject(project);
         request.setAttribute("command", "reloadMain");
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -158,6 +164,30 @@ public class UIServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
             dispatcher.forward(request, response);
         }
+    }
+    
+    
+    public void handleDates(Project project, String sdate, String fdate){
+        Calendar cal = Calendar.getInstance();
+        int year;
+        int month;
+        int day;
+        
+        String[] startDate = sdate.split("-");
+        year = Integer.parseInt(startDate[0]);
+        month = Integer.parseInt(startDate[1]) - 1;
+        day = Integer.parseInt(startDate[2]);
+        cal.set(year, month, day);
+        Date sDate = cal.getTime();
+        project.setSdate(sDate);
+        
+        String[] finDate = fdate.split("-");
+        year = Integer.parseInt(finDate[0]);
+        month = Integer.parseInt(finDate[1]) - 1;
+        day = Integer.parseInt(finDate[2]);
+        cal.set(year, month, day);
+        Date fDate = cal.getTime();
+        project.setFdate(fDate);
     }
     
     

@@ -32,12 +32,12 @@ public class Delete {
         
         // Delete all data in the database (should be inserted in drop order)
         
+        commentManager.deleteAllRows(conn, confirm);
         projectManager.deleteAllRows(conn, confirm);
         budgetManager.deleteAllRows(conn, confirm);
         userAutenticationManager.deleteAllRows(conn, confirm);
         userInforManager.deleteAllRows(conn, confirm);
         partnerManager.deleteAllRows(conn, confirm);
-        commentManager.deleteAllRows(conn, confirm);
     }
     
     
