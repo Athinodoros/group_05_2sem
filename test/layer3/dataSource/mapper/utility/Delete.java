@@ -18,10 +18,6 @@ import layer3.dataSource.mapper.*;
  */
 public class Delete {
     
-//    private static final CompanyManager companyManager  = new CompanyManager();
-//    private static final UserManager    userManager     = new UserManager();
-//    private static final ProjectManager projectManager  = new ProjectManager();
-    
     private static final PartnerManager partnerManager = new PartnerManager();
     private static final UserInfoManager userInforManager = new UserInfoManager();
     private static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
@@ -34,17 +30,14 @@ public class Delete {
     
     public static void database(Connection conn, String confirm ) {
         
-        // Delete all data in the database
+        // Delete all data in the database (should be inserted in drop order)
         
-        projectManager.deleteAllRows(conn, "yes");
+        projectManager.deleteAllRows(conn, confirm);
         budgetManager.deleteAllRows(conn, confirm);
         userAutenticationManager.deleteAllRows(conn, confirm);
         userInforManager.deleteAllRows(conn, confirm);
         partnerManager.deleteAllRows(conn, confirm);
         commentManager.deleteAllRows(conn, confirm);
-//        //projectManager.deleteAllRows(conn, confirm);
-//        userManager.deleteAllRows(conn, confirm);
-//        companyManager.deleteAllRows(conn, confirm);
     }
     
     
