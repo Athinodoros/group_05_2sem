@@ -12,28 +12,31 @@ import java.io.File;
  * @author Athinodoros
  */
 public class POE {
+    
+    private Project project;
     private String filePath;
-    private String fileName;
-    private File file;
 
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-    private int userID;
-    private int projectID;
-
-    public POE(String filePath, String fileName, int userID, int projectID) {
+    
+    // Constructors ->
+    public POE() {}
+    
+    public POE(Project project, String filePath) {
+        this.project = project;
         this.filePath = filePath;
-        this.fileName = fileName;
-        this.userID = userID;
-        this.projectID = projectID;
     }
 
-    public POE() {
+    public POE(POE p) {
+        this.project = p.project;
+        this.filePath = p.filePath;
+    }
+
+    // Getters and setters -> 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public String getFilePath() {
@@ -43,30 +46,12 @@ public class POE {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public int getProjectID() {
-        return projectID;
-    }
-
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
-    }
     
+    // ->
+    @Override
+    public String toString() {
+        return "POE{" + "project=" + project + ", filePath=" + filePath + '}';
+    }
+
     
-}
+} // End of Class

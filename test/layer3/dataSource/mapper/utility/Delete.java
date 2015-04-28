@@ -24,6 +24,7 @@ public class Delete {
     private static final BudgetManager budgetManager = new BudgetManager();
     private static final ProjectManager projectManager = new ProjectManager();
     private static final commentManager commentManager = new commentManager();
+    private static final POEManager poeManager = new POEManager();
     
     private Delete() {}
     
@@ -32,6 +33,7 @@ public class Delete {
         
         // Delete all data in the database (should be inserted in drop order)
         
+        poeManager.deleteAllRows(conn, confirm);
         commentManager.deleteAllRows(conn, confirm);
         projectManager.deleteAllRows(conn, confirm);
         budgetManager.deleteAllRows(conn, confirm);

@@ -17,6 +17,7 @@ import layer3.dataSource.mapper.*;
  */
 public final class TestData {
     
+    public static final POEManager poeManager = new POEManager();
     public static final ProjectManager projectManager = new ProjectManager();
     public static final PartnerManager partnerManager = new PartnerManager();
     public static final UserInfoManager userInfoManager = new UserInfoManager();
@@ -72,31 +73,22 @@ public final class TestData {
     // - private static final UserInfo userInfo;
     public static final String COMMENT = "This is a very small comment";
     
+    // POE
+    // ------------
+    //
+    // - public static final int POE_ID = 0;
+    public static final String FILEPATH = "filePath";
+    
     
     // Make some beans
+    // ------------
+    //
     public static final Partner partner = new Partner(COMPANY_NAME, COMPANY_ID);
     public static final UserInfo userInfo = new UserInfo(USER_ID, FIRST_NAME, LAST_NAME, COUNTRY, PARTNER, U_ROLE);
     public static final UserAuthentication userAutenticantion = new UserAuthentication(userInfo, UNAME, PASSWORD, EMAIL);
     public static final Project project = new Project(USER_ID, partner, UNAME, FIRST_NAME, UNAME, today, today, COMPANY_ID);
-    
-    //make some comment bean 
-   // public static final Comment com1 = new Comment(COMMENT_ID, project ,new UserInfo(USER_ID, LAST_NAME, COUNTRY, COUNTRY, partner, UNAME), "comment comment comment comment comment comment comment ");
     public static final Comment comment = new Comment(COMMENT_ID, project , userInfo, COMMENT);
-
-
-//     Calendar cal = Calendar.getInstance();
-//    Date today = cal.getTime();
-//    //startDate = today;
-//
-////    cal.add(MONTH, 1);
-////    Date oneMonthLater = cal.getTime();
-//    //endDate = oneMonthLater;
-//    
-//    
-//    Project project = new Project(USER_ID, partner, "Title_Project", "Descriiption", "Stage", today, today, 1000);
-//    
-//    
-//    
+    public static final POE poe = new POE(project, FILEPATH);
 
 private TestData() {
         //this prevents even the native class from 
