@@ -14,20 +14,26 @@
     </head>
     <body>
         <h1>Project overview</h1>
-        <table>
-            
+        <table>            
             <c:forEach var="Project" items="${projects}">
             <tr>
-                <td>Title</td>
-                <td>Company Name</td>
-                <td>Project Budget</td>
-                <td>Start Date</td>
+                <td>TITLE</td>
+                <br>
+                <td>COMPANY NAME</td>
+                <br>
+                <td>PROJECT BUDGET</td>
+                <br>
+                <td>START DATE</td>
+                <br>
+                <td>END DATE</td>
+                <br>
             </tr>
             <tr>
-                <td>${Project.getTitle()}</td>
-                <td>${Project.getPartner().getCompanyName()}</td>
-                <td>${Project.getProjectBudget()}</td>
-                <td>${Project.getSdate()}</td>
+                <td>${Project.getTitle()}</td><br>
+                <td>${Project.getPartner().getCompanyName()}</td><br>
+                <td>${Project.getProjectBudget()}</td><br>
+                <td>${Project.getSdate()}</td><br>
+                <td>${Project.getFdate()}</td><br>                
             </tr>
             
             
