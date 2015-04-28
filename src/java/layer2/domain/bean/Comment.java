@@ -12,13 +12,13 @@ package layer2.domain.bean;
 public class Comment {
     private int commentID;
     private Project project;
-    private User user;
+    private UserInfo user;
     private String comment;
 
     public Comment() {
     }
 
-    public Comment(int commentID, Project project, User user, String comment) {
+    public Comment(int commentID, Project project, UserInfo user, String comment) {
         this.commentID = commentID;
         this.project = project;
         this.user = user;
@@ -42,11 +42,11 @@ public class Comment {
         this.project = projectID;
     }
 
-    public User getUser() {
+    public UserInfo getUser() {
         return user;
     }
 
-    public void setUser(User userID) {
+    public void setUser(UserInfo userID) {
         this.user = userID;
     }
 

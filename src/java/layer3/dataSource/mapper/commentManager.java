@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import layer2.domain.bean.Budget;
 import layer2.domain.bean.Comment;
-import layer2.domain.bean.User;
 import layer3.dataSource.DBConnector;
 
 /**
@@ -74,7 +73,7 @@ public class commentManager {
             rs = prep.executeQuery();
             if (rs.next()) {
                 Comment bean = new Comment();
-                UserManager um = new UserManager();
+                UserInfoManager um = new UserInfoManager();
                 ProjectManager pm = new ProjectManager();
 
                 bean.setCommentID(commentID);
@@ -112,7 +111,7 @@ public class commentManager {
             while (rs.next()) {
                 Comment bean = new Comment();
                 ProjectManager pm = new ProjectManager();
-                UserManager um = new UserManager();
+                UserInfoManager um = new UserInfoManager();
 
                 bean.setCommentID(rs.getInt("commentID"));
                 bean.setProject(pm.getRow(conn, rs.getInt("projectID")));
