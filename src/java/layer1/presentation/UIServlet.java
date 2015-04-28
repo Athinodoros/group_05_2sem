@@ -135,7 +135,7 @@ public class UIServlet extends HttpServlet {
         project.setStage(NamingConv.PRE_APPROVED);
         String sdate = (String) session.getAttribute("sdate");
         String fdate = (String) session.getAttribute("fdate");
-        dealWithDates(project, sdate, fdate);
+        handleDates(project, sdate, fdate);
         ctrl.createProject(project);
         request.setAttribute("command", "reloadMain");
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
@@ -167,7 +167,7 @@ public class UIServlet extends HttpServlet {
     }
     
     
-    public void dealWithDates(Project project, String sdate, String fdate){
+    public void handleDates(Project project, String sdate, String fdate){
         Calendar cal = Calendar.getInstance();
         int year;
         int month;
