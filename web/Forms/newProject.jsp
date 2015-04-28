@@ -9,20 +9,18 @@
 <!DOCTYPE html>
 <link href="../bootstrap.min.css" rel="stylesheet" />
 <div style="line-height: 2em; padding: 10px;">
-    <form style="" action="UIServlet" method="POST">
+
+    <form style="" action="beanHandlers/newProjectsHandler.jsp" method="POST">
+
         <a>Title: </a></br><input type="text" name="title" value="" required=""/></br>
-        <a>Description : </a><br><textarea name="description" rows="4" cols="20">
+        <a>Description : </a><br><textarea name="description" rows="4" cols="20" required="">
         </textarea></br>
-        <input name="command" value=<%=NamingConv.CREATEPROJECT%> hidden=""/>
         <a>Starting date : </a></br>  <input type="date" name="startdate" value="" required=""/></br>
         <a>Finishing date : </a></br>  <input type="date" name="findate" value="" required=""/></br>
-        <a>Budget request : </a></br><input type="number" name="title" value="" required=""/></br>
-        this is my form
+        <a>Budget request : </a></br><input type="number" name="projectBudget" value="" required=""/></br>
         <input type="submit" value="Create Project" />
+
     </form>
-    <jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
-    <jsp:setProperty name="newProject" property="*" />
-    <%= newProject.getTitle()%>
-    <%= newProject.getSdate()%>
     
+>>>>>>> origin/master
 </div>
