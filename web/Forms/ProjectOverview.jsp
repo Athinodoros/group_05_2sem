@@ -13,27 +13,28 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Project overview</h1>
+        
         <table>            
             <c:forEach var="Project" items="${projects}">
             <tr>
-                <td>TITLE</td>
-                <br>
-                <td>COMPANY NAME</td>
-                <br>
-                <td>PROJECT BUDGET</td>
-                <br>
-                <td>START DATE</td>
-                <br>
-                <td>END DATE</td>
-                <br>
+                <title>Project overview</title>
+                <th>TITLE</th>
+                <br><br>
+                <th>COMPANY NAME</th>
+                <br><br>
+                <th>PROJECT BUDGET</th>
+                <br><br>
+                <th>START DATE</th>
+                <br><br>
+                <th>END DATE</th>
+                <br><br>
             </tr>
             <tr>
-                <td>${Project.getTitle()}</td><br>
-                <td>${Project.getPartner().getCompanyName()}</td><br>
-                <td>${Project.getProjectBudget()}</td><br>
-                <td>${Project.getSdate()}</td><br>
-                <td>${Project.getFdate()}</td><br>                
+                <td>${Project.getTitle()}</td><br><br>
+                <td>${Project.getPartner().getCompanyName()}</td><br><br>
+                <td>${Project.getProjectBudget()}</td><br><br>
+                <td>${Project.getSdate()}</td><br><br>
+                <td>${Project.getFdate()}</td><br><br>                
             </tr>
             
             
