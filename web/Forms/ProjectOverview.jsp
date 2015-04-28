@@ -13,14 +13,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Project overview</h1>
         <table>
             
             <c:forEach var="Project" items="${projects}">
             <tr>
                 <td>Title:${Project.getTitle()}</td>
-                <td>Company Name:${Project.getCompanyName}</td>
-                <td>Project Budget:${Project.getProjectBudget}</td>
+                <td>Company Name:${Project.getPartner().getCompanyName()}</td>
+                <td>Project Budget:${Project.getProjectBudget()}</td>
                 
             </tr>
             
