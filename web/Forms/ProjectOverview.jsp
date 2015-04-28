@@ -9,44 +9,48 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+    th, td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
+                
+        
     </head>
     <body>
-        
-        <table>            
+        <h1>Project overview</h1>
+        <table class="overview">            
             <c:forEach var="Project" items="${projects}">
             <tr>
-                <title>Project overview</title>
                 <th>TITLE</th>
-                <br><br>
+                
                 <th>COMPANY NAME</th>
-                <br><br>
+                
                 <th>PROJECT BUDGET</th>
-                <br><br>
+                
                 <th>START DATE</th>
-                <br><br>
+                
                 <th>END DATE</th>
-                <br><br>
+                
             </tr>
             <tr>
-                <td>${Project.getTitle()}</td><br><br>
-                <td>${Project.getPartner().getCompanyName()}</td><br><br>
-                <td>${Project.getProjectBudget()}</td><br><br>
-                <td>${Project.getSdate()}</td><br><br>
-                <td>${Project.getFdate()}</td><br><br>                
+                <td>${Project.getTitle()}</td>
+                <td>${Project.getPartner().getCompanyName()}</td>
+                <td>${Project.getProjectBudget()}</td>
+                <td>${Project.getSdate()}</td>
+                <td>${Project.getFdate()}</td>                
             </tr>
             
             
             </c:forEach>
-            
-            
-            
-            
         </table>
-        
-        
-        
-        
     </body>
 </html>
