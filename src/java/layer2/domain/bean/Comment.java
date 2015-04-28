@@ -25,6 +25,12 @@ public class Comment {
         this.comment = comment;
     }
 
+    public Comment(Comment c) {
+        this.commentID = c.commentID;
+        this.project = c.project;
+        this.user = c.user;
+        this.comment = c.comment;
+    }
     
     public int getCommentID() {
         return commentID;
@@ -58,5 +64,12 @@ public class Comment {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" + "commentID=" + commentID + ", project=" + project + ", user=" + user + ", comment=" + comment + '}';
+    }
+    
+    
     
 }

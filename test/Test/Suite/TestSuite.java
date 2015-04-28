@@ -19,9 +19,8 @@ import org.junit.runners.Suite;
     layer3.dataSource.mapper.PartnerManagerTest.class,
     layer3.dataSource.mapper.UserInfoManagerTest.class,
     layer3.dataSource.mapper.UserAuthenticationManagerTest.class,
+    layer3.dataSource.mapper.commentManagerTest.class,
     layer3.dataSource.mapper.BudgetManagerTest.class
-//    layer3.dataSource.mapper.CompanyManagerTest.class,
-//    layer3.dataSource.mapper.UserManagerTest.class
     
 })
 public class TestSuite {
