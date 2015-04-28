@@ -15,8 +15,8 @@
         </textarea></br>
         <input name="command" value="reloadMain" hidden=""/>
         <input name="<%= NamingConv.MAINAREA%>" value="<%= NamingConv.CREATEPROJECT %>" hidden=""/>
-        <a>Starting date : </a></br>  <input type="date" name="sdate" value="" required=""/></br>
-        <a>Finishing date : </a></br>  <input type="date" name="fdate" value="" required=""/></br>                                                                         .
+        <a>Starting date : </a></br>  <input type="date" name="startdate" value="" required=""/></br>
+        <a>Finishing date : </a></br>  <input type="date" name="findate" value="" required=""/></br>
         <a>Budget request : </a></br><input type="number" name="title" value="" required=""/></br>
         this is my form
         <input type="submit" value="Create Project" />
