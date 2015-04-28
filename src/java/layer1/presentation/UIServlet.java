@@ -128,22 +128,14 @@ public class UIServlet extends HttpServlet {
     }
 
     private void createProject(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
+        Project project = (Project) request.getAttribute("newProject");
+        //deal with date
+        //ctrl.createProject(project);
+        request.setAttribute("command", "reloadMain");
+        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
 
-        try {
-            String title = request.getParameter("title");
-            String description = request.getParameter("description");
-            String stage = request.getParameter("stage");
-            DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-            Date sdate = format.parse(request.getParameter("sDate"));
-            Date fdate = format.parse(request.getParameter("fDate"));
-            System.out.println(request.getParameter("sDate"));
-            int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(1, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
-            ctrl.createProject(project);
-        } catch (ParseException ex) {
-            //error handling here later
-            Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 
