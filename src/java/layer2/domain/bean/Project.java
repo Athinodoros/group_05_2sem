@@ -5,12 +5,7 @@
  */
 package layer2.domain.bean;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
-import java.util.Locale;
-import oracle.sql.DATE;
+import java.util.Date;
 
 /**
  *

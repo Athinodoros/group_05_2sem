@@ -138,7 +138,7 @@ public class UIServlet extends HttpServlet {
             Date fdate = format.parse(request.getParameter("fDate"));
             System.out.println(request.getParameter("sDate"));
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
+            Project project = new Project(1, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
             ctrl.createProject(project);
         } catch (ParseException ex) {
             //error handling here later
