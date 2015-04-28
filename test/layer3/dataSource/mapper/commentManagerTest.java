@@ -8,6 +8,7 @@ package layer3.dataSource.mapper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import layer2.domain.bean.Comment;
+import layer2.domain.bean.Project;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
 import layer3.dataSource.mapper.utility.Delete;
@@ -55,29 +56,72 @@ public class commentManagerTest {
 
     @Test
     public void testInsert() {
-        System.out.println("insert");
+        System.out.println("Testing :: CommentManager.insert()");
         
-        boolean status1 = commentMan.insert(conn, com1) ;
+        //making sure I insert all the necessary rows in the other tables first
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = projectManager.insert(conn, project);
         
-        assertTrue(status1);
+        boolean result = false;
+        
+        if (status1 & status2) {
+             result = commentMananger.insert(conn, comment);
+        }
+        
+        assertTrue(result);
     }
 
     @Test
     public void testGetRow() {
-        Comment cm = commentMan.getRow(conn, com1.getCommentID());
-        assertEquals(partner, cm);
+        System.out.println("Testing :: CommentManager.getRow()");
+        
+        //making sure I first insert all the necessary rows, before I try to get something out
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = projectManager.insert(conn, project);
+        boolean status3 = commentMananger.insert(conn, comment);
+        
+        Comment result = null;
+       
+        if (status1 & status2 & status3) {
+            result = commentMananger.getRow(conn, comment.getCommentID());
+        }
+        assertNotNull(result);
     }
 
     @Test
-    public void testGetProjectComments() {
-        System.out.println("getProjectComments");
-        Connection conn = null;
-        int projectID = 0;
-        commentManager instance = new commentManager();
-        ArrayList<Comment> expResult = null;
-        ArrayList<Comment> result = instance.getProjectComments(conn, projectID);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testGetAllProjectComments() {
+        System.out.println("Testing :: CommentManager.getAllrojectComments()");
+        
+        //  Making sure I first insert all the necessary rows,
+        //  before I try to get something out
+        boolean status1 = partnerManager.insert(conn, partner);
+        boolean status2 = projectManager.insert(conn, project);
+                
+        Comment comment1 = new Comment(comment);
+        Comment comment2 = new Comment(comment);
+        
+        comment2.setComment(COMMENT + "_Plus something added");
+        
+        
+        // Ceate two comments for the some project
+        boolean status3 = commentMananger.insert(conn, comment1);
+        boolean status4 = commentMananger.insert(conn, comment2);
+        
+        ArrayList<Comment> rows = new ArrayList();
+
+        if (status1 & status2 & status3) {
+            //  Retrieve the two inserted companies from the database
+            rows = new ArrayList<>( commentMananger.getAllProjectComments(conn, comment1.getProject().getProjectID()) );
+        }
+
+        
+        int expResult = 2;
+        int result = rows.size();
+
+        assertTrue(expResult == result);
+        
+        
+        
     }
 
 }

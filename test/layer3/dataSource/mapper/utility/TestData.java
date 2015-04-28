@@ -21,7 +21,7 @@ public final class TestData {
     public static final PartnerManager partnerManager = new PartnerManager();
     public static final UserInfoManager userInfoManager = new UserInfoManager();
     public static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
-    public static final commentManager commentMan = new commentManager();
+    public static final commentManager commentMananger = new commentManager();
     
     
     // Company
@@ -44,7 +44,7 @@ public final class TestData {
 
     // UserAutentication
     // ------
-    //public static final int USER_ID = 0;
+    // - public static final int USER_ID = 0;
     public static final String UNAME = "unameTest" + random.nextInt(100_000_000);
     public static final String PASSWORD = "passwordTest";
     public static final String EMAIL = "email@Test.com";
@@ -55,14 +55,23 @@ public final class TestData {
     private static final Calendar cal = Calendar.getInstance();
     private static final Date today = cal.getTime();
     
-    //public static final USER_ID = 0;
+    // - public static final USER_ID = 0;
     public static final String TITLE_PROJECT = "Title_Project";
-    //public static final Partner partner;
+    // - public static final Partner partner;
     public static final String DESCRIPTION = "Description";
     public static final String STAGE = "Stage";
     public static final Date SDATE = today;
     public static final Date FDATE = today;
     public static final int PROJECT_BUDGET = 1000;
+    
+    // Comment
+    // ------------
+    //
+    public static final int COMMENT_ID = 0;
+    // - private static final Project project;
+    // - private static final UserInfo userInfo;
+    public static final String COMMENT = "This is a very small comment";
+    
     
     // Make some beans
     public static final Partner partner = new Partner(COMPANY_NAME, COMPANY_ID);
@@ -71,7 +80,10 @@ public final class TestData {
     public static final Project project = new Project(USER_ID, partner, UNAME, FIRST_NAME, UNAME, today, today, COMPANY_ID);
     
     //make some comment bean 
-    public static final Comment com1 = new Comment(random.nextInt(100_000), project ,new UserInfo(USER_ID, LAST_NAME, COUNTRY, COUNTRY, partner, UNAME), "comment comment comment comment comment comment comment ");
+   // public static final Comment com1 = new Comment(COMMENT_ID, project ,new UserInfo(USER_ID, LAST_NAME, COUNTRY, COUNTRY, partner, UNAME), "comment comment comment comment comment comment comment ");
+    public static final Comment comment = new Comment(COMMENT_ID, project , userInfo, COMMENT);
+
+
 //     Calendar cal = Calendar.getInstance();
 //    Date today = cal.getTime();
 //    //startDate = today;
