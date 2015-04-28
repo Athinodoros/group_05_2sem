@@ -9,12 +9,11 @@
 <!DOCTYPE html>
 <link href="../bootstrap.min.css" rel="stylesheet" />
 <div style="line-height: 2em; padding: 10px;">
-    <form style="" action="beanHandlers/newProjectsHandler.jsp" method="POST">
+    <form style="" action="UIServlet" method="POST">
         <a>Title: </a></br><input type="text" name="title" value="" required=""/></br>
         <a>Description : </a><br><textarea name="description" rows="4" cols="20">
         </textarea></br>
-        <input name="command" value="reloadMain" hidden=""/>
-        <input name="<%= NamingConv.MAINAREA%>" value="<%= NamingConv.CREATEPROJECT %>" hidden=""/>
+        <input name="command" value=<%=NamingConv.CREATEPROJECT%> hidden=""/>
         <a>Starting date : </a></br>  <input type="date" name="startdate" value="" required=""/></br>
         <a>Finishing date : </a></br>  <input type="date" name="findate" value="" required=""/></br>
         <a>Budget request : </a></br><input type="number" name="title" value="" required=""/></br>
