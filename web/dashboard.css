@@ -6,7 +6,11 @@
 body {
   padding-top: 50px;
 }
-
+.scrollit {
+    overflow:scroll;
+    height:400px;
+    width: 700px;
+}
 
 
 /*

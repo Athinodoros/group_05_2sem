@@ -27,6 +27,7 @@
     </head>
     <body>
         <h1>Project overview</h1>
+        <div class="scrollit">
         <table class="overview">            
             <c:forEach var="Project" items="${projects}">
             <tr>
@@ -52,5 +53,6 @@
             
             </c:forEach>
         </table>
+            </div>
     </body>
 </html>
