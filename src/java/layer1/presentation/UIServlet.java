@@ -7,15 +7,10 @@ package layer1.presentation;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import layer2.domain.Controller;
+import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
@@ -103,8 +99,9 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.CREATECOMPANY:
+                    case NamingConv.CREATECOMPANY://make this one
                         request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
+                        createCompany(request, response, ctrl);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
@@ -165,6 +162,16 @@ public class UIServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
+        private void createCompany(HttpServletRequest request, HttpServletResponse response, Controller ctrl) throws ServletException, IOException {
+          HttpSession session = request.getSession();
+        Partner partner = (Partner) session.getAttribute("");//add smth
+        partner.setCompanyID((Integer)session.getAttribute("companyID"));
+        partner.setCompanyName((String)session.getAttribute("companyName"));
+        
+
+        ctrl.createPartner(partner);
+        }
+
     
     
     public void handleDates(Project project, String sdate, String fdate){

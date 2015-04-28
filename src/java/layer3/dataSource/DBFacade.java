@@ -6,12 +6,11 @@
 package layer3.dataSource;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
+import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
-//import layer3.dataSource.mapper.CompanyManager;
+import layer3.dataSource.mapper.PartnerManager;
 import layer3.dataSource.mapper.ProjectManager;
 import layer3.dataSource.mapper.UserInfoManager;
 
@@ -24,6 +23,7 @@ public class DBFacade {
     //private CompanyManager  companyManager;
     private ProjectManager  projectManager;
     private UserInfoManager     userInfoManager;
+    private PartnerManager partnerManager;
     
     private Connection conn;
     
@@ -34,9 +34,10 @@ public class DBFacade {
         DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
         conn = DBConnector.getInstance().getConnection();
         
-       // companyManager  = new CompanyManager();
+       partnerManager  = new PartnerManager();
         projectManager  = new ProjectManager();
         userInfoManager     = new UserInfoManager();
+        
     }
     
     public static DBFacade getInstance() {
@@ -58,6 +59,9 @@ public class DBFacade {
     
     public Project getProject(int projectid){
         return projectManager.getRow(conn, projectid);
+    }
+    public boolean createPartner(Partner partner){
+        return partnerManager.insert(conn, partner);
     }
     
     

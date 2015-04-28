@@ -6,6 +6,7 @@
 package layer2.domain;
 
 import java.util.Collection;
+import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
 import layer3.dataSource.DBFacade;
@@ -25,6 +26,10 @@ public class Controller {
     
     public boolean createProject(Project newProject){
         return dbf.createProject(newProject);
+    }
+    public boolean createPartner(Partner partner){
+        return dbf.createPartner(partner);
+    
     }
     
     public boolean editProject(Project project) {
