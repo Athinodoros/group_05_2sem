@@ -25,9 +25,9 @@ public class ProjectManager {
 
         int rowsInserted = 0;
 
-        String sql1 = "INSERT into project (projectID, companyName, title, description, stage, sdate, fdate, projectBudget) "
-                + "VALUES (?, ?, ?, ?, ?, TO_DATE(?,'yyyy-mm-dd'), TO_DATE(?,'yyyy-mm-dd'), ?)";
-
+//        String sql1 = "INSERT into project (projectID, companyName, title, description, stage, sdate, fdate, projectBudget) "
+               // + "VALUES (?, ?, ?, ?, ?, TO_DATE(?,'yyyy-mm-dd'), TO_DATE(?,'yyyy-mm-dd'), ?)";
+String sql1 = "INSERT into project (projectID, companyName, title, description, stage, sdate, fdate, projectBudget) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
         String sql2
