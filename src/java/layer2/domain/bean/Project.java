@@ -8,7 +8,7 @@ package layer2.domain.bean;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Locale;
 import oracle.sql.DATE;
 

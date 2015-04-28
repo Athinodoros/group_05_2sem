@@ -26,7 +26,7 @@ public class ProjectManager {
         int rowsInserted = 0;
 
         String sql1 = "INSERT into project (projectID, companyName, title, description, stage, sdate, fdate, projectBudget) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, TO_DATE(?,'yyyy-mm-dd'), TO_DATE(?,'yyyy-mm-dd'), ?)";
 
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
@@ -57,8 +57,8 @@ public class ProjectManager {
             stmt.setString(3, bean.getTitle());
             stmt.setString(4, bean.getDescription());
             stmt.setString(5, bean.getStage());
-            stmt.setDate(6, Convert.date2SqlDate(bean.getSdate()));
-            stmt.setDate(7, Convert.date2SqlDate(bean.getFdate()));
+            stmt.setDate(6, bean.getSdate());
+            stmt.setDate(7, bean.getFdate());
             stmt.setInt(8, bean.getProjectBudget());            
             rowsInserted = stmt.executeUpdate();
 
@@ -140,7 +140,7 @@ public class ProjectManager {
     
     
     public boolean update(Connection conn, Project bean){
-        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate = ?, fdate = ?, projectBudget = ?  WHERE projectID = ?";
+        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate =TO_DATE(?,'yyyy-mm-dd'), fdate = TO_DATE(?,'yyyy-mm-dd'), projectBudget = ?  WHERE projectID = ?";
         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             
@@ -148,8 +148,8 @@ public class ProjectManager {
             stmt.setString(2, bean.getTitle());
             stmt.setString(3, bean.getDescription());
             stmt.setString(4, bean.getStage());
-            stmt.setDate(5, Convert.date2SqlDate(bean.getSdate()));
-            stmt.setDate(6, Convert.date2SqlDate(bean.getFdate()));
+            stmt.setDate(5, bean.getSdate());
+            stmt.setDate(6, bean.getFdate());
             stmt.setInt(7, bean.getProjectBudget()); 
             stmt.setInt(8, bean.getProjectID());
             
