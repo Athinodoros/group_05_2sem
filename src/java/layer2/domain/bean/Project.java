@@ -5,6 +5,7 @@
  */
 package layer2.domain.bean;
 
+<<<<<<< HEAD
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,6 +18,9 @@ import oracle.sql.DATE;
 import java.util.Date;
 
 >>>>>>> Stashed changes
+=======
+import java.util.Date;
+>>>>>>> 707b5f4df588cbd3dc5f54529a20bda33d3b24c8
 
 /**
  *

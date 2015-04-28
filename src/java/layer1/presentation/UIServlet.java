@@ -11,7 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,13 +134,13 @@ public class UIServlet extends HttpServlet {
             String description = request.getParameter("description");
             String stage = request.getParameter("stage");
             DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-            Date sdate = Date.valueOf(request.getParameter("sDate"));
-            Date fdate = Date.valueOf(request.getParameter("fDate"));
-            
+            Date sdate = format.parse(request.getParameter("sDate"));
+            Date fdate = format.parse(request.getParameter("fDate"));
+            System.out.println(request.getParameter("sDate"));
             int projectBudget = Integer.parseInt(request.getParameter("budget"));
-            Project project = new Project(projectBudget, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
+            Project project = new Project(1, currentUser.getCompany(), title, description, stage, sdate, fdate, projectBudget);
             ctrl.createProject(project);
-        } catch (Exception ex) {
+        } catch (ParseException ex) {
             //error handling here later
             Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -171,7 +171,7 @@ public class UIServlet extends HttpServlet {
     
     private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
         String fileDirec = "../" + con.getFileDirec(Integer.parseInt(request.getParameter("projectid")));
-        //Code taken from ....
+
         if (ServletFileUpload.isMultipartContent(request)) {
             try {
                 List<FileItem> multiparts = new ServletFileUpload(
