@@ -8,7 +8,7 @@ package layer3.dataSource.mapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import layer2.domain.bean.Reseller;
+//import layer2.domain.bean.Reseller;
 import layer2.domain.bean.UserInfo;
 import layer3.dataSource.DBConnector;
 

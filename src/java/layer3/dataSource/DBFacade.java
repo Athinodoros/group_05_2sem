@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
-import layer3.dataSource.mapper.CompanyManager;
+//import layer3.dataSource.mapper.CompanyManager;
 import layer3.dataSource.mapper.ProjectManager;
 import layer3.dataSource.mapper.UserInfoManager;
 
@@ -21,7 +21,7 @@ import layer3.dataSource.mapper.UserInfoManager;
  */
 public class DBFacade {
     
-    private CompanyManager  companyManager;
+    //private CompanyManager  companyManager;
     private ProjectManager  projectManager;
     private UserInfoManager     userInfoManager;
     
@@ -34,7 +34,7 @@ public class DBFacade {
         DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
         conn = DBConnector.getInstance().getConnection();
         
-        companyManager  = new CompanyManager();
+       // companyManager  = new CompanyManager();
         projectManager  = new ProjectManager();
         userInfoManager     = new UserInfoManager();
     }
