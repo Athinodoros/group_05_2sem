@@ -31,15 +31,11 @@
         <table class="overview">            
             <c:forEach var="Project" items="${projects}">
             <tr>
-                <th>TITLE</th>
-                
-                <th>COMPANY NAME</th>
-                
-                <th>PROJECT BUDGET</th>
-                
-                <th>START DATE</th>
-                
-                <th>END DATE</th>
+                <th>Title</th>
+                <th>Company Name</th>
+                <th>Project Budget</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 
             </tr>
             <tr>
