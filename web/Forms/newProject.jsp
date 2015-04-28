@@ -25,4 +25,5 @@
     <jsp:setProperty name="newProject" property="*" />
     <%= newProject.getTitle()%>
     <%= newProject.getSdate()%>
+    
 </div>

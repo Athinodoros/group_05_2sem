@@ -239,7 +239,7 @@ public class UserInfoManager {
         
         if( confirm.equalsIgnoreCase("yes")) {
             
-            String sql = "DELETE * FROM userInfo";
+            String sql = "DELETE FROM userInfo";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 return stmt.executeUpdate();

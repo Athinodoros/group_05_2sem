@@ -7,8 +7,10 @@
 <jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
 <jsp:setProperty name="newProject" property="*" />
 <%= newProject.getTitle()%>
+
 <%= newProject.getSdate()%>
-<% 
-    request.setAttribute("mainArea", "createCompany" );
-    RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
-    rd.forward(request, response);%>
+<%= newProject.getFdate()%>
+<input name="command" value="reloadMain" hidden />
+<input name="mainArea" value="createProject" hidden />
+
+<jsp:include page="../Dashboard.jsp" />
