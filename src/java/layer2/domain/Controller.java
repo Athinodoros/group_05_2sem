@@ -5,7 +5,6 @@
  */
 package layer2.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;

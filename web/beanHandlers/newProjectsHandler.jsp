@@ -9,12 +9,12 @@
 <jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="request" />
 <jsp:setProperty name="newProject" property="*" />
 
-
+<%=newProject.getTitle()%>
+<%=request.getParameter("startdate")%>
 <a>Your project has been created </a>
 <a>Do you want to save it?</a>
 <form style="lead" action="../UIServlet" method="POST">
-    <input name="command" value="reloadMain" hidden=""/>
-    <input name="<%= NamingConv.MAINAREA%>" value="<%= NamingConv.CREATEPROJECT%>" hidden=""/>
+    <input name="command" value=<%=NamingConv.CREATEPROJECT%> hidden/>
     <input type="submit" value="Save" />
 </form>
 
