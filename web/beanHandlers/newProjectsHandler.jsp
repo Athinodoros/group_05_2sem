@@ -6,8 +6,11 @@
 <%@page import="layer2.domain.interfaces.NamingConv" %>
 <link href="../bootstrap.min.css" type="text/css" />
 
-<jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="request" />
+<jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
 <jsp:setProperty name="newProject" property="*" />
+
+<jsp:forward page="../UIServlet" />
+    
 
 <%=newProject.getTitle()%>
 <%=request.getParameter("startdate")%>
