@@ -10,7 +10,6 @@ import java.util.*;
 import static java.util.Calendar.MONTH;
 import layer2.domain.bean.Reseller;
 import layer2.domain.bean.Project;
-import layer2.domain.bean.User;
 import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.DBConnector;
 import layer3.dataSource.DBType;
