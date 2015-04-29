@@ -62,26 +62,13 @@ public class UIServlet extends HttpServlet {
         UserInfo currentUser;
         switch (command) {
             case "log-in":
-                //dummy code starts here
-                String input = request.getParameter("username");
-                if (input.equals("admin")) {
-                    session.setAttribute("user", ctrl.getAdmin());
-                } else {
-                    session.setAttribute("user", ctrl.getReseller());
-                }
-                dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                dispatcher.forward(request, response);
-                //dummy code ends here
-
-                //validate credentials
-                request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
-                currentUser = (UserInfo) session.getAttribute("user");
-                viewAllProjects(request, response, ctrl, currentUser);
+                dummyLogIn(request, response);
+                viewAllProjects(request, response);
                 break;
 
             case "createProject":
                 currentUser = (UserInfo) session.getAttribute("user");
-                createProject(request, response, ctrl, currentUser);
+                createProject(request, response);
                 break;
 
             case "reloadMain":
@@ -113,17 +100,28 @@ public class UIServlet extends HttpServlet {
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.PROJECT_OVERVIEW:
-                        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
-                        currentUser = (UserInfo) session.getAttribute("user");
-                        viewAllProjects(request, response, ctrl, currentUser);
+                        viewAllProjects(request, response);
                         break;
                 }
                 break;
         }
     }
-
-    private void createProject(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
+    
+    private void dummyLogIn(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        String input = request.getParameter("username");
+            if (input.equals("admin")) {
+                session.setAttribute("user", ctrl.getAdmin());
+            } else {
+                session.setAttribute("user", ctrl.getReseller());
+            }
+    }
+
+    private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        UserInfo currentUser = (UserInfo) session.getAttribute("user");
         Project project = (Project) session.getAttribute("newProject");
         project.setPartner(currentUser.getCompany());
         project.setStage(NamingConv.PRE_APPROVED);
@@ -139,12 +137,17 @@ public class UIServlet extends HttpServlet {
 
     }
 
-    private void viewAllProjects(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
+    private void viewAllProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+        
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        UserInfo currentUser = (UserInfo) session.getAttribute("user");
+        
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
+        
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
             request.setAttribute("projects", allProjects);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-            dispatcher.forward(request, response);
         } else if (currentUser.getUrole().equals(NamingConv.PARTNER)) {
             ArrayList<Project> onlyPartnerProjects = new ArrayList<Project>();
             for (Project project : allProjects) {
@@ -153,9 +156,9 @@ public class UIServlet extends HttpServlet {
                 }
             }
             request.setAttribute("projects", onlyPartnerProjects);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-            dispatcher.forward(request, response);
         }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void createCompany(HttpServletRequest request, HttpServletResponse response, Controller ctrl) throws ServletException, IOException {
