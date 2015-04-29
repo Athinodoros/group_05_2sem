@@ -11,16 +11,17 @@
 i am here 
 <jsp:useBean id="userInfo" class="layer2.domain.bean.UserInfo" scope="session" />
 <jsp:setProperty name="userInfo" property="*"  />
-
-
-<jsp:useBean id="newUserAth" class="layer2.domain.bean.UserAuthentication" scope="session" />
-<jsp:setProperty name="newUserAth" property="*"  />
-
-<jsp:include page="../DashBoardPicker.jsp" />
-<jsp:getProperty name="user" property="*" />
 userinfo
 <%= userInfo.getFirstname() %>
 <%= userInfo.getLastname() %>
 <%= userInfo.getUrole() %>
 userauth
 <%= newUserAth.getEmail() %>
+
+
+<jsp:useBean id="newUserAth" class="layer2.domain.bean.UserAuthentication" scope="session" />
+<jsp:setProperty name="newUserAth" property="*"  />
+
+<form action="/UIServlet">
+   Do you want to save the user? <input type="submit" value="Save" />   
+</form>

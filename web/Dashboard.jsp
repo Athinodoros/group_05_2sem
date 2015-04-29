@@ -15,8 +15,20 @@
         <div >
             <%-- Top area header etc. --%>
             <div class="col-md-12">
+                <div class="col-md-2">
                 <jsp:include page="PageComponents/header.jsp" />
+                </div>
+                <div class="col-md-6"></div>
+                
+                
+                <div class="col-md-4">
+                    Name:
+                    Role:
+                </div>
+                
+                
             </div>
+                
             <%-- left menu item --%>
             <div style="height: 80vh;" class="col-md-2 sidebar">
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>

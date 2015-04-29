@@ -5,15 +5,15 @@
 --%>
 <%@page import="layer2.domain.interfaces.NamingConv" %>
 <link href="../bootstrap.min.css" type="text/css" />
-
 <jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
 <jsp:setProperty name="newProject" property="*" />
-
-<%
+<%  
     session.setAttribute("sdate", request.getParameter("startdate"));
     session.setAttribute("fdate", request.getParameter("findate"));
 %>
-Project Name: <%=newProject.getTitle()%><br/>
+Project Name: ${newProject.getTitle()} <br/>
+Starting date: ${newProject.getSdate() } <br/>
+Start date: ${newProject.getFdate()}  <br/>
 Start date: <%=request.getParameter("startdate")%><br/>
 <a>Your project has been created </a><br/>
 
