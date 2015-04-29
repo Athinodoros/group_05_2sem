@@ -48,7 +48,7 @@
                 <td>${Project.getProjectBudget()}</td>
                 <td>${Project.getSdate()}</td>
                 <td>${Project.getFdate()}</td> 
-                <td>${Project.getStage}</td>
+                <td>${Project.getStage()}</td>
                 <a href="#"><form action="UIServlet" method="POST">
                 <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.VIEW_PROJECT_DETAILS %>"  hidden/>
                 <input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">

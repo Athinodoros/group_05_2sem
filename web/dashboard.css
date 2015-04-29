@@ -6,10 +6,11 @@
 body {
   padding-top: 50px;
 }
+/* This is the css for the scroolbar table   */
 .scrollit {
     overflow:scroll;
     height:400px;
-    width: 700px;
+    width: 950px;
 }
 
 
