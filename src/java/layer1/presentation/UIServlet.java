@@ -90,9 +90,11 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.USERFORM:
                         request.setAttribute("mainArea", NamingConv.USERFORM);
+                        request.setAttribute("partnerList", ctrl.getAllPartners());
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
+                        
                     case NamingConv.CREATEPROJECT:
                         request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");

@@ -7,9 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <link href="bootstrap.min.css" rel="stylesheet">
-
+<%@page  import="layer2.domain.bean.Partner" %>
+<%@page  import="java.util.ArrayList" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% ArrayList<Partner> list = (ArrayList<Partner>)request.getAttribute("partnerList"); %>
 <div class="form-user" style="line-height: 2em;">
-    <form class="lead" action="../beanHandlers/userHandler.jsp" ></br></br>
+    <form class="lead" action="beanHandlers/userHandler.jsp" ></br></br>
                 <a>First Name : </a></br><input type="text" name="firstname" value="" required=""/></br>
                 <a>Last Name : </a></br><input type="text" name="lastname" value="" required=""/></br>
                 <a>User Name : </a></br><input type="text" name="uname" value="" required=""/></br>
@@ -28,11 +31,9 @@
                     <option>IS</option>
                 </select></br>
                 <a>company : </a></br> <select name="companyName" required="" >
-                    <option>DK</option>
-                    <option>SE</option>
-                    <option>FI</option>
-                    <option>NO</option>
-                    <option>IS</option>
+                    <% for (Partner singlePartner : list) { %>
+                    <option><%= singlePartner.getCompanyName() %></option>
+                       <% } %>
                 </select>
                 </br></br>
                 <input type="submit" value="Create new User" />
