@@ -29,19 +29,21 @@ public class Delete {
     private Delete() {}
     
     
-    public static void database(Connection conn, String confirm ) {
+    public static int database(Connection conn, String confirm ) {
         
         // Delete all data in the database (should be inserted in drop order)
         
-        poeManager.deleteAllRows(conn, confirm);
-        commentManager.deleteAllRows(conn, confirm);
-        projectManager.deleteAllRows(conn, confirm);
-        budgetManager.deleteAllRows(conn, confirm);
-        userAutenticationManager.deleteAllRows(conn, confirm);
-        userInforManager.deleteAllRows(conn, confirm);
-        partnerManager.deleteAllRows(conn, confirm);
+        int affected = 0;
+        
+        affected =+ poeManager.deleteAllRows(conn, confirm);
+        affected =+ commentManager.deleteAllRows(conn, confirm);
+        affected =+ projectManager.deleteAllRows(conn, confirm);
+        affected =+ budgetManager.deleteAllRows(conn, confirm);
+        affected =+ userAutenticationManager.deleteAllRows(conn, confirm);
+        affected =+ userInforManager.deleteAllRows(conn, confirm);
+        affected =+ partnerManager.deleteAllRows(conn, confirm);
+        
+        return affected;
     }
-    
-    
     
 } // End of class :: Delete
