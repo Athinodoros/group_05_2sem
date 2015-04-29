@@ -1,7 +1,7 @@
 <%-- 
     Document   : createCompanyHandler
     Created on : Apr 28, 2015, 10:13:58 PM
-    Author     : user
+    Author     : Алеx
 --%>
 <%@page import="layer2.domain.interfaces.NamingConv" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -166,8 +166,10 @@ public class UIServlet extends HttpServlet {
         Partner partner = (Partner) session.getAttribute("newCompany");
         partner.setCompanyID((Integer) session.getAttribute("companyID"));
         partner.setCompanyName((String) session.getAttribute("companyName"));
-
+        
         ctrl.createPartner(partner);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+            dispatcher.forward(request, response);
     }
 
     
