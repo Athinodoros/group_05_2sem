@@ -24,6 +24,7 @@ import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
+import layer3.dataSource.utility.Convert;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -132,7 +133,8 @@ public class UIServlet extends HttpServlet {
         project.setStage(NamingConv.PRE_APPROVED);
         String sdate = (String) session.getAttribute("sdate");
         String fdate = (String) session.getAttribute("fdate");
-        handleDates(project, sdate, fdate);
+        project.setSdate(Convert.string2date(sdate));
+        project.setFdate(Convert.string2date(fdate));
         ctrl.createProject(project);
         request.setAttribute("command", "reloadMain");
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
@@ -167,30 +169,6 @@ public class UIServlet extends HttpServlet {
         partner.setCompanyName((String) session.getAttribute("companyName"));
 
         ctrl.createPartner(partner);
-    }
-
-    
-    public void handleDates(Project project, String sdate, String fdate) {
-        Calendar cal = Calendar.getInstance();
-        int year;
-        int month;
-        int day;
-
-        String[] startDate = sdate.split("-");
-        year = Integer.parseInt(startDate[0]);
-        month = Integer.parseInt(startDate[1]) - 1;
-        day = Integer.parseInt(startDate[2]);
-        cal.set(year, month, day);
-        Date sDate = cal.getTime();
-        project.setSdate(sDate);
-
-        String[] finDate = fdate.split("-");
-        year = Integer.parseInt(finDate[0]);
-        month = Integer.parseInt(finDate[1]) - 1;
-        day = Integer.parseInt(finDate[2]);
-        cal.set(year, month, day);
-        Date fDate = cal.getTime();
-        project.setFdate(fDate);
     }
 
     
