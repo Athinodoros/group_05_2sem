@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <link href="bootstrap.min.css" rel="stylesheet">
 
-
 <div class="form-user" style="line-height: 2em;">
     <form class="lead" action="../beanHandlers/userHandler.jsp" ></br></br>
                 <a>First Name : </a></br><input type="text" name="firstname" value="" required=""/></br>

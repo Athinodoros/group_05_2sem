@@ -121,19 +121,15 @@ public class CommentManager {
             
             while (rs.next()) {
                 Comment bean = new Comment();
-                
                 ProjectManager pm = new ProjectManager();
                 UserInfoManager um = new UserInfoManager();
-
                 bean.setCommentID(rs.getInt("commentID"));
                 bean.setProject(pm.getRow(conn, rs.getInt("projectID")));
                 bean.setUser(um.getRow(conn, rs.getInt("userID")));
                 bean.setComment(rs.getString("comments"));
-                
                 rows.add(bean);
             }
             return rows;
-            
         } catch (SQLException e) {
             DBConnector.processException(e);
         } finally {
