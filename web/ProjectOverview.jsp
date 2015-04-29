@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="layer2.domain.interfaces.NamingConv"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,6 +36,9 @@
                 <th>Project Budget</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Stage</th>
+                
+
                 
             </tr>
             <c:forEach var="Project" items="${projects}">
@@ -43,7 +47,12 @@
                 <td>${Project.getPartner().getCompanyName()}</td>
                 <td>${Project.getProjectBudget()}</td>
                 <td>${Project.getSdate()}</td>
-                <td>${Project.getFdate()}</td>                
+                <td>${Project.getFdate()}</td> 
+                <td>${Project.getStage}</td>
+                <a href="#"><form action="UIServlet" method="POST">
+                <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.VIEW_PROJECT_DETAILS %>"  hidden/>
+                <input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">
+                    View More</button></form></a>
             </tr>
             
             

@@ -39,6 +39,7 @@ public class NamingConv {
     public static final String USERFORM = "userForm";
     public static final String NEWPROJECTBEAN = "projectbean";
     public static final String PROJECT_OVERVIEW = "projectOverview";
+    public static final String VIEW_PROJECT_DETAILS = "viewProjectDetails";
     //
 
 
