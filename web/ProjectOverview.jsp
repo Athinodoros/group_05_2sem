@@ -37,7 +37,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Stage</th>
-                
+                <th> View More</th>
 
                 
             </tr>
@@ -49,10 +49,11 @@
                 <td>${Project.getSdate()}</td>
                 <td>${Project.getFdate()}</td> 
                 <td>${Project.getStage()}</td>
-                <a href="#"><form action="UIServlet" method="POST">
+                <td><a href="#"><form action="UIServlet" method="POST">
                 <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.VIEW_PROJECT_DETAILS %>"  hidden/>
                 <input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">
-                    View More</button></form></a>
+                    View More</button></form></a></td>
+                
             </tr>
             
             
