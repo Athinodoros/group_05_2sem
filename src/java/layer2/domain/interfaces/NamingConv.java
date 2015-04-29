@@ -16,7 +16,7 @@ public class NamingConv {
     public static final String PARTNER = "partner";
     public static final String ADMIN = "admin";
 
-    //attributes
+    //log-in
     public static final String USER_NAME = "userName";
     public static final String PASSWORD = "password";
 
@@ -25,7 +25,10 @@ public class NamingConv {
     public static final String PRE_APPROVED = "pre-approved";
     public static final String APPROVED = "approved";
     public static final String FINISHED = "finished";
-
+    
+    //beans
+    public static final String PROJECT = "project";
+    
     //----------------------------------------------------Nos--------------------------------------------------------
     //pageloader
     public static final String MAINAREA = "mainArea";
@@ -40,8 +43,6 @@ public class NamingConv {
     public static final String NEWPROJECTBEAN = "projectbean";
     public static final String PROJECT_OVERVIEW = "projectOverview";
     public static final String VIEW_PROJECT_DETAILS = "viewProjectDetails";
-    //
-
-
-
+    public static final String SUCCESS = "success";
+    public static final String FAIL = "fail";
 }

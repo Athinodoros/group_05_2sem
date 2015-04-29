@@ -134,8 +134,14 @@ public class UIServlet extends HttpServlet {
         String fdate = (String) session.getAttribute("fdate");
         project.setSdate(Convert.string2date(sdate));
         project.setFdate(Convert.string2date(fdate));
-        ctrl.createProject(project);
-        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+        boolean status = ctrl.createProject(project);
+        if (status) {
+            request.setAttribute("mainArea", NamingConv.SUCCESS);
+        }
+        else{
+            request.setAttribute("mainArea", NamingConv.FAIL);
+        }
+        request.setAttribute("type", NamingConv.PROJECT);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
 

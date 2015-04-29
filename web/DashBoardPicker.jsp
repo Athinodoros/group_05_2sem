@@ -24,8 +24,10 @@
         <jsp:include page="Forms/addUser.jsp" />
         <% } else if (pagepoint == NamingConv.PROJECT_OVERVIEW) { %>
         <jsp:include page="ProjectOverview.jsp" />
-        <%--<% } else if (pagepoint == NamingConv.NEWPROJECTBEAN) { %>
-        <jsp:include page="beanHandlers/newProjectsHandler.jsp" /> --%>
+        <% } else if (pagepoint == NamingConv.SUCCESS) { %>
+        <jsp:include page="UserFeedback/Success.jsp" />
+        <% } else if (pagepoint == NamingConv.FAIL) { %>
+        <jsp:include page="UserFeedback/Fail.jsp" />
         <% } else  { %>
         <p>no jsp was loaded </p>
         <% }%>

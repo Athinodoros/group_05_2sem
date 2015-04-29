@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>New <%=request.getAttribute("type")%> saved successfully. </h1>
     </body>
 </html>

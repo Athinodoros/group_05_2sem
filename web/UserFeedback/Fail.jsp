@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>An error occurred while saving the new <%=request.getAttribute("type")%>. </h1>
     </body>
 </html>
