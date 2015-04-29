@@ -63,7 +63,7 @@ public class UIServlet extends HttpServlet {
         switch (command) {
             case "log-in":
                 //dummy code starts here
-                String input = request.getParameter("email");
+                String input = request.getParameter("username");
                 if (input.equals("admin")) {
                     session.setAttribute("user", ctrl.getAdmin());
                 } else {
@@ -74,6 +74,9 @@ public class UIServlet extends HttpServlet {
                 //dummy code ends here
 
                 //validate credentials
+                request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+                currentUser = (UserInfo) session.getAttribute("user");
+                viewAllProjects(request, response, ctrl, currentUser);
                 break;
 
             case "createProject":
@@ -82,7 +85,6 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "reloadMain":
-
                 switch (main) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
