@@ -13,7 +13,7 @@
 <%@page  import="java.util.ArrayList" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% ArrayList<Partner> list = (ArrayList<Partner>)request.getAttribute("partnerList"); %>
-<% request.setAttribute("list", list); %>
+<% session.setAttribute("list", list); %>
 <% UserInfo userInfo = (UserInfo) request.getAttribute("userInfo"); %>
 <% UserAuthentication userath = (UserAuthentication) request.getAttribute("userAth"); %>
 <div class="form-user" style="line-height: 2em;" >
