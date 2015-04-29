@@ -62,10 +62,10 @@ public class UIServlet extends HttpServlet {
                 dummyLogIn(request, response);
                 viewAllProjects(request, response);
                 break;
+                        
             case "createCompany":
                 createCompany(request, response);
                 break;
-                        
 
             case "createProject":
                 createProject(request, response);
@@ -83,7 +83,7 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.CREATECOMPANY://make this one
+                    case NamingConv.CREATECOMPANY:
                         request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
@@ -129,7 +129,6 @@ public class UIServlet extends HttpServlet {
         project.setSdate(Convert.string2date(sdate));
         project.setFdate(Convert.string2date(fdate));
         ctrl.createProject(project);
-        request.setAttribute("command", "reloadMain");
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
@@ -163,13 +162,11 @@ public class UIServlet extends HttpServlet {
     private void createCompany(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
-        Partner partner = (Partner) session.getAttribute("newCompany");
-        partner.setCompanyID((Integer) session.getAttribute("companyID"));
-        partner.setCompanyName((String) session.getAttribute("companyName"));
-        
+        Partner partner = (Partner) session.getAttribute("newCompany");       
         ctrl.createPartner(partner);
+        request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-            dispatcher.forward(request, response);
+        dispatcher.forward(request, response);
     }
 
     
