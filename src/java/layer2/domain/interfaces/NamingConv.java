@@ -32,7 +32,8 @@ public class NamingConv {
     //pages
     public static final String CREATEPROJECT = "createProject";
     public static final String DASHBOARD = "dashboard";
-    public static final String BUDGET = "budget";
+    public static final String SET_BUDGET = "setBudget";
+    public static final String VIEW_BUDGET = "viewBudget";
     public static final String PROJECTLIST = "projectlist";
     public static final String CREATECOMPANY = "createCompany";
     public static final String USERFORM = "userForm";
@@ -88,7 +89,7 @@ public class NamingConv {
     }
 
     public static String getBUDGET() {
-        return BUDGET;
+        return SET_BUDGET;
     }
 
     public static String getPROJECTLIST() {

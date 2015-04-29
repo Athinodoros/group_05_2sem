@@ -91,8 +91,8 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.BUDGET:
-                        request.setAttribute("mainArea", NamingConv.BUDGET);
+                    case NamingConv.SET_BUDGET:
+                        request.setAttribute("mainArea", NamingConv.SET_BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
