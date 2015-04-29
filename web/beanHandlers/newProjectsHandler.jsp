@@ -24,7 +24,7 @@ Start date: <%=request.getParameter("startdate")%><br/>
 </form>
 <form style="lead" action="../UIServlet" method="POST">
     <input name="command" value="reloadMain" hidden/>
-    <input name="mainArea" value=<%= NamingConv.CREATEPROJECT %> hidden/>
+    <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.CREATEPROJECT %>" hidden/>
     <input type="submit" value="Go Back" />
 </form>
 
