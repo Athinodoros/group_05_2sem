@@ -160,7 +160,7 @@ public class UIServlet extends HttpServlet {
 
     private void createCompany(HttpServletRequest request, HttpServletResponse response, Controller ctrl) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Partner partner = (Partner) session.getAttribute("");//add smth
+        Partner partner = (Partner) session.getAttribute("newCompany");
         partner.setCompanyID((Integer) session.getAttribute("companyID"));
         partner.setCompanyName((String) session.getAttribute("companyName"));
 
