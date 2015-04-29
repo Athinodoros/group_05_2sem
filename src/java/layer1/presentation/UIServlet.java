@@ -62,6 +62,10 @@ public class UIServlet extends HttpServlet {
                 dummyLogIn(request, response);
                 viewAllProjects(request, response);
                 break;
+            case "createCompany":
+                createCompany(request, response);
+                break;
+                        
 
             case "createProject":
                 createProject(request, response);
@@ -81,7 +85,6 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.CREATECOMPANY://make this one
                         request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
-                        createCompany(request, response);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
