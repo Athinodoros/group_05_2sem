@@ -12,7 +12,7 @@
 
 <div class="col-md-5">
         <% String pagepoint = (String) request.getAttribute("mainArea");
-            if (pagepoint == NamingConv.BUDGET) { %>
+            if (pagepoint == NamingConv.VIEW_BUDGET) { %>
         <jsp:include page="Forms/Budget.jsp"/>
         <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
         <jsp:include page="Forms/initialForm.jsp"/>

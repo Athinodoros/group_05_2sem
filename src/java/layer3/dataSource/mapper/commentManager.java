@@ -19,7 +19,7 @@ import layer3.dataSource.DBConnector;
  *
  * @author Athinodoros
  */
-public class commentManager {
+public class CommentManager {
 
     public boolean insert(Connection conn, Comment bean) {
         

@@ -23,7 +23,7 @@ public class Delete {
     private static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
     private static final BudgetManager budgetManager = new BudgetManager();
     private static final ProjectManager projectManager = new ProjectManager();
-    private static final commentManager commentManager = new commentManager();
+    private static final CommentManager commentManager = new CommentManager();
     private static final POEManager poeManager = new POEManager();
     
     private Delete() {}
