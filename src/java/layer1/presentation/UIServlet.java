@@ -175,8 +175,14 @@ public class UIServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
         Partner partner = (Partner) session.getAttribute("newCompany");       
-        ctrl.createPartner(partner);
-        request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
+        boolean status = ctrl.createPartner(partner);
+        if (status) {
+            request.setAttribute("mainArea", NamingConv.SUCCESS);
+        }
+        else{
+            request.setAttribute("mainArea", NamingConv.FAIL);
+        }
+        request.setAttribute("type", "company");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
