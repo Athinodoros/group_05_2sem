@@ -13,7 +13,7 @@
     <div>
         <h1>Register a company</h1>
         <br>
-        <form class="lead" action="createCompanyHandler.jsp" method="POST">
+        <form class="lead" action="beanHandlers/createCompanyHandler.jsp" method="POST">
             Company Name:<input type="text" name="companyName" value="" required="">
             <br>
             Company ID: <input type="number" name="companyID" value="" required="">
