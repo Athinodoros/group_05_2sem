@@ -61,7 +61,7 @@ public class Controller {
     }
     
     public Collection<Partner> getAllPartners(){
-      return dbf.getAllCompanies();
+      return dbf.getAllPartners();
       
         
     }

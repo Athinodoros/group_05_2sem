@@ -88,7 +88,7 @@ public class DBFacade {
         return projectManager.update(conn, project);
     }
     
-    public Collection<Partner> getAllCompanies(){
+    public Collection<Partner> getAllPartners(){
         return partnerManager.getAllRows(conn);
     }
 } // End of Class :: DBFacade
