@@ -8,8 +8,6 @@ package layer1.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,7 +57,6 @@ public class UIServlet extends HttpServlet {
         String command = (String) request.getParameter("command");
         String main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
-        UserInfo currentUser;
         switch (command) {
             case "log-in":
                 dummyLogIn(request, response);
@@ -67,7 +64,6 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "createProject":
-                currentUser = (UserInfo) session.getAttribute("user");
                 createProject(request, response);
                 break;
 
