@@ -23,7 +23,7 @@
         <% } else if (pagepoint == NamingConv.USERFORM) { %>
         <jsp:include page="Forms/addUser.jsp" />
         <% } else if (pagepoint == NamingConv.PROJECT_OVERVIEW) { %>
-        <jsp:include page="Forms/ProjectOverview.jsp" />
+        <jsp:include page="ProjectOverview.jsp" />
         <%--<% } else if (pagepoint == NamingConv.NEWPROJECTBEAN) { %>
         <jsp:include page="beanHandlers/newProjectsHandler.jsp" /> --%>
         <% } else  { %>

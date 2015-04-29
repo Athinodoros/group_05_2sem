@@ -55,8 +55,6 @@ public class UIServlet extends HttpServlet {
         }
 
         String command = (String) request.getParameter("command");
-        String main = (String) request.getParameter("mainArea");
-        RequestDispatcher dispatcher;
         switch (command) {
             case "log-in":
                 dummyLogIn(request, response);
@@ -72,6 +70,8 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "reloadMain":
+                RequestDispatcher dispatcher;
+                String main = (String) request.getParameter("mainArea");
                 switch (main) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
@@ -80,6 +80,11 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.SET_BUDGET:
                         request.setAttribute("mainArea", NamingConv.SET_BUDGET);
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
+                    case NamingConv.VIEW_BUDGET:
+                        request.setAttribute("mainArea", NamingConv.VIEW_BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
@@ -94,7 +99,6 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                        
                     case NamingConv.CREATEPROJECT:
                         request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
