@@ -51,8 +51,8 @@
           <div class="inner cover">
             <h1 class="cover-heading">Welcome to DELL's new web app</h1>
             <form class="lead" action="UIServlet" method="POST">
-                E-Mail:<br/>
-                <input class ="input" type="text" name = "email" required/><br/><br/>
+                Username:<br/>
+                <input class ="input" type="text" name = "username" required/><br/><br/>
                 Password:<br/>
                 <input class="input" type='password' name = "password" required/><br/><br/>
                 <input name="command" value="log-in" hidden/>

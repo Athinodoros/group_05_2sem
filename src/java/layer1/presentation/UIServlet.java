@@ -24,6 +24,7 @@ import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
+import layer3.dataSource.utility.Convert;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -54,7 +55,7 @@ public class UIServlet extends HttpServlet {
             ctrl = new Controller();
             session.setAttribute("Controller", ctrl);
         }
-        
+
         String command = (String) request.getParameter("command");
         String main = (String) request.getParameter("mainArea");
         RequestDispatcher dispatcher;
@@ -62,7 +63,7 @@ public class UIServlet extends HttpServlet {
         switch (command) {
             case "log-in":
                 //dummy code starts here
-                String input = request.getParameter("email");
+                String input = request.getParameter("username");
                 if (input.equals("admin")) {
                     session.setAttribute("user", ctrl.getAdmin());
                 } else {
@@ -73,6 +74,9 @@ public class UIServlet extends HttpServlet {
                 //dummy code ends here
 
                 //validate credentials
+                request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+                currentUser = (UserInfo) session.getAttribute("user");
+                viewAllProjects(request, response, ctrl, currentUser);
                 break;
 
             case "createProject":
@@ -81,19 +85,12 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "reloadMain":
-
                 switch (main) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-//                    case NamingConv.NEWPROJECTBEAN:
-//                        request.setAttribute("mainArea", NamingConv.NEWPROJECTBEAN);
-//                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-//                        dispatcher.forward(request, response);
-//                        break;
-                    //date format {d 'yyyy-mm-dd' } , corrent date sysdate
                     case NamingConv.BUDGET:
                         request.setAttribute("mainArea", NamingConv.BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -132,25 +129,23 @@ public class UIServlet extends HttpServlet {
         project.setStage(NamingConv.PRE_APPROVED);
         String sdate = (String) session.getAttribute("sdate");
         String fdate = (String) session.getAttribute("fdate");
-        handleDates(project, sdate, fdate);
+        project.setSdate(Convert.string2date(sdate));
+        project.setFdate(Convert.string2date(fdate));
         ctrl.createProject(project);
         request.setAttribute("command", "reloadMain");
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
 
-
     }
 
-    
     private void viewAllProjects(HttpServletRequest request, HttpServletResponse response, Controller ctrl, UserInfo currentUser) throws ServletException, IOException {
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
             request.setAttribute("projects", allProjects);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
             dispatcher.forward(request, response);
-        }
-        else if (currentUser.getUrole().equals(NamingConv.PARTNER)) {
+        } else if (currentUser.getUrole().equals(NamingConv.PARTNER)) {
             ArrayList<Project> onlyPartnerProjects = new ArrayList<Project>();
             for (Project project : allProjects) {
                 if (project.getPartner().getCompanyName().equals(currentUser.getCompany().getCompanyName())) {
@@ -162,41 +157,16 @@ public class UIServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
-        private void createCompany(HttpServletRequest request, HttpServletResponse response, Controller ctrl) throws ServletException, IOException {
-          HttpSession session = request.getSession();
-        Partner partner = (Partner) session.getAttribute("");//add smth
-        partner.setCompanyID((Integer)session.getAttribute("companyID"));
-        partner.setCompanyName((String)session.getAttribute("companyName"));
-        
+
+    private void createCompany(HttpServletRequest request, HttpServletResponse response, Controller ctrl) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Partner partner = (Partner) session.getAttribute("newCompany");
+        partner.setCompanyID((Integer) session.getAttribute("companyID"));
+        partner.setCompanyName((String) session.getAttribute("companyName"));
 
         ctrl.createPartner(partner);
-        }
-
-    
-    
-    public void handleDates(Project project, String sdate, String fdate){
-        Calendar cal = Calendar.getInstance();
-        int year;
-        int month;
-        int day;
-        
-        String[] startDate = sdate.split("-");
-        year = Integer.parseInt(startDate[0]);
-        month = Integer.parseInt(startDate[1]) - 1;
-        day = Integer.parseInt(startDate[2]);
-        cal.set(year, month, day);
-        Date sDate = cal.getTime();
-        project.setSdate(sDate);
-        
-        String[] finDate = fdate.split("-");
-        year = Integer.parseInt(finDate[0]);
-        month = Integer.parseInt(finDate[1]) - 1;
-        day = Integer.parseInt(finDate[2]);
-        cal.set(year, month, day);
-        Date fDate = cal.getTime();
-        project.setFdate(fDate);
     }
-    
+
     
     private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
         String fileDirec = "../" + con.getFileDirec(Integer.parseInt(request.getParameter("projectid")));
@@ -224,7 +194,7 @@ public class UIServlet extends HttpServlet {
                     "Sorry this Servlet only handles file upload request");
         }
 
-	        //request.getRequestDispatcher("/result.jsp").forward(request, response);
+        //request.getRequestDispatcher("/result.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
