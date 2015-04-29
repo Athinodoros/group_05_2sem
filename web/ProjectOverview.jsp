@@ -30,7 +30,6 @@
         <h1>Project overview</h1>
         <div class="scrollit">
         <table class="overview">            
-            <c:forEach var="Project" items="${projects}">
             <tr>
                 <th>Title</th>
                 <th>Company Name</th>
@@ -42,6 +41,7 @@
 
                 
             </tr>
+            <c:forEach var="Project" items="${projects}">
             <tr>
                 <td>${Project.getTitle()}</td>
                 <td>${Project.getPartner().getCompanyName()}</td>
