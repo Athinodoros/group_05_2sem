@@ -14,9 +14,11 @@
         <h1>Register a company</h1>
         <br>
         <form class="lead" action="beanHandlers/createCompanyHandler.jsp" method="POST">
-            Company Name:<input type="text" name="companyName" value="" required="">
+            Company Name:
+            <input type="text" name="companyName" value="" required="">
             <br>
-            Company ID: <input type="number" name="companyID" value="" required="">
+            Company ID: 
+            <input type="number" name="companyID" value="" required="">
             <br>
             <input name="command" value=<%=NamingConv.CREATECOMPANY%> hidden/>
             <input type="submit" value="Add" />
