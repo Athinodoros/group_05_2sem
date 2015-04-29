@@ -85,7 +85,7 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.CREATECOMPANY://make this one
                         request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
-                        createCompany(request, response, ctrl);
+                        createCompany(request, response);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
@@ -161,8 +161,9 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void createCompany(HttpServletRequest request, HttpServletResponse response, Controller ctrl) throws ServletException, IOException {
+    private void createCompany(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
         Partner partner = (Partner) session.getAttribute("newCompany");
         partner.setCompanyID((Integer) session.getAttribute("companyID"));
         partner.setCompanyName((String) session.getAttribute("companyName"));
