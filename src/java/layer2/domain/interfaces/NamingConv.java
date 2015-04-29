@@ -22,7 +22,7 @@ public class NamingConv {
 
     //stages
     public static final String STAGE = "stage";
-    public static final String PRE_APPROVED = "pre-approved";
+    public static final String PENDING = "pending";
     public static final String APPROVED = "approved";
     public static final String FINISHED = "finished";
     
@@ -46,4 +46,6 @@ public class NamingConv {
     public static final String SUCCESS = "success";
     public static final String CREATEUSER = "createUser";
     public static final String FAIL = "fail";
+    public static final String PENDING_PROJECTS = "viewPending";
+    public static final String APPROVED_PROJECTS = "viewApproved";
 }

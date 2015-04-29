@@ -107,6 +107,12 @@ public class UIServlet extends HttpServlet {
                     case NamingConv.PROJECT_OVERVIEW:
                         viewAllProjects(request, response);
                         break;
+                    case NamingConv.PENDING_PROJECTS:
+                        viewPendingProjects(request, response);
+                        break;
+                    case NamingConv.APPROVED_PROJECTS:
+                        viewApprovedProjects(request, response);
+                        break;
                 }
                 break;
         }
@@ -118,7 +124,10 @@ public class UIServlet extends HttpServlet {
         String input = request.getParameter("username");
             if (input.equals("admin")) {
                 session.setAttribute("user", ctrl.getAdmin());
-            } else {
+            } else if (input.equalsIgnoreCase("bancho")){
+                session.setAttribute("user", ctrl.getBancho());
+            }
+            else {
                 session.setAttribute("user", ctrl.getReseller());
             }
     }
@@ -129,7 +138,7 @@ public class UIServlet extends HttpServlet {
         UserInfo currentUser = (UserInfo) session.getAttribute("user");
         Project project = (Project) session.getAttribute("newProject");
         project.setPartner(currentUser.getCompany());
-        project.setStage(NamingConv.PRE_APPROVED);
+        project.setStage(NamingConv.PENDING);
         String sdate = (String) session.getAttribute("sdate");
         String fdate = (String) session.getAttribute("fdate");
         project.setSdate(Convert.string2date(sdate));
@@ -167,6 +176,39 @@ public class UIServlet extends HttpServlet {
             }
             request.setAttribute("projects", onlyPartnerProjects);
         }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    
+    private void viewPendingProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
+        ArrayList<Project> pendingProjects = new ArrayList<Project>();
+        for (Project project : allProjects) {
+            if (project.getStage().equals(NamingConv.PENDING)) {
+                pendingProjects.add(project);
+            }
+        }
+        request.setAttribute("projects", pendingProjects);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void viewApprovedProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
+        ArrayList<Project> approvedProjects = new ArrayList<Project>();
+        for (Project project : allProjects) {
+            if (!project.getStage().equals(NamingConv.PENDING)) {
+                approvedProjects.add(project);
+            }
+        }
+        request.setAttribute("projects", approvedProjects);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }

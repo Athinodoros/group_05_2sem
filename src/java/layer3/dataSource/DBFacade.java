@@ -75,6 +75,10 @@ public class DBFacade {
         return userInfoManager.getRow(conn, 84);
     }
     
+    public UserInfo getBancho(){
+        return userInfoManager.getRow(conn, 86);
+    }
+    
     //dummy log-in methods end here
     
     

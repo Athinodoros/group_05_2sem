@@ -50,6 +50,10 @@ public class Controller {
     public UserInfo getReseller(){
         return dbf.getReseller();
     }
+    
+    public UserInfo getBancho(){
+        return dbf.getBancho();
+    }
     //dummy log-in methods end here
     
     
