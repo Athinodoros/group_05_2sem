@@ -140,7 +140,8 @@ String sql1 = "INSERT into project (projectID, companyName, title, description, 
     
     
     public boolean update(Connection conn, Project bean){
-        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate =TO_DATE(?,'yyyy-mm-dd'), fdate = TO_DATE(?,'yyyy-mm-dd'), projectBudget = ?  WHERE projectID = ?";
+        //String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate =TO_DATE(?,'yyyy-mm-dd'), fdate = TO_DATE(?,'yyyy-mm-dd'), projectBudget = ?  WHERE projectID = ?";
+        String sql = "UPDATE project SET companyName = ? , title = ? , description = ? , stage = ? , sdate = ?, fdate = ?, projectBudget = ?  WHERE projectID = ?";
         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             
