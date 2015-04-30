@@ -58,7 +58,7 @@ public class UIServlet extends HttpServlet {
         switch (command) {
             case "log-in":
                 dummyLogIn(request, response);
-                viewAllProjects(request, response);
+                viewProjects(request, response);
                 break;
                         
             case "createCompany":
@@ -71,8 +71,8 @@ public class UIServlet extends HttpServlet {
 
             case "reloadMain":
                 RequestDispatcher dispatcher;
-                String main = (String) request.getParameter("mainArea");
-                switch (main) {
+                String mainArea = (String) request.getParameter("mainArea");
+                switch (mainArea) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -105,13 +105,9 @@ public class UIServlet extends HttpServlet {
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.PROJECT_OVERVIEW:
-                        viewAllProjects(request, response);
-                        break;
                     case NamingConv.PENDING_PROJECTS:
-                        viewPendingProjects(request, response);
-                        break;
                     case NamingConv.APPROVED_PROJECTS:
-                        viewApprovedProjects(request, response);
+                        viewProjects(request, response);
                         break;
                 }
                 break;
@@ -153,20 +149,43 @@ public class UIServlet extends HttpServlet {
         request.setAttribute("type", NamingConv.PROJECT);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
-
     }
-
-    private void viewAllProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    
+    private void viewProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
-        
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
         UserInfo currentUser = (UserInfo) session.getAttribute("user");
-        
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
         
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
-            request.setAttribute("projects", allProjects);
+            String requsted = request.getParameter("mainArea");
+            
+            switch(requsted){
+                case NamingConv.PROJECT_OVERVIEW:
+                    request.setAttribute("projects", allProjects);
+                    break;
+                case NamingConv.PENDING_PROJECTS:
+                    ArrayList<Project> pendingProjects = new ArrayList<Project>();
+                    for (Project project : allProjects) {
+                        if (project.getStage().equals(NamingConv.PENDING)) {
+                            pendingProjects.add(project);
+                        }
+                    }
+                    request.setAttribute("projects", pendingProjects);
+                    break;
+                case NamingConv.APPROVED_PROJECTS:
+                    ArrayList<Project> approvedProjects = new ArrayList<Project>();
+                    for (Project project : allProjects) {
+                        if (project.getStage().equals(NamingConv.PENDING) == false) {
+                            approvedProjects.add(project);
+                        }
+                    }
+                    request.setAttribute("projects", approvedProjects);
+                    break;
+            }
+            
         } else if (currentUser.getUrole().equals(NamingConv.PARTNER)) {
             ArrayList<Project> onlyPartnerProjects = new ArrayList<Project>();
             for (Project project : allProjects) {
@@ -179,39 +198,7 @@ public class UIServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-    private void viewPendingProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
-        HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
-        ArrayList<Project> pendingProjects = new ArrayList<Project>();
-        for (Project project : allProjects) {
-            if (project.getStage().equals(NamingConv.PENDING)) {
-                pendingProjects.add(project);
-            }
-        }
-        request.setAttribute("projects", pendingProjects);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-        dispatcher.forward(request, response);
-    }
-    
-    private void viewApprovedProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
-        HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
-        ArrayList<Project> approvedProjects = new ArrayList<Project>();
-        for (Project project : allProjects) {
-            if (!project.getStage().equals(NamingConv.PENDING)) {
-                approvedProjects.add(project);
-            }
-        }
-        request.setAttribute("projects", approvedProjects);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-        dispatcher.forward(request, response);
-    }
+
 
     private void createCompany(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
