@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%@page import="layer2.domain.interfaces.NamingConv" %>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,6 +57,7 @@
                 Password:<br/>
                 <input class="input" type='password' name = "password" required/><br/><br/>
                 <input name="command" value="log-in" hidden/>
+                <input name="mainArea" value=<%=NamingConv.PROJECT_OVERVIEW%> hidden/>
                 <button class = "input" type = "submit" name = "LogIn" value="LogIn">Log in</button>
             </form>
             
