@@ -18,7 +18,7 @@
         <%@page  import="layer2.domain.bean.Partner" %>
         <%@page  import="layer2.domain.bean.UserInfo" %>
         <%@page  import="java.util.ArrayList" %>
-        <jsp:useBean id="userInfo" class="layer2.domain.bean.UserInfo" scope="session" />
+        <jsp:useBean id="newUserInfo" class="layer2.domain.bean.UserInfo" scope="session" />
         <% String NAME = (String) request.getParameter("companyName"); %>
         <% ArrayList<Partner> li = (ArrayList<Partner>) session.getAttribute("list"); %>
         <div class="col-md-3" style="border-radius: 30px ; padding: 20px;background-color:rgba(255,255,255,0.5); margin-top: 20%; margin-bottom: 20%; margin-left: 30%; margin-right: 30%; ">
@@ -30,19 +30,19 @@
                         break;
                     }
                 }%> 
-            <% userInfo.setCompany(newPartnerInTheBean); %>
+            <% newUserInfo.setCompany(newPartnerInTheBean); %>
 
             <!-- creating the userinfo bean-->
-            <jsp:setProperty name="userInfo" property="*"  />
+            <jsp:setProperty name="newUserInfo" property="*"  />
             <jsp:useBean id="newUserAth" class="layer2.domain.bean.UserAuthentication" scope="session" />
             <jsp:setProperty name="newUserAth" property="*"  />
             <% session.setAttribute("companyName", request.getParameter("company"));%>
             
-            First Name : <%= userInfo.getFirstname()%><br/>
-            Last Name :<%= userInfo.getLastname()%><br/>
-            Country : <%= userInfo.getCountry()%><br/>
+            First Name : <%= newUserInfo.getFirstname()%><br/>
+            Last Name :<%= newUserInfo.getLastname()%><br/>
+            Country : <%= newUserInfo.getCountry()%><br/>
             Company : <%=  NAME%> <br/>
-            User Role : <%= userInfo.getUrole()%><br/>
+            User Role : <%= newUserInfo.getUrole()%><br/>
             
             UserName : <%= newUserAth.getUname()%><br/>
             Password : <%= newUserAth.getPassword()%><br/>
@@ -53,15 +53,15 @@
             </a>
                 <div style="float: left">
             <form class="lead" style="margin:  4px;" action="../UIServlet">
-                <% request.setAttribute("command", NamingConv.CREATEUSER); %>
+                <% session.setAttribute("command", NamingConv.CREATEUSER); %>
                
                 <input style="padding: 18px; border-radius: 15px; border-color: rgba(200,200,200,0.8)" type="submit" value="Save" />   
             </form>
                 </div>
                 <form class="lead" style="margin:  4px;  border-color: rgba(200,200,200,0.8)"  action="../UIServlet">
-                <% request.setAttribute("command", "reloadMain"); %>
-                <% request.setAttribute(NamingConv.MAINAREA, NamingConv.PROJECTLIST); %>
-                <% request.setAttribute("userInfo", userInfo); %>
+                <% session.setAttribute("command", "reloadMain"); %>
+                <% session.setAttribute(NamingConv.MAINAREA, NamingConv.USERFORM); %>
+                <% request.setAttribute("userInfo", newUserInfo); %>
                 <% request.setAttribute("userAth", newUserAth);%>
                 <input style="padding: 18px; border-radius: 15px;" type="submit" value="GoBack" />   
             </form>

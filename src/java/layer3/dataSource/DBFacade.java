@@ -7,11 +7,15 @@ package layer3.dataSource;
 
 import java.sql.Connection;
 import java.util.Collection;
+import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
+import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
+import layer3.dataSource.mapper.POEManager;
 import layer3.dataSource.mapper.PartnerManager;
 import layer3.dataSource.mapper.ProjectManager;
+import layer3.dataSource.mapper.UserAutenticationManager;
 import layer3.dataSource.mapper.UserInfoManager;
 
 /**
@@ -23,7 +27,9 @@ public class DBFacade {
     //private CompanyManager  companyManager;
     private ProjectManager  projectManager;
     private UserInfoManager     userInfoManager;
+    private UserAutenticationManager userAthMan;
     private PartnerManager partnerManager;
+    private POEManager poeManager;
     
     private Connection conn;
     
@@ -37,6 +43,7 @@ public class DBFacade {
        partnerManager  = new PartnerManager();
         projectManager  = new ProjectManager();
         userInfoManager     = new UserInfoManager();
+        poeManager = new POEManager();
         
     }
     
@@ -95,4 +102,17 @@ public class DBFacade {
     public Collection<Partner> getAllPartners(){
         return partnerManager.getAllRows(conn);
     }
+    
+    public boolean createPOE(POE poe){
+        return poeManager.insert(conn, poe);
+    }
+    
+    public boolean createUserInfo(UserInfo ui){
+        return userInfoManager.insert(conn, ui);
+    }
+    public boolean createUserAth(UserAuthentication uam){
+        return userAthMan.insert(conn, uam);
+    }
+    
+    
 } // End of Class :: DBFacade

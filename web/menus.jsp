@@ -29,6 +29,7 @@
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.USERFORM %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">Add User</button></form></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.PENDING_PROJECTS %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">View pending projects</button></form></a></li>
             <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.APPROVED_PROJECTS %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">View approved projects</button></form></a></li>
+            <li><a href="#"><form action="UIServlet" method="POST"><input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.SEE %>"  hidden/><input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">See project</button></form></a></li>
         </ul>
         <% } else if (user.getUrole().equals(NamingConv.PARTNER)) { %>
         <ul class="nav nav-sidebar ">

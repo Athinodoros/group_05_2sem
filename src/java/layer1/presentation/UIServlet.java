@@ -8,18 +8,23 @@ package layer1.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import layer2.domain.Controller;
+import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
+import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.utility.Convert;
@@ -53,19 +58,25 @@ public class UIServlet extends HttpServlet {
             ctrl = new Controller();
             session.setAttribute("Controller", ctrl);
         }
-
+        
         String command = (String) request.getParameter("command");
-        RequestDispatcher dispatcher;
+        RequestDispatcher  dispatcher ;
+         
+        if (command == null) {
+            command = (String) session.getAttribute("command");
+        }
         switch (command) {
             case "log-in":
                 dummyLogIn(request, response);
                 viewProjects(request, response);
                 break;
-                        
-            case "upload":
+                
+            case NamingConv.UPLOAD:
                 upload(request, response, ctrl);
-               dispatcher = request.getRequestDispatcher("filehandler");
-               dispatcher.forward(request, response);
+                break;
+
+            case NamingConv.CREATEUSER:
+                createUser(request, response);
                 break;
                 
             case "createCompany":
@@ -78,6 +89,9 @@ public class UIServlet extends HttpServlet {
 
             case "reloadMain":
                 String mainArea = (String) request.getParameter("mainArea");
+                if (mainArea == null) {
+                    mainArea = (String) session.getAttribute("mainArea");
+                 }
                 switch (mainArea) {
                     case NamingConv.PROJECTLIST:
                         request.setAttribute("mainArea", NamingConv.PROJECTLIST);
@@ -110,28 +124,43 @@ public class UIServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
+                    case NamingConv.SEE:
+                        request.setAttribute("mainArea", NamingConv.SEE);
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
                     case NamingConv.PROJECT_OVERVIEW:
                     case NamingConv.PENDING_PROJECTS:
                     case NamingConv.APPROVED_PROJECTS:
                         viewProjects(request, response);
                         break;
+                    default:
+                        request.setAttribute("mainArea", NamingConv.SEE);
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
+                        
                 }
                 break;
+                default:
+                    request.setAttribute("mainArea", NamingConv.SEE);
+                    dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                    dispatcher.forward(request, response);
+                    break;
         }
     }
-    
-    private void dummyLogIn(HttpServletRequest request, HttpServletResponse response){
+
+    private void dummyLogIn(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
         String input = request.getParameter("username");
-            if (input.equals("admin")) {
-                session.setAttribute("user", ctrl.getAdmin());
-            } else if (input.equalsIgnoreCase("bancho")){
-                session.setAttribute("user", ctrl.getBancho());
-            }
-            else {
-                session.setAttribute("user", ctrl.getReseller());
-            }
+        if (input.equals("admin")) {
+            session.setAttribute("user", ctrl.getAdmin());
+        } else if (input.equalsIgnoreCase("bancho")) {
+            session.setAttribute("user", ctrl.getBancho());
+        } else {
+            session.setAttribute("user", ctrl.getReseller());
+        }
     }
 
     private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -148,27 +177,25 @@ public class UIServlet extends HttpServlet {
         boolean status = ctrl.createProject(project);
         if (status) {
             request.setAttribute("mainArea", NamingConv.SUCCESS);
-        }
-        else{
+        } else {
             request.setAttribute("mainArea", NamingConv.FAIL);
         }
         request.setAttribute("type", NamingConv.PROJECT);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-    private void viewProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    private void viewProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
         UserInfo currentUser = (UserInfo) session.getAttribute("user");
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
-        
+
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
             String requsted = request.getParameter("mainArea");
-            
-            switch(requsted){
+
+            switch (requsted) {
                 case NamingConv.PROJECT_OVERVIEW:
                     request.setAttribute("projects", allProjects);
                     break;
@@ -191,7 +218,7 @@ public class UIServlet extends HttpServlet {
                     request.setAttribute("projects", approvedProjects);
                     break;
             }
-            
+
         } else if (currentUser.getUrole().equals(NamingConv.PARTNER)) {
             ArrayList<Project> onlyPartnerProjects = new ArrayList<Project>();
             for (Project project : allProjects) {
@@ -201,56 +228,99 @@ public class UIServlet extends HttpServlet {
             }
             request.setAttribute("projects", onlyPartnerProjects);
         }
-        
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
 
-
     private void createCompany(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
-        Partner partner = (Partner) session.getAttribute("newCompany");       
+        Partner partner = (Partner) session.getAttribute("newCompany");
         boolean status = ctrl.createPartner(partner);
         if (status) {
             request.setAttribute("mainArea", NamingConv.SUCCESS);
-        }
-        else{
+        } else {
             request.setAttribute("mainArea", NamingConv.FAIL);
         }
         request.setAttribute("type", "company");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
-
-    
-    private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
-        String fileDirec = "../" + con.getFileDirec(Integer.parseInt(request.getParameter("projectid")));
-
-        if (ServletFileUpload.isMultipartContent(request)) {
-            try {
-                List<FileItem> multiparts = new ServletFileUpload(
-                        new DiskFileItemFactory()).parseRequest(request);
-
-                for (FileItem item : multiparts) {
-                    if (!item.isFormField()) {
-                        String name = new File(item.getName()).getName();
-                        item.write(new File(fileDirec + File.separator + name));
-                    }
-                }
-
-                //File uploaded successfully
-                request.setAttribute("message", "File Uploaded Successfully");
-            } catch (Exception ex) {
-                request.setAttribute("message", "File Upload Failed due to " + ex);
-            }
-
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        UserAuthentication newUserAth = (UserAuthentication) session.getAttribute("newUserAth");
+        UserInfo newUserInfo = (UserInfo)session.getAttribute("newUserInfo");
+        newUserAth.setUserInfo(newUserInfo);
+        boolean status = ctrl.createUserInfo(newUserInfo);
+        //need the userID to continue ferther
+        boolean status1 = ctrl.createUserAth(newUserAth);
+        if (status&&status1) {
+            request.setAttribute("mainArea", NamingConv.SUCCESS);
         } else {
-            request.setAttribute("message",
-                    "Sorry this Servlet only handles file upload request");
+            request.setAttribute("mainArea", NamingConv.FAIL);
         }
+        request.setAttribute("type", "User");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
+    }
 
-        //request.getRequestDispatcher("/result.jsp").forward(request, response);
+    private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
+        File file;
+        POE poe = new POE();
+        poe.setProject(con.getProjects(1));
+        ServletContext context = this.getServletContext();
+        String filePath = context.getInitParameter("file-upload");
+        String contentType = request.getContentType();
+        if (contentType.indexOf("multipart/form-data") >= 0) {
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            upload.setFileSizeMax(Long.MAX_VALUE);
+            try {
+                List files = upload.parseRequest(request);
+                Iterator it = files.iterator();
+                while (it.hasNext()) {
+                    FileItem fi = (FileItem) it.next();
+                    if (!fi.isFormField()) {
+                        String fieldName = fi.getFieldName();
+                        String fileName = fi.getName();
+                        poe.setFileName(fileName);
+                        if (fileName.lastIndexOf("\\") >= 0) {
+                            file = new File(filePath
+                                    + fileName.substring(fileName.lastIndexOf("\\")));
+                        } else {
+                            file = new File(filePath
+                                    + fileName.substring(fileName.lastIndexOf("\\") + 1));
+                        }
+                        poe.setFile(file);
+                        String[] fileparts = fieldName.split(fileName);
+                        if (fileparts.length>1 && fileparts.length<3) {
+                            poe.setFileName(fileparts[0]);
+                            poe.setPrefix(fileparts[1]);
+                        }
+                        if (con.createPOE(poe)){
+                            request.setAttribute("mainArea", NamingConv.SUCCESS);
+                            request.setAttribute("command", "reloadMain");
+                            request.setAttribute("type", "POE");
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                            dispatcher.forward(request, response);
+                        }else{
+                            request.setAttribute("mainArea", NamingConv.FAIL);
+                            request.setAttribute("command", "reloadMain");
+                            request.setAttribute("type", "POE");
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                            dispatcher.forward(request, response);
+                        }
+                    }
+                        //----------------------------
+
+                        //----------------------------
+                }
+                
+            } catch (Exception e) {
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -279,7 +349,7 @@ public class UIServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request, response);
     }
 
     /**

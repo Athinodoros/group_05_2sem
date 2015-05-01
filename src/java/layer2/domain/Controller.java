@@ -6,8 +6,10 @@
 package layer2.domain;
 
 import java.util.Collection;
+import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
+import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer3.dataSource.DBFacade;
 
@@ -36,6 +38,9 @@ public class Controller {
         return dbf.editProject(project);
     }
     
+    public Project getProjects(int projectID){
+        return dbf.getProject(projectID);
+    }
     
     public Collection getAllProjects(){
         return dbf.getAllProjects();
@@ -66,7 +71,17 @@ public class Controller {
     
     public Collection<Partner> getAllPartners(){
       return dbf.getAllPartners();
-      
-        
     }
+    
+    public boolean createPOE(POE poe){
+        return dbf.createPOE(poe);
+    }
+      
+    public boolean createUserInfo(UserInfo ui){
+        return dbf.createUserInfo(ui);
+    }
+    public boolean createUserAth(UserAuthentication uam){
+        return dbf.createUserAth(uam);
+    }
+    
 }

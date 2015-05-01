@@ -5,9 +5,12 @@
  */
 package layer3.dataSource.mapper;
 
+import com.sun.xml.ws.transport.tcp.io.OutputWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.*;
 import layer2.domain.bean.POE;
 import layer3.dataSource.DBConnector;
@@ -42,19 +45,20 @@ public class POEManager {
 
  
             ProjectManager pm = new ProjectManager();
-            
+            FileInputStream fis = new FileInputStream(bean.getFile());
             //== insert 
             stmt.setInt(1, bean.getPOEID()  );
             stmt.setInt(2, bean.getProject().getProjectID() );
             stmt.setString(3, bean.getPrefix());
             stmt.setString(4, bean.getFileName());
-            stmt.setBinaryStream(5, bean.getFileIn());
+            stmt.setBinaryStream(5, fis);
             rowsInserted  = stmt.executeUpdate(); 
 
         } catch (SQLException e) {
             DBConnector.processException(e);
             return false;
         }catch(FileNotFoundException e){
+            System.out.println(e.getStackTrace());
             
         }
         
@@ -103,11 +107,11 @@ public class POEManager {
     
     public boolean update(Connection conn, POE bean) {
 
-        String sql = "UPDATE POE SET filePath = ? WHERE projectID = ?";
+        String sql = "UPDATE POE SET fileName = ?, fileBin = ? WHERE projectID = ?, fileName=?";
 
         try ( PreparedStatement stmt = conn.prepareStatement(sql); ) {
 
-            stmt.setString  (1, bean.getFilePath());
+            stmt.setString  (1, bean.getFileName());
             stmt.setInt     (2, bean.getProject().getProjectID());
 
             int affected = stmt.executeUpdate();

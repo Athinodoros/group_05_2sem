@@ -44,8 +44,10 @@ public class NamingConv {
     public static final String PROJECT_OVERVIEW = "projectOverview";
     public static final String VIEW_PROJECT_DETAILS = "viewProjectDetails";
     public static final String SUCCESS = "success";
+    public static final String SEE = "seeProjects";
     public static final String CREATEUSER = "createUser";
     public static final String FAIL = "fail";
+    public static final String UPLOAD = "upload";
     public static final String PENDING_PROJECTS = "viewPending";
     public static final String APPROVED_PROJECTS = "viewApproved";
 }

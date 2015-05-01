@@ -41,6 +41,7 @@
 
                 
             </tr>
+            <c:if test="${projects != null}" >
             <c:forEach var="Project" items="${projects}">
             <tr>
                 <td>${Project.getTitle()}</td>
@@ -58,6 +59,7 @@
             
             
             </c:forEach>
+            </c:if>
         </table>
             </div>
     </body>

@@ -15,7 +15,7 @@
             if (pagepoint == NamingConv.VIEW_BUDGET) { %>
         <jsp:include page="Forms/Budget.jsp"/>
         <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
-        <jsp:include page="Forms/initialForm.jsp"/>
+        <jsp:include page="Forms/addUser.jsp"/>
         <%} else if (pagepoint == NamingConv.CREATEPROJECT) { %>
         <jsp:include page="Forms/newProject.jsp"/>
         <% } else if (pagepoint == NamingConv.CREATECOMPANY) { %>
@@ -28,6 +28,8 @@
         <jsp:include page="UserFeedback/Success.jsp" />
         <% } else if (pagepoint == NamingConv.FAIL) { %>
         <jsp:include page="UserFeedback/Fail.jsp" />
+        <% } else if (pagepoint == NamingConv.SEE) { %>
+        <jsp:include page="Forms/DisplayProject.jsp" />
         <% } else  { %>
         <p>no jsp was loaded </p>
         <% }%>
