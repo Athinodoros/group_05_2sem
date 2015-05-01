@@ -5,6 +5,9 @@
  */
 package layer3.dataSource.mapper;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import layer2.domain.bean.POE;
 import layer3.dataSource.DBConnector;
@@ -20,21 +23,39 @@ public class POEManager {
         
         int rowsInserted = 0;
          
-        String sql = "INSERT into POE (projectID, filePath) VALUES (?, ?)";
+        String sql = "INSERT into POE (projectID, filePath) VALUES (?, ?, ?, ?, ?)";
          
+        // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
+        //-------------------------------------------------------------------------------
+        String sql2
+                = "select POESequence.nextval " //= "select orderseq.nextval  "
+                + "from dual";                      // <- this (dual) is a dummy table, and it is needed
+                                                    // because of the select statemant (oracle data-base only)
+        //--------------------------------------------------------------------------------
         try ( PreparedStatement stmt = conn.prepareStatement( sql ); ) {
+            PreparedStatement stmt1 = conn.prepareStatement(sql2);
+            ResultSet keys;
+            keys = stmt1.executeQuery();
+            if (keys != null) {
+                bean.setPOEID(keys.getInt(1));
+            }
+
  
             ProjectManager pm = new ProjectManager();
             
-            //== insert tuplet
-            stmt.setInt     (1, bean.getProject().getProjectID() );
-            stmt.setString  (2, bean.getFilePath());
-              
+            //== insert 
+            stmt.setInt(1, bean.getPOEID()  );
+            stmt.setInt(2, bean.getProject().getProjectID() );
+            stmt.setString(3, bean.getPrefix());
+            stmt.setString(4, bean.getFileName());
+            stmt.setBinaryStream(5, bean.getFileIn());
             rowsInserted  = stmt.executeUpdate(); 
 
         } catch (SQLException e) {
             DBConnector.processException(e);
             return false;
+        }catch(FileNotFoundException e){
+            
         }
         
         return rowsInserted == 1;
@@ -55,9 +76,9 @@ public class POEManager {
                 
                 ProjectManager pm = new ProjectManager();
                 POE bean = new POE();
-                
+                InputStream inStr = rs.getBinaryStream("fileBin");
                 bean.setProject( pm.getRow(conn, rs.getInt("projectID")));
-                bean.setFilePath(rs.getString("filePath"));
+                File file = new File("C:\\"+rs.getString("fileName"));
                 
                 return bean;
                 

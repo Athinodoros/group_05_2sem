@@ -15,14 +15,9 @@
         <div >
             <%-- Top area header etc. --%>
             <div class="col-md-12">
-                <div class="col-md-2">
-                <jsp:include page="PageComponents/header.jsp" /> fewfs
-                </div>
-                <div class="col-md-6">this </div>
-                <div class="col-md-4">
-                    Name:
-                    Role:
-                </div>
+                
+                <jsp:include page="PageComponents/header.jsp" /> 
+                
             </div>
                 
             <%-- left menu item --%>

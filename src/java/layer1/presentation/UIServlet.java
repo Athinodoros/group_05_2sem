@@ -55,12 +55,19 @@ public class UIServlet extends HttpServlet {
         }
 
         String command = (String) request.getParameter("command");
+        RequestDispatcher dispatcher;
         switch (command) {
             case "log-in":
                 dummyLogIn(request, response);
                 viewProjects(request, response);
                 break;
                         
+            case "upload":
+                upload(request, response, ctrl);
+               dispatcher = request.getRequestDispatcher("filehandler");
+               dispatcher.forward(request, response);
+                break;
+                
             case "createCompany":
                 createCompany(request, response);
                 break;
@@ -70,7 +77,6 @@ public class UIServlet extends HttpServlet {
                 break;
 
             case "reloadMain":
-                RequestDispatcher dispatcher;
                 String mainArea = (String) request.getParameter("mainArea");
                 switch (mainArea) {
                     case NamingConv.PROJECTLIST:
@@ -195,6 +201,7 @@ public class UIServlet extends HttpServlet {
             }
             request.setAttribute("projects", onlyPartnerProjects);
         }
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }

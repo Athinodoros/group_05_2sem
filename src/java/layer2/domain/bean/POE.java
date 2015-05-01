@@ -6,6 +6,10 @@
 package layer2.domain.bean;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 /**
  *
@@ -13,24 +17,77 @@ import java.io.File;
  */
 public class POE {
     
+    private int POEID;
     private Project project;
-    private String filePath;
+    private String fileName;
+    private String prefix;
+    private File file ;
+    private InputStream inStream;
+    private FileInputStream fileIn;
+    private FileOutputStream  fileOut;
 
-    
-    // Constructors ->
-    public POE() {}
-    
-    public POE(Project project, String filePath) {
-        this.project = project;
-        this.filePath = filePath;
+    //new costructors ->
+
+    public POE() {
     }
 
-    public POE(POE p) {
+    public POE(int POEID, Project project, String fileName, String prefix, File file, InputStream inStream, FileInputStream fileIn, FileOutputStream fileOut) {
+        this.POEID = POEID;
+        this.project = project;
+        this.fileName = fileName;
+        this.prefix = prefix;
+        this.file = file;
+        this.inStream = inStream;
+        this.fileIn = fileIn;
+        this.fileOut = fileOut;
+    }
+    
+    public POE(POE p){
+        this.POEID = p.POEID;
         this.project = p.project;
-        this.filePath = p.filePath;
+        this.fileName = p.fileName;
+        this.prefix = p.prefix;
+        this.fileIn = p.fileIn;
+        this.fileOut = p.fileOut;
+        this.inStream = p.inStream;
+        
     }
 
     // Getters and setters -> 
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public InputStream getInStream() {
+        return inStream;
+    }
+
+    public void setInStream(InputStream inStream) {
+        this.inStream = inStream;
+    }
+    
+    public FileOutputStream getFileOut() throws FileNotFoundException{
+        
+        return new FileOutputStream(this.file);
+    }
+
+    public void setFileOut(FileOutputStream fileOut) {
+        this.fileOut = fileOut;
+    }
+
+    public FileInputStream getFileIn() throws FileNotFoundException{
+        return new FileInputStream(this.file);
+    }
+
+    public void setFileIn(FileInputStream fileIn) {
+        this.fileIn = fileIn;
+    }
+    
     public Project getProject() {
         return project;
     }
@@ -40,18 +97,42 @@ public class POE {
     }
 
     public String getFilePath() {
-        return filePath;
+        return fileName;
     }
 
     public void setFilePath(String filePath) {
-        this.filePath = filePath;
+        this.fileName = filePath;
     }
     
     // ->
+
     @Override
     public String toString() {
-        return "POE{" + "project=" + project + ", filePath=" + filePath + '}';
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public int getPOEID() {
+        return POEID;
+    }
+
+    public void setPOEID(int POEID) {
+        this.POEID = POEID;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+    
+    public String getPrefix() {
+        return prefix;
+    }
+    
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
     
 } // End of Class

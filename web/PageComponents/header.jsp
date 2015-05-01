@@ -5,15 +5,17 @@
 --%>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Powered by DELL</a>
-        </div>
-    </div>
+    
+        
+            <div class="col-md-4" style="float: left; font-size: 2em; color: #ccc">Powered by DELL</div>
+            <div class="col-md-4" style="float: left; margin: auto;">Powered by DELL</div>
+            <div class="col-md-4" style="float: left; padding-left: 15%;">
+                <form action="UIServlet" >
+                    <input type="hidden" name="command" value="log-in" />
+                    <input type="submit" value="Log-out" />
+                </form>
+            </div>
+            
+            
+        
 </nav>

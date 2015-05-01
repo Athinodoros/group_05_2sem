@@ -57,8 +57,11 @@ fdate date,
 projectBudget integer);
 
 create table POE (
-projectID integer primary key references Project(projectID),
-filePath varchar(50));
+POEID integer primary key,
+projectID integer references Project(projectID),
+prefixs varchar(18),
+fileName varchar(18),
+fileBin BLOB ));
 
 create table comments (
 commentID integer primary key,
@@ -84,6 +87,13 @@ CREATE SEQUENCE commentSequence
   MINVALUE 1
   MAXVALUE 999999999999999999999999999
   START WITH 1000
+  INCREMENT BY 1
+  CACHE 20;
+
+CREATE SEQUENCE POESequence
+  MINVALUE 1
+  MAXVALUE 999999999999999999999999999
+  START WITH 1
   INCREMENT BY 1
   CACHE 20;
 
