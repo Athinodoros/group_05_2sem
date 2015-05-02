@@ -80,6 +80,9 @@ public class Controller {
     public boolean createUserInfo(UserInfo ui){
         return dbf.createUserInfo(ui);
     }
+    public UserInfo getUserInfo(int ui){
+        return dbf.getUserInfo(ui);
+    }
     public boolean createUserAth(UserAuthentication uam){
         return dbf.createUserAth(uam);
     }

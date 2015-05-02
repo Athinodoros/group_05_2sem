@@ -53,14 +53,14 @@
             </a>
                 <div style="float: left">
             <form class="lead" style="margin:  4px;" action="../UIServlet">
+                <% request.setAttribute("command", NamingConv.CREATEUSER); %>
                 <% session.setAttribute("command", NamingConv.CREATEUSER); %>
                
                 <input style="padding: 18px; border-radius: 15px; border-color: rgba(200,200,200,0.8)" type="submit" value="Save" />   
             </form>
                 </div>
                 <form class="lead" style="margin:  4px;  border-color: rgba(200,200,200,0.8)"  action="../UIServlet">
-                <% session.setAttribute("command", "reloadMain"); %>
-                <% session.setAttribute(NamingConv.MAINAREA, NamingConv.USERFORM); %>
+                    <input type="hidden" name="mainArea" value="userForm" />
                 <% request.setAttribute("userInfo", newUserInfo); %>
                 <% request.setAttribute("userAth", newUserAth);%>
                 <input style="padding: 18px; border-radius: 15px;" type="submit" value="GoBack" />   

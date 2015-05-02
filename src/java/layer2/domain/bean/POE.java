@@ -131,8 +131,10 @@ public class POE {
         return prefix;
     }
     
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
+    public void setPrefix(String filename) {
+        String[] pr = filename.split(".");
+        
+        this.prefix = pr[1];
     }
     
 } // End of Class

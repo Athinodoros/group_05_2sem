@@ -255,6 +255,7 @@ public class UIServlet extends HttpServlet {
         newUserAth.setUserInfo(newUserInfo);
         boolean status = ctrl.createUserInfo(newUserInfo);
         //need the userID to continue ferther
+        newUserInfo.setUserID(1);
         boolean status1 = ctrl.createUserAth(newUserAth);
         if (status&&status1) {
             request.setAttribute("mainArea", NamingConv.SUCCESS);
@@ -294,11 +295,7 @@ public class UIServlet extends HttpServlet {
                                     + fileName.substring(fileName.lastIndexOf("\\") + 1));
                         }
                         poe.setFile(file);
-                        String[] fileparts = fieldName.split(fileName);
-                        if (fileparts.length>1 && fileparts.length<3) {
-                            poe.setFileName(fileparts[0]);
-                            poe.setPrefix(fileparts[1]);
-                        }
+                        poe.setPrefix(fileName);
                         if (con.createPOE(poe)){
                             request.setAttribute("mainArea", NamingConv.SUCCESS);
                             request.setAttribute("command", "reloadMain");

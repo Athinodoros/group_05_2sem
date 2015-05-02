@@ -110,6 +110,9 @@ public class DBFacade {
     public boolean createUserInfo(UserInfo ui){
         return userInfoManager.insert(conn, ui);
     }
+    public UserInfo getUserInfo(int ui){
+        return userInfoManager.getRow(conn, ui);
+    }
     public boolean createUserAth(UserAuthentication uam){
         return userAthMan.insert(conn, uam);
     }
