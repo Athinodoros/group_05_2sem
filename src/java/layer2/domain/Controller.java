@@ -44,29 +44,12 @@ public class Controller {
     
     public Collection getAllProjects(){
         return dbf.getAllProjects();
-    }
-    
-    
-    //dummy log-in methods start here
-    public UserInfo getAdmin(){
-        return dbf.getAdmin();
-    }
-    
-    public UserInfo getReseller(){
-        return dbf.getReseller();
-    }
-    
-    public UserInfo getBancho(){
-        return dbf.getBancho();
-    }
-    //dummy log-in methods end here
-    
+    }    
     
     public String getFileDirec(int projectid){
         Project project = dbf.getProject(projectid);
         String companyName = project.getPartner().getCompanyName();
         return companyName + projectid;
-    
     }
     
     public Collection<Partner> getAllPartners(){
@@ -99,5 +82,9 @@ public class Controller {
             return false;
         }
         return uAth.getPassword().equals(password);
+    }
+    
+    public void closeConnection(){
+        dbf.closeConnection();
     }
 }

@@ -6,7 +6,10 @@
 package layer3.dataSource;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
@@ -23,106 +26,95 @@ import layer3.dataSource.mapper.UserInfoManager;
  * @author bo
  */
 public class DBFacade {
+
+    private Connection conn;
     
-    //private CompanyManager  companyManager;
-    private ProjectManager  projectManager;
-    private UserInfoManager     userInfoManager;
+    private ProjectManager projectManager;
+    private UserInfoManager userInfoManager;
     private UserAutenticationManager userAthMan;
     private PartnerManager partnerManager;
     private POEManager poeManager;
-    
-    private Connection conn;
-    
+
+
 // Singleton Start --> 
-    
     private DBFacade() {
-        
+
         DBConnector.getInstance().setDBType(DBType.ORACLE_THIN);
         conn = DBConnector.getInstance().getConnection();
-        
-       partnerManager  = new PartnerManager();
-        projectManager  = new ProjectManager();
-        userInfoManager     = new UserInfoManager();
+
+        partnerManager = new PartnerManager();
+        projectManager = new ProjectManager();
+        userInfoManager = new UserInfoManager();
         userAthMan = new UserAutenticationManager();
         poeManager = new POEManager();
-        
     }
-    
+
     public static DBFacade getInstance() {
         return DBFacadeHolder.INSTANCE;
     }
-    
-    private static class DBFacadeHolder {
 
+    private static class DBFacadeHolder {
         private static final DBFacade INSTANCE = new DBFacade();
     }
-
 // <-- End of Singleton
     
+    private Connection getConnection(){
+        try {
+            if (conn.isClosed()) {
+                conn = DBConnector.getInstance().getConnection();
+            }
+        } catch (SQLException ex) {
+            DBConnector.processException(ex);
+        }
+        return conn;
+    }
     
+    public void closeConnection() {
+        DBConnector.getInstance().close();
+    }
     
     public boolean createProject(Project newProject) {
-        return projectManager.insert(conn, newProject);
+        return projectManager.insert(getConnection(), newProject);
     }
-    
-    public Project getProject(int projectid){
-        return projectManager.getRow(conn, projectid);
+
+    public Project getProject(int projectid) {
+        return projectManager.getRow(getConnection(), projectid);
     }
-    public boolean createPartner(Partner partner){
-        return partnerManager.insert(conn, partner);
+
+    public boolean createPartner(Partner partner) {
+        return partnerManager.insert(getConnection(), partner);
     }
-    
-    
-    //dummy log-in methods start here
-    
-    public UserInfo getAdmin(){
-        return userInfoManager.getRow(conn, 83);
+
+    public Collection getAllProjects() {
+        return projectManager.getAllRows(getConnection());
     }
-    
-    public UserInfo getReseller(){
-        return userInfoManager.getRow(conn, 84);
-    }
-    
-    public UserInfo getBancho(){
-        return userInfoManager.getRow(conn, 86);
-    }
-    
-    //dummy log-in methods end here
-    
-    
-    
-    public Collection getAllProjects(){
-        return projectManager.getAllRows(conn);
-    }
-    
-    
+
     public boolean editProject(Project project) {
-        return projectManager.update(conn, project);
+        return projectManager.update(getConnection(), project);
     }
-    
-    public Collection<Partner> getAllPartners(){
-        return partnerManager.getAllRows(conn);
+
+    public Collection<Partner> getAllPartners() {
+        return partnerManager.getAllRows(getConnection());
     }
-    
-    public boolean createPOE(POE poe){
-        return poeManager.insert(conn, poe);
+
+    public boolean createPOE(POE poe) {
+        return poeManager.insert(getConnection(), poe);
     }
-    
-    public boolean createUserInfo(UserInfo ui){
-        return userInfoManager.insert(conn, ui);
+
+    public boolean createUserInfo(UserInfo ui) {
+        return userInfoManager.insert(getConnection(), ui);
     }
-    
-    public UserInfo getUserInfo(int userid){
-        return userInfoManager.getRow(conn, userid);
+
+    public UserInfo getUserInfo(int userid) {
+        return userInfoManager.getRow(getConnection(), userid);
     }
-    
-    public UserAuthentication getUserAuthentication(String username){
-        return userAthMan.getRow(conn, username);
+
+    public UserAuthentication getUserAuthentication(String username) {
+        return userAthMan.getRow(getConnection(), username);
     }
-    
-    public boolean createUserAth(UserAuthentication ua){
-        return userAthMan.insert(conn, ua);
+
+    public boolean createUserAth(UserAuthentication ua) {
+        return userAthMan.insert(getConnection(), ua);
     }
-    
-    
+
 } // End of Class :: DBFacade
