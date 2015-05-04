@@ -103,8 +103,8 @@ public class UserAutenticationManager {
                 
                 bean.setUname(uname);
                 bean.setUserInfo(uim.getRow(conn, rs.getInt("userID")));
-                bean.setUname(rs.getString("password"));
-                bean.setUname(rs.getString("email"));
+                bean.setPassword(rs.getString("password"));
+                bean.setEmail(rs.getString("email"));
                
                 
                 return bean;

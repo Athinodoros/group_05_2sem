@@ -11,8 +11,8 @@
             <div class="col-md-4" style="float: left; margin: auto;">Powered by DELL</div>
             <div class="col-md-4" style="float: left; padding-left: 15%;">
                 <form action="UIServlet" >
-                    <input type="hidden" name="command" value="log-in" />
-                    <input type="submit" value="Log-out" />
+                    <input type="hidden" name="command" value="log-out" />
+                    <input type="submit" value="Log out" />
                 </form>
             </div>
             
