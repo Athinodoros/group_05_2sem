@@ -252,10 +252,10 @@ public class UIServlet extends HttpServlet {
         Controller ctrl = (Controller) session.getAttribute("Controller");
         UserAuthentication newUserAth = (UserAuthentication) session.getAttribute("newUserAth");
         UserInfo newUserInfo = (UserInfo)session.getAttribute("newUserInfo");
-        newUserAth.setUserInfo(newUserInfo);
         boolean status = ctrl.createUserInfo(newUserInfo);
+        newUserAth.setUserInfo(newUserInfo);
         //need the userID to continue ferther
-        newUserInfo.setUserID(1);
+        
         boolean status1 = ctrl.createUserAth(newUserAth);
         if (status&&status1) {
             request.setAttribute("mainArea", NamingConv.SUCCESS);

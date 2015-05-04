@@ -83,8 +83,8 @@ public class Controller {
     public UserInfo getUserInfo(int ui){
         return dbf.getUserInfo(ui);
     }
-    public boolean createUserAth(UserAuthentication uam){
-        return dbf.createUserAth(uam);
+    public boolean createUserAth(UserAuthentication ua){
+        return dbf.createUserAth(ua);
     }
     
 }

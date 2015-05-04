@@ -43,6 +43,7 @@ public class DBFacade {
        partnerManager  = new PartnerManager();
         projectManager  = new ProjectManager();
         userInfoManager     = new UserInfoManager();
+        userAthMan = new UserAutenticationManager();
         poeManager = new POEManager();
         
     }
@@ -113,8 +114,8 @@ public class DBFacade {
     public UserInfo getUserInfo(int ui){
         return userInfoManager.getRow(conn, ui);
     }
-    public boolean createUserAth(UserAuthentication uam){
-        return userAthMan.insert(conn, uam);
+    public boolean createUserAth(UserAuthentication ua){
+        return userAthMan.insert(conn, ua);
     }
     
     
