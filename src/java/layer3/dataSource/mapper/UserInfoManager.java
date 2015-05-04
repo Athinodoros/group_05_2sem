@@ -151,7 +151,7 @@ public class UserInfoManager {
             }
         }
     } // End of method :: getRow() 
-
+    
     public boolean update(Connection conn, UserInfo bean) {
 
         String sql

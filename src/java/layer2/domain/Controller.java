@@ -38,7 +38,7 @@ public class Controller {
         return dbf.editProject(project);
     }
     
-    public Project getProjects(int projectID){
+    public Project getProject(int projectID){
         return dbf.getProject(projectID);
     }
     
@@ -80,11 +80,24 @@ public class Controller {
     public boolean createUserInfo(UserInfo ui){
         return dbf.createUserInfo(ui);
     }
-    public UserInfo getUserInfo(int ui){
-        return dbf.getUserInfo(ui);
+    
+    public UserInfo getUserInfo(int userid){
+        return dbf.getUserInfo(userid);
     }
+    
+    public UserAuthentication getUserAuthentication(String username){
+        return dbf.getUserAuthentication(username);
+    }
+    
     public boolean createUserAth(UserAuthentication ua){
         return dbf.createUserAth(ua);
     }
     
+    public boolean validateCredentials(String username, String password){
+        UserAuthentication uAth = dbf.getUserAuthentication(username);
+        if (uAth == null) {
+            return false;
+        }
+        return uAth.getPassword().equals(password);
+    }
 }

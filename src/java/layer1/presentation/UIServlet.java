@@ -67,8 +67,19 @@ public class UIServlet extends HttpServlet {
         }
         switch (command) {
             case "log-in":
-                dummyLogIn(request, response);
-                viewProjects(request, response);
+                boolean status = validateCredentials(request, response);
+                if (status) {
+                    viewProjects(request, response);
+                }
+                else{
+                    dispatcher = request.getRequestDispatcher("index.jsp");
+                    dispatcher.forward(request, response);
+                }
+                break;
+                
+            case "log-out":
+                dispatcher = request.getRequestDispatcher("index.jsp");
+                dispatcher.forward(request, response);
                 break;
                 
             case NamingConv.UPLOAD:
@@ -150,17 +161,19 @@ public class UIServlet extends HttpServlet {
         }
     }
 
-    private void dummyLogIn(HttpServletRequest request, HttpServletResponse response) {
+    
+    private boolean validateCredentials(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
-        String input = request.getParameter("username");
-        if (input.equals("admin")) {
-            session.setAttribute("user", ctrl.getAdmin());
-        } else if (input.equalsIgnoreCase("bancho")) {
-            session.setAttribute("user", ctrl.getBancho());
-        } else {
-            session.setAttribute("user", ctrl.getReseller());
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        boolean logInSuccessful = ctrl.validateCredentials(username, password);
+        if (logInSuccessful) {
+            UserAuthentication ua = ctrl.getUserAuthentication(username);
+            UserInfo user = ua.getUserInfo();
+            session.setAttribute("user", user);
         }
+        return logInSuccessful;
     }
 
     private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -270,7 +283,7 @@ public class UIServlet extends HttpServlet {
     private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
         File file;
         POE poe = new POE();
-        poe.setProject(con.getProjects(1));
+        poe.setProject(con.getProject(1));
         ServletContext context = this.getServletContext();
         String filePath = context.getInitParameter("file-upload");
         String contentType = request.getContentType();
