@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import layer2.domain.Controller;
 import layer2.domain.bean.POE;
@@ -53,6 +52,7 @@ public class UIServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        
         Controller ctrl = (Controller) session.getAttribute("Controller");
         if (ctrl == null) {
             ctrl = new Controller();
@@ -60,11 +60,12 @@ public class UIServlet extends HttpServlet {
         }
         
         String command = (String) request.getParameter("command");
-        RequestDispatcher  dispatcher ;
-         
+        RequestDispatcher  dispatcher;
+        
         if (command == null) {
             command = (String) session.getAttribute("command");
         }
+        
         switch (command) {
             case "log-in":
                 boolean status = validateCredentials(request, response);
@@ -78,8 +79,7 @@ public class UIServlet extends HttpServlet {
                 break;
                 
             case "log-out":
-                dispatcher = request.getRequestDispatcher("index.jsp");
-                dispatcher.forward(request, response);
+                logOut(request, response);
                 break;
                 
             case NamingConv.UPLOAD:
@@ -145,22 +145,23 @@ public class UIServlet extends HttpServlet {
                     case NamingConv.APPROVED_PROJECTS:
                         viewProjects(request, response);
                         break;
-                    default:
-                        request.setAttribute("mainArea", NamingConv.SEE);
-                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                        dispatcher.forward(request, response);
-                        break;
-                        
-                }
-                break;
                 default:
                     request.setAttribute("mainArea", NamingConv.SEE);
                     dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                     dispatcher.forward(request, response);
                     break;
+                        
+                }
+                break;
+            default:
+                request.setAttribute("mainArea", NamingConv.SEE);
+                dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                dispatcher.forward(request, response);
+                break;
         }
     }
 
+    
     
     private boolean validateCredentials(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
@@ -175,7 +176,19 @@ public class UIServlet extends HttpServlet {
         }
         return logInSuccessful;
     }
+    
+    
+    
+    private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute("Controller");
+        ctrl.closeConnection();
+        session.invalidate();
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        dispatcher.forward(request, response);
+    }
 
+    
     private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
@@ -198,6 +211,9 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+    
+    
     private void viewProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
         HttpSession session = request.getSession();
@@ -246,6 +262,8 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+    
     private void createCompany(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
@@ -260,6 +278,9 @@ public class UIServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
+    
+    
+    
     private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute("Controller");
@@ -280,6 +301,8 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+    
     private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
         File file;
         POE poe = new POE();
