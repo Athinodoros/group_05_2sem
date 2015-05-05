@@ -53,11 +53,11 @@
             <h1 class="cover-heading">Welcome to DELL's new web app</h1>
             <form class="lead" action="UIServlet" method="POST">
                 Username:<br/>
-                <input class ="input" type="text" name = "username" required/><br/><br/>
+                <input class ="input" type="text" name = "<%=NamingConv.USERNAME%>" required/><br/><br/>
                 Password:<br/>
-                <input class="input" type='password' name = "password" required/><br/><br/>
-                <input name="command" value="log-in" hidden/>
-                <input name="mainArea" value=<%=NamingConv.PROJECT_OVERVIEW%> hidden/>
+                <input class="input" type='password' name = "<%=NamingConv.PASSWORD%>" required/><br/><br/>
+                <input name="<%=NamingConv.COMMAND%>" value="<%=NamingConv.LOG_IN%>" hidden/>
+                <input name="<%=NamingConv.MAINAREA%>" value="<%=NamingConv.PROJECT_OVERVIEW%>" hidden/>
                 <button class = "input" type = "submit" name = "LogIn" value="LogIn">Log in</button>
             </form>
             

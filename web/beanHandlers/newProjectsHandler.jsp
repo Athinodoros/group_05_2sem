@@ -8,8 +8,8 @@
 <jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
 <jsp:setProperty name="newProject" property="*" />
 <%  
-    session.setAttribute("sdate", request.getParameter("startdate"));
-    session.setAttribute("fdate", request.getParameter("findate"));
+    session.setAttribute(NamingConv.SDATE, request.getParameter("startdate"));
+    session.setAttribute(NamingConv.FDATE, request.getParameter("findate"));
 %>
 Project Name: ${newProject.getTitle()} <br/>
 Starting date: ${newProject.getSdate() } <br/>
@@ -19,12 +19,12 @@ Start date: <%=request.getParameter("startdate")%><br/>
 
 <a>Do you want to save it?</a>
 <form style="lead" action="../UIServlet" method="POST">
-    <input name="command" value=<%=NamingConv.CREATEPROJECT%> hidden/>
+    <input name="command" value=<%=NamingConv.CREATE_PROJECT%> hidden/>
     <input type="submit" value="Save" />
 </form>
 <form style="lead" action="../UIServlet" method="POST">
-    <input name="command" value="reloadMain" hidden/>
-    <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.CREATEPROJECT %>" hidden/>
+    <input name="<%=NamingConv.COMMAND%>" value="<%=NamingConv.RELOAD_MAIN%>" hidden/>
+    <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.CREATE_PROJECT %>" hidden/>
     <input type="submit" value="Go Back" />
 </form>
 

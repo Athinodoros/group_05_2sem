@@ -25,11 +25,11 @@ ${newBudget.getQyear()}
 
 <a>Do you want to save it?</a>
 <form style="lead" action="../UIServlet" method="POST">
-    <input name="command" value=<%=NamingConv.SET_BUDGET%> hidden/>
+    <input name="<%=NamingConv.COMMAND%>" value=<%=NamingConv.SET_BUDGET%> hidden/>
     <input type="submit" value="Set"/>
 </form>
 <form style="lead" action="../UIServlet" method="POST">
-    <input name="command" value="reloadMain" hidden/>
+    <input name="<%=NamingConv.COMMAND%>" value="<%=NamingConv.RELOAD_MAIN%>" hidden/>
     <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.SET_BUDGET %>" hidden/>
     <input type="submit" value="Go Back" />
 </form>

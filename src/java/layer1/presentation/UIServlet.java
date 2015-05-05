@@ -53,21 +53,21 @@ public class UIServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         
-        Controller ctrl = (Controller) session.getAttribute("Controller");
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         if (ctrl == null) {
             ctrl = new Controller();
-            session.setAttribute("Controller", ctrl);
+            session.setAttribute(NamingConv.CONTROLLER, ctrl);
         }
         
-        String command = (String) request.getParameter("command");
+        String command = (String) request.getParameter(NamingConv.COMMAND);
         RequestDispatcher  dispatcher;
         
         if (command == null) {
-            command = (String) session.getAttribute("command");
+            command = (String) session.getAttribute(NamingConv.COMMAND);
         }
         
         switch (command) {
-            case "log-in":
+            case NamingConv.LOG_IN:
                 boolean status = validateCredentials(request, response);
                 if (status) {
                     viewProjects(request, response);
@@ -78,7 +78,7 @@ public class UIServlet extends HttpServlet {
                 }
                 break;
                 
-            case "log-out":
+            case NamingConv.LOG_OUT:
                 logOut(request, response);
                 break;
                 
@@ -86,57 +86,56 @@ public class UIServlet extends HttpServlet {
                 upload(request, response, ctrl);
                 break;
 
-            case NamingConv.CREATEUSER:
+            case NamingConv.CREATE_USER:
                 createUser(request, response);
                 break;
                 
-            case "createCompany":
-                createCompany(request, response);
+            case NamingConv.CREATE_COMPANY:
+                createPartner(request, response);
                 break;
 
-            case "createProject":
+            case NamingConv.CREATE_PROJECT:
                 createProject(request, response);
                 break;
+                
+            case NamingConv.SET_BUDGET:
+                //not done
+                break;
 
-            case "reloadMain":
-                String mainArea = (String) request.getParameter("mainArea");
+            case NamingConv.RELOAD_MAIN:
+                String mainArea = (String) request.getParameter(NamingConv.MAINAREA);
                 if (mainArea == null) {
-                    mainArea = (String) session.getAttribute("mainArea");
+                    mainArea = (String) session.getAttribute(NamingConv.MAINAREA);
                  }
                 switch (mainArea) {
-                    case NamingConv.PROJECTLIST:
-                        request.setAttribute("mainArea", NamingConv.PROJECTLIST);
-                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                        dispatcher.forward(request, response);
-                        break;
                     case NamingConv.SET_BUDGET:
-                        request.setAttribute("mainArea", NamingConv.SET_BUDGET);
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.SET_BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.VIEW_BUDGET:
-                        request.setAttribute("mainArea", NamingConv.VIEW_BUDGET);
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.VIEW_BUDGET);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.CREATECOMPANY:
-                        request.setAttribute("mainArea", NamingConv.CREATECOMPANY);
+                    case NamingConv.CREATE_COMPANY:
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.CREATE_COMPANY);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.USERFORM:
-                        request.setAttribute("mainArea", NamingConv.USERFORM);
-                        request.setAttribute("partnerList", ctrl.getAllPartners());
+                    case NamingConv.CREATE_USER:
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.CREATE_USER);
+                        request.setAttribute(NamingConv.PARTNER_LIST, ctrl.getAllPartners());
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
-                    case NamingConv.CREATEPROJECT:
-                        request.setAttribute("mainArea", NamingConv.CREATEPROJECT);
+                    case NamingConv.CREATE_PROJECT:
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.CREATE_PROJECT);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.SEE:
-                        request.setAttribute("mainArea", NamingConv.SEE);
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
                         dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                         dispatcher.forward(request, response);
                         break;
@@ -146,7 +145,7 @@ public class UIServlet extends HttpServlet {
                         viewProjects(request, response);
                         break;
                 default:
-                    request.setAttribute("mainArea", NamingConv.SEE);
+                    request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
                     dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                     dispatcher.forward(request, response);
                     break;
@@ -154,7 +153,7 @@ public class UIServlet extends HttpServlet {
                 }
                 break;
             default:
-                request.setAttribute("mainArea", NamingConv.SEE);
+                request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
                 dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                 dispatcher.forward(request, response);
                 break;
@@ -165,14 +164,14 @@ public class UIServlet extends HttpServlet {
     
     private boolean validateCredentials(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        String username = request.getParameter(NamingConv.USERNAME);
+        String password = request.getParameter(NamingConv.PASSWORD);
         boolean logInSuccessful = ctrl.validateCredentials(username, password);
         if (logInSuccessful) {
             UserAuthentication ua = ctrl.getUserAuthentication(username);
             UserInfo user = ua.getUserInfo();
-            session.setAttribute("user", user);
+            session.setAttribute(NamingConv.USER, user);
         }
         return logInSuccessful;
     }
@@ -181,7 +180,7 @@ public class UIServlet extends HttpServlet {
     
     private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         ctrl.closeConnection();
         session.invalidate();
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -191,22 +190,22 @@ public class UIServlet extends HttpServlet {
     
     private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        UserInfo currentUser = (UserInfo) session.getAttribute("user");
-        Project project = (Project) session.getAttribute("newProject");
-        project.setPartner(currentUser.getCompany());
-        project.setStage(NamingConv.PENDING);
-        String sdate = (String) session.getAttribute("sdate");
-        String fdate = (String) session.getAttribute("fdate");
-        project.setSdate(Convert.string2date(sdate));
-        project.setFdate(Convert.string2date(fdate));
-        boolean status = ctrl.createProject(project);
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        UserInfo currentUser = (UserInfo) session.getAttribute(NamingConv.USER);
+        Project newProject = (Project) session.getAttribute(NamingConv.NEW_PROJECT);
+        newProject.setPartner(currentUser.getCompany());
+        newProject.setStage(NamingConv.PENDING);
+        String sdate = (String) session.getAttribute(NamingConv.SDATE);
+        String fdate = (String) session.getAttribute(NamingConv.FDATE);
+        newProject.setSdate(Convert.string2date(sdate));
+        newProject.setFdate(Convert.string2date(fdate));
+        boolean status = ctrl.createProject(newProject);
         if (status) {
-            request.setAttribute("mainArea", NamingConv.SUCCESS);
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
         } else {
-            request.setAttribute("mainArea", NamingConv.FAIL);
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
         }
-        request.setAttribute("type", NamingConv.PROJECT);
+        request.setAttribute(NamingConv.TYPE, "project");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
@@ -215,19 +214,20 @@ public class UIServlet extends HttpServlet {
     
     
     private void viewProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("mainArea", NamingConv.PROJECT_OVERVIEW);
+        request.setAttribute(NamingConv.MAINAREA, NamingConv.PROJECT_OVERVIEW);
         HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        UserInfo currentUser = (UserInfo) session.getAttribute("user");
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        UserInfo currentUser = (UserInfo) session.getAttribute(NamingConv.USER);
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
 
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
-            String requsted = request.getParameter("mainArea");
+            String requsted = request.getParameter(NamingConv.MAINAREA);
 
             switch (requsted) {
                 case NamingConv.PROJECT_OVERVIEW:
-                    request.setAttribute("projects", allProjects);
+                    request.setAttribute(NamingConv.PROJECTS, allProjects);
                     break;
+                    
                 case NamingConv.PENDING_PROJECTS:
                     ArrayList<Project> pendingProjects = new ArrayList<Project>();
                     for (Project project : allProjects) {
@@ -235,8 +235,9 @@ public class UIServlet extends HttpServlet {
                             pendingProjects.add(project);
                         }
                     }
-                    request.setAttribute("projects", pendingProjects);
+                    request.setAttribute(NamingConv.PROJECTS, pendingProjects);
                     break;
+                    
                 case NamingConv.APPROVED_PROJECTS:
                     ArrayList<Project> approvedProjects = new ArrayList<Project>();
                     for (Project project : allProjects) {
@@ -244,7 +245,7 @@ public class UIServlet extends HttpServlet {
                             approvedProjects.add(project);
                         }
                     }
-                    request.setAttribute("projects", approvedProjects);
+                    request.setAttribute(NamingConv.PROJECTS, approvedProjects);
                     break;
             }
 
@@ -255,7 +256,7 @@ public class UIServlet extends HttpServlet {
                     onlyPartnerProjects.add(project);
                 }
             }
-            request.setAttribute("projects", onlyPartnerProjects);
+            request.setAttribute(NamingConv.PROJECTS, onlyPartnerProjects);
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -264,17 +265,17 @@ public class UIServlet extends HttpServlet {
 
     
     
-    private void createCompany(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void createPartner(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        Partner partner = (Partner) session.getAttribute("newCompany");
-        boolean status = ctrl.createPartner(partner);
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        Partner newPartner = (Partner) session.getAttribute(NamingConv.NEW_PARTNER);
+        boolean status = ctrl.createPartner(newPartner);
         if (status) {
-            request.setAttribute("mainArea", NamingConv.SUCCESS);
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
         } else {
-            request.setAttribute("mainArea", NamingConv.FAIL);
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
         }
-        request.setAttribute("type", "company");
+        request.setAttribute(NamingConv.TYPE, "partner");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
@@ -283,20 +284,21 @@ public class UIServlet extends HttpServlet {
     
     private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Controller ctrl = (Controller) session.getAttribute("Controller");
-        UserAuthentication newUserAth = (UserAuthentication) session.getAttribute("newUserAth");
-        UserInfo newUserInfo = (UserInfo)session.getAttribute("newUserInfo");
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        UserAuthentication newUserAth = (UserAuthentication) session.getAttribute(NamingConv.NEW_USER_ATH);
+        UserInfo newUserInfo = (UserInfo)session.getAttribute(NamingConv.NEW_USER_INFO);
+        
         boolean status = ctrl.createUserInfo(newUserInfo);
         newUserAth.setUserInfo(newUserInfo);
-        //need the userID to continue ferther
-        
         boolean status1 = ctrl.createUserAth(newUserAth);
+        
         if (status&&status1) {
-            request.setAttribute("mainArea", NamingConv.SUCCESS);
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
         } else {
-            request.setAttribute("mainArea", NamingConv.FAIL);
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
         }
-        request.setAttribute("type", "User");
+        
+        request.setAttribute(NamingConv.TYPE, "user");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
@@ -333,15 +335,15 @@ public class UIServlet extends HttpServlet {
                         poe.setFile(file);
                         poe.setPrefix(fileName);
                         if (con.createPOE(poe)){
-                            request.setAttribute("mainArea", NamingConv.SUCCESS);
-                            request.setAttribute("command", "reloadMain");
-                            request.setAttribute("type", "POE");
+                            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
+                            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
+                            request.setAttribute(NamingConv.TYPE, "POE");
                             RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                             dispatcher.forward(request, response);
                         }else{
-                            request.setAttribute("mainArea", NamingConv.FAIL);
-                            request.setAttribute("command", "reloadMain");
-                            request.setAttribute("type", "POE");
+                            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
+                            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
+                            request.setAttribute(NamingConv.TYPE, "POE");
                             RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                             dispatcher.forward(request, response);
                         }

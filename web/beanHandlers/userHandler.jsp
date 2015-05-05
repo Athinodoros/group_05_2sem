@@ -4,10 +4,10 @@
     Author     : Athinodoros
 --%>
 
+<!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="../bootstrap.min.css" />
-<!DOCTYPE html>
 
 <html>
     <head>
@@ -53,14 +53,14 @@
             </a>
                 <div style="float: left">
             <form class="lead" style="margin:  4px;" action="../UIServlet">
-                <% request.setAttribute("command", NamingConv.CREATEUSER); %>
-                <% session.setAttribute("command", NamingConv.CREATEUSER); %>
+                <% request.setAttribute(NamingConv.COMMAND, NamingConv.CREATE_USER); %>
+                <% session.setAttribute(NamingConv.COMMAND, NamingConv.CREATE_USER); %>
                
                 <input style="padding: 18px; border-radius: 15px; border-color: rgba(200,200,200,0.8)" type="submit" value="Save" />   
             </form>
                 </div>
                 <form class="lead" style="margin:  4px;  border-color: rgba(200,200,200,0.8)"  action="../UIServlet">
-                    <input type="hidden" name="mainArea" value="userForm" />
+                    <input type="hidden" name="<%=NamingConv.MAINAREA%>" value="<%=NamingConv.CREATE_USER%>" />
                 <% request.setAttribute("userInfo", newUserInfo); %>
                 <% request.setAttribute("userAth", newUserAth);%>
                 <input style="padding: 18px; border-radius: 15px;" type="submit" value="GoBack" />   

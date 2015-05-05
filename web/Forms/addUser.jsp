@@ -4,6 +4,7 @@
     Author     : Athinodoros
 
 --%>
+<%@page import="layer2.domain.interfaces.NamingConv"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <link href="bootstrap.min.css" rel="stylesheet">
@@ -12,7 +13,7 @@
 <%@page  import="layer2.domain.bean.Partner" %>
 <%@page  import="java.util.ArrayList" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% ArrayList<Partner> list = (ArrayList<Partner>)request.getAttribute("partnerList"); %>
+<% ArrayList<Partner> list = (ArrayList<Partner>)request.getAttribute(NamingConv.PARTNER_LIST); %>
 <% session.setAttribute("list", list); %>
 <% UserInfo userInfo = (UserInfo) request.getAttribute("userInfo"); %>
 <% UserAuthentication userath = (UserAuthentication) request.getAttribute("userAth"); %>
@@ -28,7 +29,6 @@
                 <a>User Type : </a></br> <select name="urole" required="">
                     <option>Partner</option>
                     <option>DELL User</option>
-                    <option>*region manager</option>
                 </select></br>
                 <a>Country : </a></br> <select name="country" required="" >
                     <option>DK</option>

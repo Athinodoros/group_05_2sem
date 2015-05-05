@@ -20,7 +20,6 @@
             Company ID: 
             <input type="number" name="companyID" value="" required="">
             <br>
-            <input name="command" value=<%=NamingConv.CREATECOMPANY%> hidden/>
             <input type="submit" value="Add" />
         </form> 
         

@@ -11,16 +11,14 @@
 <link href="bootstrap.min.css" rel="stylesheet">
 
 <div class="col-md-5">
-        <% String pagepoint = (String) request.getAttribute("mainArea");
-            if (pagepoint == NamingConv.VIEW_BUDGET) { %>
+        <% String pagepoint = (String) request.getAttribute(NamingConv.MAINAREA);
+        if (pagepoint == NamingConv.VIEW_BUDGET) { %>
         <jsp:include page="Forms/Budget.jsp"/>
-        <%} else if (pagepoint == NamingConv.PROJECTLIST) { %>
-        <jsp:include page="Forms/addUser.jsp"/>
-        <%} else if (pagepoint == NamingConv.CREATEPROJECT) { %>
+        <%} else if (pagepoint == NamingConv.CREATE_PROJECT) { %>
         <jsp:include page="Forms/newProject.jsp"/>
-        <% } else if (pagepoint == NamingConv.CREATECOMPANY) { %>
+        <% } else if (pagepoint == NamingConv.CREATE_COMPANY) { %>
         <jsp:include page="Forms/createCompanyForm.jsp" />
-        <% } else if (pagepoint == NamingConv.USERFORM) { %>
+        <% } else if (pagepoint == NamingConv.CREATE_USER) { %>
         <jsp:include page="Forms/addUser.jsp" />
         <% } else if (pagepoint == NamingConv.PROJECT_OVERVIEW) { %>
         <jsp:include page="ProjectOverview.jsp" />

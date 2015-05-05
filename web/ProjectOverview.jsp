@@ -52,7 +52,7 @@
                 <td>${Project.getStage()}</td>
                 <td><a href="#"><form action="UIServlet" method="POST">
                 <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.VIEW_PROJECT_DETAILS %>"  hidden/>
-                <input name="command" value="reloadMain" hidden/><button class="MenuButtons" type="submit">
+                <input name="<%= NamingConv.COMMAND %>" value="<%= NamingConv.RELOAD_MAIN %>" hidden/><button class="MenuButtons" type="submit">
                     View More</button></form></a></td>
                 
             </tr>
