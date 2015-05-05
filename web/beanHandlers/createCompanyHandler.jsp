@@ -9,8 +9,8 @@
 
 <html>
     <head>
-        <jsp:useBean id="newCompany" class="layer2.domain.bean.Partner" scope="session" />
-        <jsp:setProperty name="newCompany" property="*" />
+        <jsp:useBean id="newPartner" class="layer2.domain.bean.Partner" scope="session" />
+        <jsp:setProperty name="newPartner" property="*" />
         <link href="../bootstrap.min.css" />
     </head>
     <body background="http://cdn.wonderfulengineering.com/wp-content/uploads/2014/06/gear-wallpaper-14.jpg">
@@ -18,7 +18,7 @@
         <div class="col-md-3" style="border-radius: 30px ; padding: 20px;background-color:rgba(255,255,255,0.5); margin-top: 20%; margin-bottom: 20%; margin-left: 30%; margin-right: 30%; ">
             <a style="font-size: 1.5em; font-weight: 600 ;">
                 <!-- info strings here  -->
-                Company Name: <%=newCompany.getCompanyName()%><br/>
+                Company Name: <%=newPartner.getCompanyName()%><br/>
                 <span style="color: #fff; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 2px;"> Do you want to save the Partner ?</span>  <br/>
 
 

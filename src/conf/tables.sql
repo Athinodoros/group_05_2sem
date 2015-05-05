@@ -35,13 +35,10 @@ userID integer primary key ,
 firstname varchar(20),
 lastname varchar(20),
 country  varchar(4),
--- companyName varchar(30) references partner(companyName) references dell(companyName) ,
 companyName varchar(30) references partner(companyName) ,
 urole varchar(20));
 
 create table userAthentication (
---userID integer primary key references userInfo(userID),
---uname     varchar(30),
 uname   varchar(30) primary key,
 userID integer references userInfo(userID),
 password     varchar(32),
