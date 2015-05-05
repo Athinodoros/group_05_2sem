@@ -25,7 +25,7 @@
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
-            <div style="height: 80vh;background-color: #f2dede; " class="col-md-10">
+            <div style="height: 80vh;background-image: url('http://www.hdwallpapersimages.com/wp-content/uploads/2013/11/Dell-Computer-Wallpaper.jpg') ; background-size: contain;  " class="col-md-10">
                   <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>

@@ -1,10 +1,3 @@
-<%-- 
-    Document   : POEHandler
-    Created on : Apr 23, 2015, 1:00:50 AM
-    Author     : Athinodoros
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <link href="../bootstrap.min.css" />
@@ -17,13 +10,10 @@
             <a style="font-size: 1.5em; font-weight: 600 ;">
                 <!-- info strings here  -->
                <span style="color: #fff; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 2px;"> Do you want to save the user?</span>  <br/>
-                <jsp:useBean id="newFile" class="layer2.domain.bean.POE" scope="session" />
-                <jsp:setProperty name="newFile" property="*" />
-                <%= newFile.getFile().toString()%>
-                <jsp:include page="../Forms/fileUploadForm.jsp" />
             
+            <
             </a>
-                 <div style="float: left">
+                <div style="float: left">
                  <form class="lead" style="margin:  4px;" action="../UIServlet">
                 
                
@@ -40,3 +30,7 @@
              </div>
     </body>
 </html>
+
+
+       
+        
