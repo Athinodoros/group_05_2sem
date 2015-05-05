@@ -24,7 +24,7 @@
             <tr style="padding: auto ; width: auto">
                 <th>Title</th>
                 <th>Company Name</th>
-                <th>Project Budget</th>
+                <th style="padding-left: 60px;">Project Budget</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Stage</th>
@@ -37,7 +37,7 @@
             <tr>
                 <td>${Project.getTitle()}</td>
                 <td>${Project.getPartner().getCompanyName()}</td>
-                <td>${Project.getProjectBudget()}</td>
+                <td style="text-align: right;"><div style="padding-right: 50px;">${Project.getProjectBudget()} DKK</div></td>
                 <td>${Project.getSdate()}</td>
                 <td>${Project.getFdate()}</td> 
                 <c:if test="${ Project.stage == 'pending' }" >
