@@ -14,4 +14,5 @@ INSERT INTO USERATHENTICATION VALUES ( 'Bo',4,'Bo','Bo@hotmail.com');
 
 
 INSERT INTO PROJECT VALUES ( 1,'Athinodoros CORP','Title','This is a description','pending',null,null,13333);
+INSERT INTO PROJECT VALUES ( 6,'Athinodoros CORP','Title','This is a description','finished',null,null,13333);
 

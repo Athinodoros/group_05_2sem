@@ -11,26 +11,17 @@
 <html>
     <head>
         
+        <link  href="bootstrap.min.css" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-    th, td {
-    padding: 5px;
-    text-align: left;
-}
-</style>
-                
+        
         
     </head>
-    <body>
-        <h1>Project overview</h1>
-        <div class="scrollit">
-        <table class="overview">            
-            <tr>
+    <body class="col-md-12">
+        <h1>Project overview</h1><br/>
+        <div class="table-bordered table-responsive " style="padding:  auto; width: 220% ;">
+            <table class="table-responsive table table-condensed table-striped " style="min-width: 900px ;">            
+            <tr style="padding: auto ; width: auto">
                 <th>Title</th>
                 <th>Company Name</th>
                 <th>Project Budget</th>
@@ -49,7 +40,16 @@
                 <td>${Project.getProjectBudget()}</td>
                 <td>${Project.getSdate()}</td>
                 <td>${Project.getFdate()}</td> 
-                <td>${Project.getStage()}</td>
+                <c:if test="${ Project.stage == 'pending' }" >
+                    <td style="color: red;">${Project.getStage()}</td>
+                </c:if>
+                <c:if test="${ Project.stage == 'approved' }" >
+                    <td style="color: blue;">${Project.getStage()}</td>
+                </c:if>
+                <c:if test="${ Project.stage == 'finished' }" >
+                    <td style="color: chartreuse; font-weight: 900;">${Project.getStage()}</td>
+                </c:if>
+               
                 <td><a href="#"><form action="UIServlet" method="POST">
                 <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.VIEW_PROJECT_DETAILS %>"  hidden/>
                 <input name="<%= NamingConv.COMMAND %>" value="<%= NamingConv.RELOAD_MAIN %>" hidden/><button class="MenuButtons" type="submit">

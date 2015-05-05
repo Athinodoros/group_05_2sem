@@ -12,7 +12,7 @@
         <link href="dashboard.css" rel="stylesheet">
     </head>
     <body>
-        <div >
+        <div style="background-image: url('http://www.hdwallpapersimages.com/wp-content/uploads/2013/11/Dell-Computer-Wallpaper.jpg') ; background-size: contain;" >
             <%-- Top area header etc. --%>
             <div class="col-md-12">
                 
@@ -25,12 +25,12 @@
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
-            <div style="height: 80vh;background-image: url('http://www.hdwallpapersimages.com/wp-content/uploads/2013/11/Dell-Computer-Wallpaper.jpg') ; background-size: contain;  " class="col-md-10">
+            <div style="height: 80vh;" class="col-md-10">
                   <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>
             <div style="background-color: #ac2925; height: 20vh;" class="col-md-12 col-sm-12">
-                <a style="font-size: 2em;color: #ffffff">CopyRight Group_05_2_semester </a>
+                <a style="font-size: 2em;">CopyRight Group_05_2_semester </a>
             </div>
         </div>
     </body>
