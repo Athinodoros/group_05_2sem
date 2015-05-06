@@ -15,7 +15,5 @@
                     <input class="MenuButtons" style="font-size: 1.2em; color: cyan; padding-top: 2px;" type="submit" value="Log out" />
                 </form>
             </div>
-            
-            
         
 </nav>
