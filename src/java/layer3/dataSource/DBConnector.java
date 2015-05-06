@@ -13,13 +13,13 @@ import java.sql.SQLException;
 
 public class DBConnector {
 
-    private static DBConnector instance = null;
     
     private DBType dbType = DBType.ORACLE_THIN;
 
+    private Connection conn = null;
     
 // Singleton Start --> 
-    private Connection conn = null;
+    private static DBConnector instance = null;
 
     private DBConnector() {
     }

@@ -9,8 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import layer2.domain.bean.UserAuthentication;
-import layer2.domain.bean.UserInfo;
-import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.DBConnector;
 
 /**
