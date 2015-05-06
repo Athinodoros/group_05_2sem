@@ -111,7 +111,7 @@ public class commentManagerTest {
 
         if (status1 & status2 & status3) {
             //  Retrieve the two inserted companies from the database
-            rows = new ArrayList<>( commentMananger.getAllProjectComments(conn, comment1.getProject().getProjectID()) );
+            rows = new ArrayList<>( commentMananger.getAllRows(conn, comment1.getProject().getProjectID()) );
         }
 
         

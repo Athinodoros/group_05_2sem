@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import layer2.domain.bean.Budget;
 import layer2.domain.bean.Comment;
 import layer3.dataSource.DBConnector;
 
@@ -19,7 +18,7 @@ import layer3.dataSource.DBConnector;
  *
  * @author Athinodoros
  */
-public class commentManager {
+public class CommentManager {
 
     public boolean insert(Connection conn, Comment bean) {
         
@@ -107,7 +106,7 @@ public class commentManager {
         }
     }//end of method -> getrow
 
-    public Collection<Comment> getAllProjectComments(Connection conn, int projectID) {
+    public Collection<Comment> getAllRows(Connection conn, int projectID) {
         
         Collection<Comment> rows = new ArrayList();
         

@@ -22,7 +22,7 @@ public final class TestData {
     public static final PartnerManager partnerManager = new PartnerManager();
     public static final UserInfoManager userInfoManager = new UserInfoManager();
     public static final UserAutenticationManager userAutenticationManager = new UserAutenticationManager();
-    public static final commentManager commentMananger = new commentManager();
+    public static final CommentManager commentMananger = new CommentManager();
 
     // Company
     // ------ 
