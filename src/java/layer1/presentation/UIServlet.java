@@ -8,6 +8,7 @@ package layer1.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -26,7 +27,6 @@ import layer2.domain.bean.Project;
 import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
-import layer3.dataSource.utility.Convert;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -197,8 +197,8 @@ public class UIServlet extends HttpServlet {
         newProject.setStage(NamingConv.PENDING);
         String sdate = (String) session.getAttribute(NamingConv.SDATE);
         String fdate = (String) session.getAttribute(NamingConv.FDATE);
-        newProject.setSdate(Convert.string2date(sdate));
-        newProject.setFdate(Convert.string2date(fdate));
+        newProject.setSdate(string2date(sdate));
+        newProject.setFdate(string2date(fdate));
         boolean status = ctrl.createProject(newProject);
         if (status) {
             request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
@@ -301,6 +301,18 @@ public class UIServlet extends HttpServlet {
         request.setAttribute(NamingConv.TYPE, "user");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
+    }
+    
+    
+    
+    private java.util.Date string2date(String date){
+        Calendar cal = Calendar.getInstance();
+        String[] splitted = date.split("-");
+        int year = Integer.parseInt(splitted[0]);
+        int month = Integer.parseInt(splitted[1]) - 1;
+        int day = Integer.parseInt(splitted[2]);
+        cal.set(year, month, day);
+        return cal.getTime();
     }
 
     

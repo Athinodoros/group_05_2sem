@@ -24,16 +24,6 @@ public class Convert {
         return new java.util.Date();
     }
     
-    public static java.util.Date string2date(String date){
-        Calendar cal = Calendar.getInstance();
-        String[] splitted = date.split("-");
-        int year = Integer.parseInt(splitted[0]);
-        int month = Integer.parseInt(splitted[1]) - 1;
-        int day = Integer.parseInt(splitted[2]);
-        cal.set(year, month, day);
-        return cal.getTime();
-    }
-    
     
     public static String boolean2String(boolean bool) {
         
