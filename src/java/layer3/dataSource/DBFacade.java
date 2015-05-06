@@ -89,7 +89,7 @@ public class DBFacade {
         return partnerManager.insert(conn, partner);
     }
 
-    public Collection getAllProjects() {
+    public Collection<Project> getAllProjects() {
 //        return projectManager.getAllRows(getConnection());
         return projectManager.getAllRows(conn);
     }

@@ -83,7 +83,7 @@ public class UIServlet extends HttpServlet {
                 break;
                 
             case NamingConv.UPLOAD:
-                upload(request, response, ctrl);
+                upload(request, response);
                 break;
 
             case NamingConv.CREATE_USER:
@@ -305,10 +305,12 @@ public class UIServlet extends HttpServlet {
 
     
     
-    private void upload(HttpServletRequest request, HttpServletResponse response, Controller con) throws ServletException, IOException {
+    private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         File file;
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         POE poe = new POE();
-        poe.setProject(con.getProject(1));
+        poe.setProject(ctrl.getProject(1));
         ServletContext context = this.getServletContext();
         String filePath = context.getInitParameter("file-upload");
         String contentType = request.getContentType();
@@ -334,7 +336,7 @@ public class UIServlet extends HttpServlet {
                         }
                         poe.setFile(file);
                         poe.setPrefix(fileName);
-                        if (con.createPOE(poe)){
+                        if (ctrl.createPOE(poe)){
                             request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
                             request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
                             request.setAttribute(NamingConv.TYPE, "POE");

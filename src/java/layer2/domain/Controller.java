@@ -42,7 +42,7 @@ public class Controller {
         return dbf.getProject(projectID);
     }
     
-    public Collection getAllProjects(){
+    public Collection<Project> getAllProjects(){
         return dbf.getAllProjects();
     }    
     
