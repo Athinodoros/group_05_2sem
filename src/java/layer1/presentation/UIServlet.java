@@ -25,7 +25,7 @@ import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
-import layer2.domain.psuedointerfaces.NamingConv;
+import layer2.domain.interfaces.NamingConv;
 import layer3.dataSource.utility.Convert;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
