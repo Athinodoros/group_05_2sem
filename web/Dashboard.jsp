@@ -21,16 +21,16 @@
             </div>
                 
             <%-- left menu item --%>
-            <div style="height: 80vh;" class="col-md-2 sidebar">
+            <div style="height: 85vh;" class="col-md-2 sidebar">
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
-            <div style="height: 80vh;" class="col-md-10">
+            <div style="height: 85vh;" class="col-md-10">
                   <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>
-            <div style="background-color: #ac2925; height: 20vh;" class="col-md-12 col-sm-12">
-                <a style="font-size: 2em;">CopyRight Group_05_2_semester </a>
+            <div style="background-color: #31b0d5; height: 100px;" class="col-md-12 ">
+                <a style="font-size: 2em;color: black;">CopyRight Group_05_2_semester </a>
             </div>
         </div>
     </body>
