@@ -10,7 +10,7 @@
 <%@page import="layer2.domain.interfaces.NamingConv"%>
 <link href="bootstrap.min.css" rel="stylesheet">
 
-<div class="col-md-5">
+<div class="col-md-10">
         <% String pagepoint = (String) request.getAttribute(NamingConv.MAINAREA);
         if (pagepoint == NamingConv.VIEW_BUDGET) { %>
         <jsp:include page="Forms/Budget.jsp"/>

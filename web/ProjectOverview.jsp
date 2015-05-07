@@ -17,9 +17,9 @@
         
         
     </head>
-    <body class="col-md-12">
+    <body>
         <h1>Project overview</h1><br/>
-        <div class="table-bordered table-responsive " style="padding:  auto; width: 220% ;">
+        <div class="table-bordered table-responsive " style="padding:  auto; width: 100% ;">
             <table class="table-responsive table table-condensed table-striped " style="min-width: 900px ;">            
             <tr style="padding: auto ; width: auto">
                 <th>Title</th>

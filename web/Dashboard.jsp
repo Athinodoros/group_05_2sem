@@ -12,25 +12,22 @@
         <link href="dashboard.css" rel="stylesheet">
     </head>
     <body>
-        <div style="background-image: url('http://www.hdwallpapersimages.com/wp-content/uploads/2013/11/Dell-Computer-Wallpaper.jpg') ; background-size: contain;" >
+        <div style="background-image: url('http://www.hdwallpapersimages.com/wp-content/uploads/2013/11/Dell-Computer-Wallpaper.jpg'); background-size: contain;" >
             <%-- Top area header etc. --%>
             <div class="col-md-12">
-                
                 <jsp:include page="PageComponents/header.jsp" /> 
-                
             </div>
-                
             <%-- left menu item --%>
             <div style="height: 85vh;" class="col-md-2 sidebar">
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
             <div style="height: 85vh;" class="col-md-10">
-                  <jsp:include page="DashBoardPicker.jsp" /> 
+                <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>
             <div style="background-color: #31b0d5; height: 100px;" class="col-md-12 ">
-                <a style="font-size: 2em;color: black;">CopyRight Group_05_2_semester </a>
+            <a style="font-size: 2em;color: black;">CopyRight Group_05_2_semester </a>
             </div>
         </div>
     </body>

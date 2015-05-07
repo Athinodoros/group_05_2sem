@@ -12,8 +12,11 @@
 
         <%@page import="layer2.domain.interfaces.NamingConv" %>
         <link href="../bootstrap.min.css" type="text/css" />
+        
         <jsp:useBean id="newProject" class="layer2.domain.bean.Project" scope="session" />
         <jsp:setProperty name="newProject" property="*" />
+        
+        
         <%  
             session.setAttribute(NamingConv.SDATE, request.getParameter("startdate"));
             session.setAttribute(NamingConv.FDATE, request.getParameter("findate"));
