@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.sql.*;
 import layer2.domain.bean.POE;
 import layer3.dataSource.DBConnector;
+import oracle.sql.BLOB;
 
 /**
  *
@@ -25,7 +26,6 @@ public class POEManager {
     public boolean insert(Connection conn, POE bean) { 
         
         int rowsInserted = 0;
-         
         String sql = "INSERT into POE (projectID, filePath) VALUES (?, ?, ?, ?, ?)";
          
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
@@ -39,27 +39,24 @@ public class POEManager {
             PreparedStatement stmt1 = conn.prepareStatement(sql2);
             ResultSet keys;
             keys = stmt1.executeQuery();
-            if (keys != null) {
-                bean.setPOEID(keys.getInt(1));
+            if (keys.next()) {
+                bean.setPOEID(keys.getInt(1)); // <- get the key from dummy table (dual)
             }
-
- 
-            ProjectManager pm = new ProjectManager();
-            FileInputStream fis = new FileInputStream(bean.getFile());
+            
+            // ProjectManager pm = new ProjectManager();
             //== insert 
+            conn.setAutoCommit(false);
             stmt.setInt(1, bean.getPOEID()  );
             stmt.setInt(2, bean.getProject().getProjectID() );
             stmt.setString(3, bean.getPrefix());
             stmt.setString(4, bean.getFileName());
-            stmt.setBinaryStream(5, fis);
+           // stmt.setBinaryStream(5, bean.getInStream());
+            
             rowsInserted  = stmt.executeUpdate(); 
-
+            conn.commit();
         } catch (SQLException e) {
             DBConnector.processException(e);
             return false;
-        }catch(FileNotFoundException e){
-            System.out.println(e.getStackTrace());
-            
         }
         
         return rowsInserted == 1;

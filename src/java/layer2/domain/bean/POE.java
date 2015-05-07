@@ -6,10 +6,9 @@
 package layer2.domain.bean;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  *
@@ -18,27 +17,24 @@ import java.io.InputStream;
 public class POE {
     
     private int POEID;
+    private long size;
     private Project project;
     private String fileName;
     private String prefix;
-    private File file ;
     private InputStream inStream;
-    private FileInputStream fileIn;
-    private FileOutputStream  fileOut;
+    private OutputStream  fileOut;
 
     //new costructors ->
 
     public POE() {
     }
 
-    public POE(int POEID, Project project, String fileName, String prefix, File file, InputStream inStream, FileInputStream fileIn, FileOutputStream fileOut) {
+    public POE(int POEID, Project project, String fileName, String prefix, File file, InputStream inStream, InputStream fileIn, FileOutputStream fileOut) {
         this.POEID = POEID;
         this.project = project;
         this.fileName = fileName;
         this.prefix = prefix;
-        this.file = file;
         this.inStream = inStream;
-        this.fileIn = fileIn;
         this.fileOut = fileOut;
     }
     
@@ -47,21 +43,28 @@ public class POE {
         this.project = p.project;
         this.fileName = p.fileName;
         this.prefix = p.prefix;
-        this.fileIn = p.fileIn;
         this.fileOut = p.fileOut;
         this.inStream = p.inStream;
         
     }
 
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public OutputStream getFileOut() {
+        return fileOut;
+    }
+
+    public void setFileOut(OutputStream fileOut) {
+        this.fileOut = fileOut;
+    }
+
     // Getters and setters -> 
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
 
     public InputStream getInStream() {
         return inStream;
@@ -70,24 +73,7 @@ public class POE {
     public void setInStream(InputStream inStream) {
         this.inStream = inStream;
     }
-    
-    public FileOutputStream getFileOut() throws FileNotFoundException{
-        
-        return new FileOutputStream(this.file);
-    }
 
-    public void setFileOut(FileOutputStream fileOut) {
-        this.fileOut = fileOut;
-    }
-
-    public FileInputStream getFileIn() throws FileNotFoundException{
-        return new FileInputStream(this.file);
-    }
-
-    public void setFileIn(FileInputStream fileIn) {
-        this.fileIn = fileIn;
-    }
-    
     public Project getProject() {
         return project;
     }
@@ -131,10 +117,8 @@ public class POE {
         return prefix;
     }
     
-    public void setPrefix(String filename) {
-        String[] pr = filename.split(".");
-        
-        this.prefix = pr[1];
+    public void setPrefix(String filename) {        
+        this.prefix = filename;
     }
     
 } // End of Class

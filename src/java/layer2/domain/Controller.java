@@ -5,7 +5,9 @@
  */
 package layer2.domain;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
+import javax.servlet.http.Part;
 import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
@@ -56,7 +58,7 @@ public class Controller {
       return dbf.getAllPartners();
     }
     
-    public boolean createPOE(POE poe){
+    public boolean createPOE(POE poe) throws FileNotFoundException{
         return dbf.createPOE(poe);
     }
       

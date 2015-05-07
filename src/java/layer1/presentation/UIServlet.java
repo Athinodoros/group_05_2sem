@@ -6,19 +6,27 @@
 package layer1.presentation;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import layer2.domain.Controller;
 import layer2.domain.bean.POE;
@@ -27,7 +35,9 @@ import layer2.domain.bean.Project;
 import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
+import oracle.sql.BLOB;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -37,6 +47,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author Bancho
  */
 @WebServlet(name = "UIServlet", urlPatterns = {"/UIServlet"})
+@MultipartConfig
 public class UIServlet extends HttpServlet {
 
     /**
@@ -49,39 +60,38 @@ public class UIServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, FileUploadException {
 
         HttpSession session = request.getSession();
-        
+
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         if (ctrl == null) {
             ctrl = new Controller();
             session.setAttribute(NamingConv.CONTROLLER, ctrl);
         }
-        
+
         String command = (String) request.getParameter(NamingConv.COMMAND);
-        RequestDispatcher  dispatcher;
-        
+        RequestDispatcher dispatcher;
+
         if (command == null) {
             command = (String) session.getAttribute(NamingConv.COMMAND);
         }
-        
+
         switch (command) {
             case NamingConv.LOG_IN:
                 boolean status = validateCredentials(request, response);
                 if (status) {
                     viewProjects(request, response);
-                }
-                else{
+                } else {
                     dispatcher = request.getRequestDispatcher("index.jsp");
                     dispatcher.forward(request, response);
                 }
                 break;
-                
+
             case NamingConv.LOG_OUT:
                 logOut(request, response);
                 break;
-                
+
             case NamingConv.UPLOAD:
                 upload(request, response);
                 break;
@@ -89,7 +99,7 @@ public class UIServlet extends HttpServlet {
             case NamingConv.CREATE_USER:
                 createUser(request, response);
                 break;
-                
+
             case NamingConv.CREATE_COMPANY:
                 createPartner(request, response);
                 break;
@@ -97,7 +107,7 @@ public class UIServlet extends HttpServlet {
             case NamingConv.CREATE_PROJECT:
                 createProject(request, response);
                 break;
-                
+
             case NamingConv.SET_BUDGET:
                 //not done
                 break;
@@ -106,7 +116,7 @@ public class UIServlet extends HttpServlet {
                 String mainArea = (String) request.getParameter(NamingConv.MAINAREA);
                 if (mainArea == null) {
                     mainArea = (String) session.getAttribute(NamingConv.MAINAREA);
-                 }
+                }
                 switch (mainArea) {
                     case NamingConv.SET_BUDGET:
                         request.setAttribute(NamingConv.MAINAREA, NamingConv.SET_BUDGET);
@@ -144,12 +154,12 @@ public class UIServlet extends HttpServlet {
                     case NamingConv.APPROVED_PROJECTS:
                         viewProjects(request, response);
                         break;
-                default:
-                    request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
-                    dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                    dispatcher.forward(request, response);
-                    break;
-                        
+                    default:
+                        request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
+                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                        dispatcher.forward(request, response);
+                        break;
+
                 }
                 break;
             default:
@@ -160,9 +170,7 @@ public class UIServlet extends HttpServlet {
         }
     }
 
-    
-    
-    private boolean validateCredentials(HttpServletRequest request, HttpServletResponse response){
+    private boolean validateCredentials(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         String username = request.getParameter(NamingConv.USERNAME);
@@ -175,10 +183,8 @@ public class UIServlet extends HttpServlet {
         }
         return logInSuccessful;
     }
-    
-    
-    
-    private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         ctrl.closeConnection();
@@ -187,7 +193,6 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    
     private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
@@ -210,9 +215,6 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    
-    
-    
     private void viewProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(NamingConv.MAINAREA, NamingConv.PROJECT_OVERVIEW);
         HttpSession session = request.getSession();
@@ -227,7 +229,7 @@ public class UIServlet extends HttpServlet {
                 case NamingConv.PROJECT_OVERVIEW:
                     request.setAttribute(NamingConv.PROJECTS, allProjects);
                     break;
-                    
+
                 case NamingConv.PENDING_PROJECTS:
                     ArrayList<Project> pendingProjects = new ArrayList<Project>();
                     for (Project project : allProjects) {
@@ -237,7 +239,7 @@ public class UIServlet extends HttpServlet {
                     }
                     request.setAttribute(NamingConv.PROJECTS, pendingProjects);
                     break;
-                    
+
                 case NamingConv.APPROVED_PROJECTS:
                     ArrayList<Project> approvedProjects = new ArrayList<Project>();
                     for (Project project : allProjects) {
@@ -263,8 +265,6 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    
-    
     private void createPartner(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
@@ -279,33 +279,29 @@ public class UIServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-    
-    private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws FileUploadException, ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         UserAuthentication newUserAth = (UserAuthentication) session.getAttribute(NamingConv.NEW_USER_ATH);
-        UserInfo newUserInfo = (UserInfo)session.getAttribute(NamingConv.NEW_USER_INFO);
-        
+        UserInfo newUserInfo = (UserInfo) session.getAttribute(NamingConv.NEW_USER_INFO);
+
         boolean status = ctrl.createUserInfo(newUserInfo);
         newUserAth.setUserInfo(newUserInfo);
         boolean status1 = ctrl.createUserAth(newUserAth);
-        
-        if (status&&status1) {
+
+        if (status && status1) {
             request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
         } else {
             request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
         }
-        
+
         request.setAttribute(NamingConv.TYPE, "user");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-    
-    private java.util.Date string2date(String date){
+
+    private java.util.Date string2date(String date) {
         Calendar cal = Calendar.getInstance();
         String[] splitted = date.split("-");
         int year = Integer.parseInt(splitted[0]);
@@ -315,61 +311,45 @@ public class UIServlet extends HttpServlet {
         return cal.getTime();
     }
 
-    
-    
     private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        File file;
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         POE poe = new POE();
+        Part part = request.getPart("file");
+        poe.setPrefix(part.getHeader("content-type"));
+        poe.setInStream(part.getInputStream());
+        poe.setFileName(part.getSubmittedFileName());
         poe.setProject(ctrl.getProject(1));
-        ServletContext context = this.getServletContext();
-        String filePath = context.getInitParameter("file-upload");
-        String contentType = request.getContentType();
-        if (contentType.indexOf("multipart/form-data") >= 0) {
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setFileSizeMax(Long.MAX_VALUE);
-            try {
-                List files = upload.parseRequest(request);
-                Iterator it = files.iterator();
-                while (it.hasNext()) {
-                    FileItem fi = (FileItem) it.next();
-                    if (!fi.isFormField()) {
-                        String fieldName = fi.getFieldName();
-                        String fileName = fi.getName();
-                        poe.setFileName(fileName);
-                        if (fileName.lastIndexOf("\\") >= 0) {
-                            file = new File(filePath
-                                    + fileName.substring(fileName.lastIndexOf("\\")));
-                        } else {
-                            file = new File(filePath
-                                    + fileName.substring(fileName.lastIndexOf("\\") + 1));
-                        }
-                        poe.setFile(file);
-                        poe.setPrefix(fileName);
-                        if (ctrl.createPOE(poe)){
-                            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
-                            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
-                            request.setAttribute(NamingConv.TYPE, "POE");
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                            dispatcher.forward(request, response);
-                        }else{
-                            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
-                            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
-                            request.setAttribute(NamingConv.TYPE, "POE");
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                            dispatcher.forward(request, response);
-                        }
-                    }
-                        //----------------------------
-
-                        //----------------------------
-                }
-                
-            } catch (Exception e) {
-            }
+        //response.setContentType(contentType);
+        //////FilenameUtils.getExtension("file or file path+file");/////////////////
+        
+        
+        
+        File file = new File(System.getProperty("user.dir")+poe.getFileName());
+        OutputStream out = new FileOutputStream(file);
+        byte[] buffer = new byte[1024];
+        int count = 0;
+        do {
+        count = poe.getInStream().read(buffer);
+        out.write(buffer, 0, count);
         }
+        while (count == 1024);
+        
+        if (ctrl.createPOE(poe)) {
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
+            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
+            request.setAttribute(NamingConv.TYPE, "POE");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
+            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
+            request.setAttribute(NamingConv.TYPE, "POE");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+            dispatcher.forward(request, response);
+        }
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -384,7 +364,11 @@ public class UIServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (FileUploadException ex) {
+            Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -398,7 +382,11 @@ public class UIServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
             processRequest(request, response);
+        } catch (FileUploadException ex) {
+            Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

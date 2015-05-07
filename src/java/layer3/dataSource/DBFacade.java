@@ -5,11 +5,13 @@
  */
 package layer3.dataSource;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Part;
 import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
@@ -104,7 +106,7 @@ public class DBFacade {
         return partnerManager.getAllRows(conn);
     }
 
-    public boolean createPOE(POE poe) {
+    public boolean createPOE(POE poe) throws FileNotFoundException {
 //        return poeManager.insert(getConnection(), poe);
         return poeManager.insert(conn, poe);
     }
