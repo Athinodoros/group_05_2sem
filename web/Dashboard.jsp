@@ -18,7 +18,7 @@
                 <jsp:include page="PageComponents/header.jsp" /> 
             </div>
             <%-- left menu item --%>
-            <div style="height: 85vh;" class="col-md-2 sidebar">
+            <div style="height: 85vh; background-color: rgba(255,255,255,0.5);" class="col-md-2 sidebar" >
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>

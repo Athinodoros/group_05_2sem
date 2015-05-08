@@ -9,9 +9,10 @@
     <head>
         <style>
             .MenuButtons{
-                padding: 0;
+                padding: 1;
+                border-radius: 8px;
                 border: none;
-                background: none;
+                background: rgba(255,255,255,0.2);
             }
         </style>
     </head>

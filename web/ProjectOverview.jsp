@@ -19,12 +19,12 @@
     </head>
     <body>
         <h1>Project overview</h1><br/>
-        <div class="table-bordered table-responsive " style="padding:  auto; width: 100% ;">
-            <table class="table-responsive table table-condensed table-striped " style="min-width: 900px ;">            
-            <tr style="padding: auto ; width: auto">
+        <div class="" style="padding:  auto; width: 100% ;">
+            <table class="table-responsive table table-condensed table-striped table-bordered" style="min-width: 900px ; background-color: rgba(255,255,255,0.5);">            
+            <tr style=" width: auto">
                 <th>Title</th>
                 <th>Company Name</th>
-                <th style="padding-left: 60px;">Project Budget</th>
+                <th style="padding-left: 10%;">Project Budget</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Stage</th>
@@ -37,7 +37,7 @@
             <tr>
                 <td>${Project.getTitle()}</td>
                 <td>${Project.getPartner().getCompanyName()}</td>
-                <td style="text-align: right;"><div style="padding-right: 50px;">${Project.getProjectBudget()} DKK</div></td>
+                <td style="text-align: right;"><div style="padding-right: 40%;">${Project.getProjectBudget()} DKK</div></td>
                 <td>${Project.getSdate()}</td>
                 <td>${Project.getFdate()}</td> 
                 <c:if test="${ Project.stage == 'pending' }" >
