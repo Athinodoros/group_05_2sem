@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import static java.sql.Types.INTEGER;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -143,6 +144,14 @@ public class UIServlet extends HttpServlet {
                     case NamingConv.SEE:
                         String incom = request.getParameter(NamingConv.NEWCOMMENT);
                         String app = request.getParameter(NamingConv.APPROVED);
+                        String updes = request.getParameter(NamingConv.UPDATE_DESCR);
+                        
+                        String path = request.getServletContext().getRealPath("/");
+                        File f = new File (path +ctrl.getProject(Integer.parseInt(request.getParameter("thisProjectID"))).getPartner().getCompanyName()+"\\"+request.getParameter("thisProjectID"));
+                        File[] fileli = f.listFiles();
+                        session.setAttribute("fli", fileli);
+                        session.setAttribute("id", request.getParameter("thisProjectID"));
+                        
                         if (incom != null) {
                             if (saveComment(request, response, (Comment) session.getAttribute("inComment"))){
                                 session.removeAttribute("inComment");
@@ -156,12 +165,26 @@ public class UIServlet extends HttpServlet {
                             }
                         }
                         if (app != null && app.equals(NamingConv.APPROVED) ) {
-                            Project tempPr = ctrl.getProject((int) session.getAttribute("thisProjectID"));
+                            Project tempPr = ctrl.getProject(Integer.valueOf(request.getParameter("thisProjectID")));
                             tempPr.setStage(app);
                             if (ctrl.editProject(tempPr)){
                                 openOneProject(request, response);
                             }else{
                                 request.setAttribute(NamingConv.TYPE, "Project approval");
+                                request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
+                                dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+                            }
+                        }
+                        if (updes != null && updes.equals(NamingConv.UPDATE_DESCR) ) {
+                            Project tempPr = ctrl.getProject(Integer.valueOf(request.getParameter("thisProjectID")));
+                            ctrl.createComment(new Comment(1, tempPr, (UserInfo) session.getAttribute(NamingConv.USER), tempPr.getDescription()+" <span style=\"font-size: 1.1em; font-weight: 600;\"> Was changed to : </span>"+request.getParameter("newDescription")));
+                            tempPr.setDescription(request.getParameter("newDescription"));
+                            if (ctrl.editProject(tempPr)){
+                                openOneProject(request, response);
+                            }else{
+                                request.setAttribute(NamingConv.TYPE, "Project new Description");
                                 request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
                                 dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                                 dispatcher.forward(request, response);
@@ -261,6 +284,7 @@ public class UIServlet extends HttpServlet {
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         UserInfo currentUser = (UserInfo) session.getAttribute(NamingConv.USER);
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
+        
 
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
             String requsted = request.getParameter(NamingConv.MAINAREA);
@@ -354,6 +378,13 @@ public class UIServlet extends HttpServlet {
     private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        String path = request.getServletContext().getRealPath("/");
+        
+        Project pr = (Project)session.getAttribute("thisProject"); 
+         File f = new File (path +pr.getPartner().getCompanyName());
+        f.mkdir();
+         f = new File(f+"\\"+ session.getAttribute("id"));
+        f.mkdir();
         POE poe = new POE();
         Part part = request.getPart("file");
         poe.setPrefix(part.getHeader("content-type"));
@@ -363,7 +394,7 @@ public class UIServlet extends HttpServlet {
         //response.setContentType(contentType);
         //////FilenameUtils.getExtension("file or file path+file");/////////////////
 
-        File file = new File(System.getProperty("user.dir") + poe.getFileName());
+        File file = new File(f+"\\"+poe.getFileName());
         OutputStream out = new FileOutputStream(file);
         byte[] buffer = new byte[1024];
         int count = 0;
@@ -372,19 +403,13 @@ public class UIServlet extends HttpServlet {
             out.write(buffer, 0, count);
         } while (count == 1024);
 
-        if (ctrl.createPOE(poe)) {
+        
             request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
             request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
             request.setAttribute(NamingConv.TYPE, "POE");
             RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
             dispatcher.forward(request, response);
-        } else {
-            request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL);
-            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
-            request.setAttribute(NamingConv.TYPE, "POE");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-            dispatcher.forward(request, response);
-        }
+        
 
     }
 

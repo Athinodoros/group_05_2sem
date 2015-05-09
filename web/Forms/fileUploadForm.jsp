@@ -9,10 +9,11 @@
 <%@page  import="layer2.domain.interfaces.NamingConv" %>
 <div>
     <% session.setAttribute("command", NamingConv.UPLOAD); %>
-    <% request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE); %>
+    <% request.setAttribute(NamingConv.MAINAREA, NamingConv.FAIL); %>
    
     <form action="UIServlet" method ="POST" enctype="multipart/form-data">
         <input type="file" name="file" />
+        <input type="hidden" name="command" value="<%= NamingConv.UPLOAD %>" />
         <input type="submit" value="submit" />
         <input type="email" name=""/>
     </form>

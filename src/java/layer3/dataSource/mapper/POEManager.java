@@ -26,7 +26,7 @@ public class POEManager {
     public boolean insert(Connection conn, POE bean) { 
         
         int rowsInserted = 0;
-        String sql = "INSERT into POE (projectID, filePath) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT into POE (projectID, filePath) VALUES (?, ?, ?, ?)";
          
         // This code is taken from Henrik's DataSourceLayerDemo :: Class OrderMapper.jave
         //-------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ public class POEManager {
             stmt.setInt(2, bean.getProject().getProjectID() );
             stmt.setString(3, bean.getPrefix());
             stmt.setString(4, bean.getFileName());
-           // stmt.setBinaryStream(5, bean.getInStream());
+          //  stmt.setBinaryStream(5, null );
             
             rowsInserted  = stmt.executeUpdate(); 
             conn.commit();

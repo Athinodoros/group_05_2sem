@@ -20,11 +20,11 @@
             </div>
             <%-- left menu item --%>
             
-            <div style="background-color: rgba(255,255,255,0.5);min-height: 90vh; max-height: 220vh" class="col-md-2" >
+            <div style="background-color: rgba(255,255,255,0.5);min-height: 178.5vh; max-height: 220vh" class="col-md-2" >
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
-            <div style="min-height:  90vh; margin-bottom: 10px;" class="col-md-10">
+            <div style="height:  90vh; max-height: 100vh; margin-bottom: 10px;" class="col-md-10">
                 <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>

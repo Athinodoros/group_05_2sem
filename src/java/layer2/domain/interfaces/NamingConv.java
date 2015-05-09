@@ -29,6 +29,7 @@ public class NamingConv {
     //commands for Servlet switch case
     public static final String NEWCOMMENT = "newcomment";
     public static final String INCOMMENT = "newcomment";
+    public static final String UPDATE_DESCR = "updatedescription";
     public static final String COMMAND = "command";
     public static final String RELOAD_MAIN = "reloadMain";
     public static final String LOG_IN = "log-in";

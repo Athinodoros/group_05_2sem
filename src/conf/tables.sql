@@ -61,7 +61,7 @@ fileBin BLOB );
 create table comments (
 commentID integer primary key,
 projectID integer references project(projectID),
-userID integer,
+userID integer references userInfo(userID),
 comments varchar(2000));
 
 CREATE SEQUENCE projectSequence

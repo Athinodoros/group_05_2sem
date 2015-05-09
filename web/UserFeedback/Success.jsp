@@ -13,5 +13,10 @@
     </head>
     <body>
         <h1>New <%=request.getAttribute("type")%> saved successfully. </h1>
+        <%  String file = (String)request.getAttribute("type") ;
+if (file.equals("POE")) {%>
+   <br/> Now you can go back and see your file. <br/>
+   If in any case you can't see the file refresh the page :) 
+ <%} %>
     </body>
 </html>
