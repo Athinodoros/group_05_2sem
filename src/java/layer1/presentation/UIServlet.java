@@ -142,12 +142,26 @@ public class UIServlet extends HttpServlet {
                         break;
                     case NamingConv.SEE:
                         String incom = request.getParameter(NamingConv.NEWCOMMENT);
+                        String app = request.getParameter(NamingConv.APPROVED);
                         if (incom != null) {
                             if (saveComment(request, response, (Comment) session.getAttribute("inComment"))){
                                 session.removeAttribute("inComment");
                                 openOneProject(request, response);
                             }else{
                                 request.setAttribute(NamingConv.TYPE, "Comment");
+                                request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
+                                dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+                            }
+                        }
+                        if (app != null && app.equals(NamingConv.APPROVED) ) {
+                            Project tempPr = ctrl.getProject((int) session.getAttribute("thisProjectID"));
+                            tempPr.setStage(app);
+                            if (ctrl.editProject(tempPr)){
+                                openOneProject(request, response);
+                            }else{
+                                request.setAttribute(NamingConv.TYPE, "Project approval");
                                 request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
                                 dispatcher = request.getRequestDispatcher("Dashboard.jsp");
                                 dispatcher.forward(request, response);

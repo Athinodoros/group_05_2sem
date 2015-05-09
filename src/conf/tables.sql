@@ -25,11 +25,6 @@ create table partner (
 companyName varchar(30) primary key,
 companyID integer);
 
-
-create table dell (
-companyName varchar(30) primary key ,
-companyID integer);
-
 create table userInfo (
 userID integer primary key ,
 firstname varchar(20),
