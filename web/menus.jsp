@@ -15,8 +15,8 @@
                 background: rgba(255,255,255,0.2);
             }
         </style>
+    <style>li {background-color: 255,255,255,1 ; padding: 1px ; margin: 3%;}</style>
     </head>
-
     <body>
         <%@page  import="layer2.domain.*"  %>
         <%@page  import="layer2.domain.bean.UserInfo"  %>

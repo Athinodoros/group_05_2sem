@@ -29,19 +29,15 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import layer2.domain.Controller;
+import layer2.domain.bean.Comment;
 import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
-import oracle.sql.BLOB;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 //comment
+
 /**
  *
  * @author Bancho
@@ -60,7 +56,7 @@ public class UIServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, FileUploadException {
+            throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
@@ -145,9 +141,20 @@ public class UIServlet extends HttpServlet {
                         dispatcher.forward(request, response);
                         break;
                     case NamingConv.SEE:
-                        request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
-                        dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-                        dispatcher.forward(request, response);
+                        String incom = request.getParameter(NamingConv.NEWCOMMENT);
+                        if (incom != null) {
+                            if (saveComment(request, response, (Comment) session.getAttribute("inComment"))){
+                                session.removeAttribute("inComment");
+                                openOneProject(request, response);
+                            }else{
+                                request.setAttribute(NamingConv.TYPE, "Comment");
+                                request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
+                                dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+                            }
+                        }
+                        openOneProject(request, response);
                         break;
                     case NamingConv.PROJECT_OVERVIEW:
                     case NamingConv.PENDING_PROJECTS:
@@ -182,6 +189,25 @@ public class UIServlet extends HttpServlet {
             session.setAttribute(NamingConv.USER, user);
         }
         return logInSuccessful;
+    }
+    private boolean saveComment(HttpServletRequest request, HttpServletResponse response, Comment cm) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        return ctrl.createComment(cm);
+    }
+
+    private void openOneProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
+        UserInfo currentUser = (UserInfo) session.getAttribute(NamingConv.USER);
+        ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
+        String thisProject = request.getParameter("thisProjectID");
+        ArrayList<Comment> allComments = (ArrayList<Comment>) ctrl.getAllComments(Integer.valueOf(thisProject));
+        session.setAttribute("commentList", allComments);
+        session.setAttribute("thisProject", ctrl.getProject(Integer.valueOf(thisProject)));
+        request.setAttribute(NamingConv.MAINAREA, NamingConv.SEE);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -280,7 +306,7 @@ public class UIServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void createUser(HttpServletRequest request, HttpServletResponse response) throws FileUploadException, ServletException, IOException {
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         UserAuthentication newUserAth = (UserAuthentication) session.getAttribute(NamingConv.NEW_USER_ATH);
@@ -322,19 +348,16 @@ public class UIServlet extends HttpServlet {
         poe.setProject(ctrl.getProject(1));
         //response.setContentType(contentType);
         //////FilenameUtils.getExtension("file or file path+file");/////////////////
-        
-        
-        
-        File file = new File(System.getProperty("user.dir")+poe.getFileName());
+
+        File file = new File(System.getProperty("user.dir") + poe.getFileName());
         OutputStream out = new FileOutputStream(file);
         byte[] buffer = new byte[1024];
         int count = 0;
         do {
-        count = poe.getInStream().read(buffer);
-        out.write(buffer, 0, count);
-        }
-        while (count == 1024);
-        
+            count = poe.getInStream().read(buffer);
+            out.write(buffer, 0, count);
+        } while (count == 1024);
+
         if (ctrl.createPOE(poe)) {
             request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
             request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
@@ -349,7 +372,6 @@ public class UIServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -364,11 +386,9 @@ public class UIServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FileUploadException ex) {
-            Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        processRequest(request, response);
+
     }
 
     /**
@@ -382,11 +402,9 @@ public class UIServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (FileUploadException ex) {
-            Logger.getLogger(UIServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        processRequest(request, response);
+
     }
 
     /**

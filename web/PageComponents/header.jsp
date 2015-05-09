@@ -4,7 +4,7 @@
     Author     : Athinodoros
 --%>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="min-height: 5vh;">
     <link href="../bootstrap.min.css" />
         
             <div class="col-md-4" style="float: left; font-size: 2em; color: #ccc">Powered by DELL</div>

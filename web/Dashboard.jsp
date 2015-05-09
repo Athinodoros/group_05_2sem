@@ -10,23 +10,25 @@
         <link href="bootstrap.min.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet">
+        <link href="bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
+    <body style="height: 100%">
         <div style="background-image: url('http://www.hdwallpapersimages.com/wp-content/uploads/2013/11/Dell-Computer-Wallpaper.jpg'); background-size: contain;" >
             <%-- Top area header etc. --%>
-            <div class="col-md-12">
+            <div class="col-md-12" >
                 <jsp:include page="PageComponents/header.jsp" /> 
             </div>
             <%-- left menu item --%>
-            <div style="height: 85vh; background-color: rgba(255,255,255,0.5);" class="col-md-2 sidebar" >
+            
+            <div style="background-color: rgba(255,255,255,0.5);min-height: 90vh; max-height: 220vh" class="col-md-2" >
                 <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
-            <div style="height: 85vh;" class="col-md-10">
+            <div style="min-height:  90vh; margin-bottom: 10px;" class="col-md-10">
                 <jsp:include page="DashBoardPicker.jsp" /> 
             </div>
             <%-- footer area  --%>
-            <div style="background-color: #31b0d5; height: 100px;" class="col-md-12 ">
+            <div class="navbar-fixed-bottom col-md-12" style="background-color: #31b0d5;" >
             <a style="font-size: 2em;color: black;">CopyRight Group_05_2_semester </a>
             </div>
         </div>

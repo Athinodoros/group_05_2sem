@@ -106,7 +106,7 @@ public class CommentManager {
         }
     }//end of method -> getrow
 
-    public Collection<Comment> getAllRows(Connection conn, int projectID) {
+       public Collection<Comment> getAllRows(Connection conn, int projectID) {
         
         Collection<Comment> rows = new ArrayList();
         

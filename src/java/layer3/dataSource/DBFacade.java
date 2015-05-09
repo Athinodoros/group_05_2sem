@@ -11,12 +11,13 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.Part;
+import layer2.domain.bean.Comment;
 import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
 import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
+import layer3.dataSource.mapper.CommentManager;
 import layer3.dataSource.mapper.POEManager;
 import layer3.dataSource.mapper.PartnerManager;
 import layer3.dataSource.mapper.ProjectManager;
@@ -36,6 +37,7 @@ public class DBFacade {
     private UserAutenticationManager userAthMan;
     private PartnerManager partnerManager;
     private POEManager poeManager;
+    private CommentManager commentManager;
 
 
 // Singleton Start --> 
@@ -49,6 +51,7 @@ public class DBFacade {
         userInfoManager = new UserInfoManager();
         userAthMan = new UserAutenticationManager();
         poeManager = new POEManager();
+        commentManager= new CommentManager();
     }
 
     public static DBFacade getInstance() {
@@ -106,6 +109,11 @@ public class DBFacade {
         return partnerManager.getAllRows(conn);
     }
 
+    public Collection<Comment> getAllCommentForproject(int proNo) {
+//        return partnerManager.getAllRows(getConnection());
+        return commentManager.getAllRows(conn, proNo);
+    }
+
     public boolean createPOE(POE poe) throws FileNotFoundException {
 //        return poeManager.insert(getConnection(), poe);
         return poeManager.insert(conn, poe);
@@ -114,6 +122,10 @@ public class DBFacade {
     public boolean createUserInfo(UserInfo ui) {
 //        return userInfoManager.insert(getConnection(), ui);
         return userInfoManager.insert(conn, ui);
+    }
+    public boolean updateProject(Project pr) {
+//        return userInfoManager.insert(getConnection(), ui);
+        return projectManager.update(conn, pr);
     }
 
     public UserInfo getUserInfo(int userid) {
@@ -129,6 +141,10 @@ public class DBFacade {
     public boolean createUserAth(UserAuthentication ua) {
 //        return userAthMan.insert(getConnection(), ua);
         return userAthMan.insert(conn, ua);
+    }
+    public boolean createComment(Comment cm) {
+//        return userAthMan.insert(getConnection(), ua);
+        return commentManager.insert(conn, cm);
     }
 
 } // End of Class :: DBFacade

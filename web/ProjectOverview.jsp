@@ -6,22 +6,20 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="layer2.domain.interfaces.NamingConv"%>
+<%@page import="layer2.domain.interfaces.NamingConv" %>
 <!DOCTYPE html>
 <html>
     <head>
-        
-        <link  href="bootstrap.min.css" type="text/css" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        
-        
+        <% request.removeAttribute("comment"); %>
+        <% session.removeAttribute("comment"); %>
+        <% session.removeValue("comment"); %>
     </head>
+    
     <body>
         <h1>Project overview</h1><br/>
         <div class="" style="padding:  auto; width: 100% ;">
             <table class="table-responsive table table-condensed table-striped table-bordered" style="min-width: 900px ; background-color: rgba(255,255,255,0.5);">            
-            <tr style=" width: auto">
+            <tr style=" width: auto;">
                 <th>Title</th>
                 <th>Company Name</th>
                 <th style="padding-left: 10%;">Project Budget</th>
@@ -40,6 +38,7 @@
                 <td style="text-align: right;"><div style="padding-right: 40%;">${Project.getProjectBudget()} DKK</div></td>
                 <td>${Project.getSdate()}</td>
                 <td>${Project.getFdate()}</td> 
+                
                 <c:if test="${ Project.stage == 'pending' }" >
                     <td style="color: red;">${Project.getStage()}</td>
                 </c:if>
@@ -51,7 +50,8 @@
                 </c:if>
                
                 <td><a href="#"><form action="UIServlet" method="POST">
-                <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.VIEW_PROJECT_DETAILS %>"  hidden/>
+                <input name="<%= NamingConv.MAINAREA %>" value="<%= NamingConv.SEE %>"  hidden/>
+                <input name="thisProjectID" value="${ Project.projectID }"  hidden/>
                 <input name="<%= NamingConv.COMMAND %>" value="<%= NamingConv.RELOAD_MAIN %>" hidden/><button class="MenuButtons" type="submit">
                     View More</button></form></a></td>
                 

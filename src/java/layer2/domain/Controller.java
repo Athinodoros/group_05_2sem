@@ -7,6 +7,7 @@ package layer2.domain;
 
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import layer2.domain.bean.Comment;
 import layer2.domain.bean.POE;
 import layer2.domain.bean.Partner;
 import layer2.domain.bean.Project;
@@ -38,7 +39,7 @@ public class Controller {
     public boolean editProject(Project project) {
         return dbf.editProject(project);
     }
-    
+     
     public Project getProject(int projectID){
         return dbf.getProject(projectID);
     }
@@ -55,6 +56,12 @@ public class Controller {
     
     public Collection<Partner> getAllPartners(){
       return dbf.getAllPartners();
+    }
+    public boolean createComment(Comment cm){
+        return dbf.createComment(cm);
+    }
+    public Collection<Comment> getAllComments(int ProjectID){
+      return dbf.getAllCommentForproject(ProjectID);
     }
     
     public boolean createPOE(POE poe) throws FileNotFoundException{
