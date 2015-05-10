@@ -15,8 +15,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% ArrayList<Partner> list = (ArrayList<Partner>)request.getAttribute(NamingConv.PARTNER_LIST); %>
 <% session.setAttribute("list", list); %>
-<% UserInfo userInfo = (UserInfo) request.getAttribute("userInfo"); %>
-<% UserAuthentication userath = (UserAuthentication) request.getAttribute("userAth"); %>
+<% UserInfo userInfo = (UserInfo) session.getAttribute("userInfo"); %>
+<% UserAuthentication userath = (UserAuthentication) session.getAttribute("userAth"); %>
 <div class="form-user" style="line-height: 2em;" >
      <% if (userInfo == null) { %>
      
@@ -24,11 +24,12 @@
                 <a>First Name : </a></br><input type="text" name="firstname" value="" required=""/></br>
                 <a>Last Name : </a></br><input type="text" name="lastname" value="" required=""/></br>
                 <a>User Name : </a></br><input type="text" name="uname" value="" required=""/></br>
-                <a>Password : </a></br><input type="text" name="password" value="" required=""/></br>
+                <a>Password : </a></br><input type="email" name="password" value="" required=""/></br>
                 <a>e-mail : </a></br><input type="text" name="email" value="" required=""/></br>
                 <a>User Type : </a></br> <select name="urole" required="">
                     <option>Partner</option>
-                    <option>DELL User</option>
+                    <option value="ADMIN">DELL User</option>
+                    <option>admin</option>
                 </select></br>
                 <a>Country : </a></br> <select name="country" required="" >
                     <option>DK</option>
@@ -38,6 +39,7 @@
                     <option>IS</option>
                 </select></br>
                 <a>company : </a></br> <select name="companyName" required="" >
+                    <option selected="" value="NULL"> NOTHING </option>
                     <% for (Partner singlePartner : list) { %>
                     <option> <%= singlePartner.getCompanyName() %></option>
                        <% } %>

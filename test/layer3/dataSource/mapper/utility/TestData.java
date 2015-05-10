@@ -86,7 +86,7 @@ public final class TestData {
     public static final Project project = new Project(USER_ID, partner, UNAME, FIRST_NAME, UNAME, today, today, COMPANY_ID);
     public static final Comment comment = new Comment(COMMENT_ID, project, userInfo, COMMENT);
     public static final int poeid = random.nextInt(100_000_000);
-    public static final POE poe = new POE(poeid, project, COUNTRY, "jpeg", null, null, null, null);
+    public static final POE poe = new POE(USER_ID, project, COUNTRY, U_ROLE, UNAME);
 
     private TestData() {
         //this prevents even the native class from 

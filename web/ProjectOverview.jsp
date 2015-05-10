@@ -22,10 +22,10 @@
             <tr style=" width: auto;">
                 <th>Title</th>
                 <th>Company Name</th>
-                <th style="padding-left: 10%;">Project Budget</th>
+                <th style="padding-left: 10%;"><form action="UIServlet" method="POST"> <input  type="hidden" name="command" value="reloadMain" /><input type="hidden" name="order" value="BUDGET" /> <input type="hidden" name="<%= NamingConv.MAINAREA %>" value="<%= request.getAttribute(NamingConv.MAINAREA) %>" /> <input class="MenuButtons" type="submit" value="Project Budget" /> </form></th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Stage</th>
+                <th><form action="UIServlet" method="POST"> <input  type="hidden" name="command" value="reloadMain" /><input type="hidden" name="order" value="BUDGET" /> <input type="hidden" name="<%= NamingConv.MAINAREA %>" value="<%= request.getAttribute(NamingConv.MAINAREA) %>" /> <input class="MenuButtons" type="submit" value="Stage" /> </form></th>
                 <th> View More</th>
 
                 

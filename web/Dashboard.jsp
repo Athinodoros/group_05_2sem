@@ -1,5 +1,11 @@
 
-
+<%-- 
+    Document   : Dashboard
+    Created on : Apr 11, 2015, 8:16:06 PM
+    Author     : Athinodoros
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +27,7 @@
             <%-- left menu item --%>
             
             <div style="background-color: rgba(255,255,255,0.5);min-height: 178.5vh; max-height: 220vh" class="col-md-2" >
-                <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="menus.jsp"/>
+                <a style="font-size: 2em; font-style: italic;   ">DashBoard</a> <jsp:include page="PageComponents/menus.jsp"/>
             </div>
             <%-- dashboard main area --%>
             <div style="height:  90vh; max-height: 100vh; margin-bottom: 10px;" class="col-md-10">

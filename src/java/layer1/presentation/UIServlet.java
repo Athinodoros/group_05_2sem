@@ -14,6 +14,9 @@ import java.io.OutputStream;
 import static java.sql.Types.INTEGER;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,6 +40,7 @@ import layer2.domain.bean.Project;
 import layer2.domain.bean.UserAuthentication;
 import layer2.domain.bean.UserInfo;
 import layer2.domain.interfaces.NamingConv;
+import sun.rmi.server.Dispatcher;
 //comment
 
 /**
@@ -145,18 +149,18 @@ public class UIServlet extends HttpServlet {
                         String incom = request.getParameter(NamingConv.NEWCOMMENT);
                         String app = request.getParameter(NamingConv.APPROVED);
                         String updes = request.getParameter(NamingConv.UPDATE_DESCR);
-                        
+
                         String path = request.getServletContext().getRealPath("/");
-                        File f = new File (path +ctrl.getProject(Integer.parseInt(request.getParameter("thisProjectID"))).getPartner().getCompanyName()+"\\"+request.getParameter("thisProjectID"));
+                        File f = new File(path + ctrl.getProject(Integer.parseInt(request.getParameter("thisProjectID"))).getPartner().getCompanyName() + "\\" + request.getParameter("thisProjectID"));
                         File[] fileli = f.listFiles();
                         session.setAttribute("fli", fileli);
                         session.setAttribute("id", request.getParameter("thisProjectID"));
-                        
+
                         if (incom != null) {
-                            if (saveComment(request, response, (Comment) session.getAttribute("inComment"))){
+                            if (saveComment(request, response, (Comment) session.getAttribute("inComment"))) {
                                 session.removeAttribute("inComment");
                                 openOneProject(request, response);
-                            }else{
+                            } else {
                                 request.setAttribute(NamingConv.TYPE, "Comment");
                                 request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
                                 dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -164,12 +168,12 @@ public class UIServlet extends HttpServlet {
                                 break;
                             }
                         }
-                        if (app != null && app.equals(NamingConv.APPROVED) ) {
+                        if (app != null && app.equals(NamingConv.APPROVED)) {
                             Project tempPr = ctrl.getProject(Integer.valueOf(request.getParameter("thisProjectID")));
                             tempPr.setStage(app);
-                            if (ctrl.editProject(tempPr)){
+                            if (ctrl.editProject(tempPr)) {
                                 openOneProject(request, response);
-                            }else{
+                            } else {
                                 request.setAttribute(NamingConv.TYPE, "Project approval");
                                 request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
                                 dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -177,13 +181,13 @@ public class UIServlet extends HttpServlet {
                                 break;
                             }
                         }
-                        if (updes != null && updes.equals(NamingConv.UPDATE_DESCR) ) {
+                        if (updes != null && updes.equals(NamingConv.UPDATE_DESCR)) {
                             Project tempPr = ctrl.getProject(Integer.valueOf(request.getParameter("thisProjectID")));
-                            ctrl.createComment(new Comment(1, tempPr, (UserInfo) session.getAttribute(NamingConv.USER), tempPr.getDescription()+" <span style=\"font-size: 1.1em; font-weight: 600;\"> Was changed to : </span>"+request.getParameter("newDescription")));
+                            ctrl.createComment(new Comment(1, tempPr, (UserInfo) session.getAttribute(NamingConv.USER), tempPr.getDescription() + " <span style=\"font-size: 1.1em; font-weight: 600;\"> Was changed to : </span>" + request.getParameter("newDescription")));
                             tempPr.setDescription(request.getParameter("newDescription"));
-                            if (ctrl.editProject(tempPr)){
+                            if (ctrl.editProject(tempPr)) {
                                 openOneProject(request, response);
-                            }else{
+                            } else {
                                 request.setAttribute(NamingConv.TYPE, "Project new Description");
                                 request.setAttribute(NamingConv.RELOAD_MAIN, NamingConv.FAIL);
                                 dispatcher = request.getRequestDispatcher("Dashboard.jsp");
@@ -227,7 +231,8 @@ public class UIServlet extends HttpServlet {
         }
         return logInSuccessful;
     }
-    private boolean saveComment(HttpServletRequest request, HttpServletResponse response, Comment cm) throws ServletException, IOException{
+
+    private boolean saveComment(HttpServletRequest request, HttpServletResponse response, Comment cm) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         return ctrl.createComment(cm);
@@ -284,7 +289,7 @@ public class UIServlet extends HttpServlet {
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         UserInfo currentUser = (UserInfo) session.getAttribute(NamingConv.USER);
         ArrayList<Project> allProjects = (ArrayList<Project>) ctrl.getAllProjects();
-        
+        String order = request.getParameter("order");
 
         if (currentUser.getUrole().equals(NamingConv.ADMIN)) {
             String requsted = request.getParameter(NamingConv.MAINAREA);
@@ -301,6 +306,17 @@ public class UIServlet extends HttpServlet {
                             pendingProjects.add(project);
                         }
                     }
+                        if (order != null) {
+                        if (order.equals("BUGET")) {
+                            Collections.sort(pendingProjects, new Comparator<Project>() {
+                                @Override
+                                public int compare(Project o1, Project o2) {
+                                    return o1.getProjectBudget() - o2.getProjectBudget();
+                                }
+                            });
+                        }
+
+                    }
                     request.setAttribute(NamingConv.PROJECTS, pendingProjects);
                     break;
 
@@ -310,6 +326,18 @@ public class UIServlet extends HttpServlet {
                         if (project.getStage().equals(NamingConv.PENDING) == false) {
                             approvedProjects.add(project);
                         }
+
+                    }
+                    if (order != null) {
+                        if (order.equals("BUGET")) {
+                            Collections.sort(approvedProjects, new Comparator<Project>() {
+                                @Override
+                                public int compare(Project o1, Project o2) {
+                                    return o2.getProjectBudget() - o1.getProjectBudget();
+                                }
+                            });
+                        }
+
                     }
                     request.setAttribute(NamingConv.PROJECTS, approvedProjects);
                     break;
@@ -379,11 +407,11 @@ public class UIServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Controller ctrl = (Controller) session.getAttribute(NamingConv.CONTROLLER);
         String path = request.getServletContext().getRealPath("/");
-        
-        Project pr = (Project)session.getAttribute("thisProject"); 
-         File f = new File (path +pr.getPartner().getCompanyName());
+
+        Project pr = (Project) session.getAttribute("thisProject");
+        File f = new File(path + pr.getPartner().getCompanyName());
         f.mkdir();
-         f = new File(f+"\\"+ session.getAttribute("id"));
+        f = new File(f + "\\" + session.getAttribute("id"));
         f.mkdir();
         POE poe = new POE();
         Part part = request.getPart("file");
@@ -394,7 +422,7 @@ public class UIServlet extends HttpServlet {
         //response.setContentType(contentType);
         //////FilenameUtils.getExtension("file or file path+file");/////////////////
 
-        File file = new File(f+"\\"+poe.getFileName());
+        File file = new File(f + "\\" + poe.getFileName());
         OutputStream out = new FileOutputStream(file);
         byte[] buffer = new byte[1024];
         int count = 0;
@@ -403,13 +431,11 @@ public class UIServlet extends HttpServlet {
             out.write(buffer, 0, count);
         } while (count == 1024);
 
-        
-            request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
-            request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
-            request.setAttribute(NamingConv.TYPE, "POE");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
-            dispatcher.forward(request, response);
-        
+        request.setAttribute(NamingConv.MAINAREA, NamingConv.SUCCESS);
+        request.setAttribute(NamingConv.COMMAND, NamingConv.RELOAD_MAIN);
+        request.setAttribute(NamingConv.TYPE, "POE");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard.jsp");
+        dispatcher.forward(request, response);
 
     }
 

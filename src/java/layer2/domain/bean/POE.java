@@ -29,13 +29,12 @@ public class POE {
     public POE() {
     }
 
-    public POE(int POEID, Project project, String fileName, String prefix, File file, InputStream inStream, InputStream fileIn, FileOutputStream fileOut) {
+    public POE(int POEID, Project project, String fileName, String prefix, String th) {
         this.POEID = POEID;
         this.project = project;
         this.fileName = fileName;
         this.prefix = prefix;
-        this.inStream = inStream;
-        this.fileOut = fileOut;
+        
     }
     
     public POE(POE p){

@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author Bancho , athinodwros
  */
-public class Project {
+public class Project  {
 
     
     private int projectID;      // primary key
@@ -128,6 +128,8 @@ public class Project {
     public String toString() {
         return "Project{" + "projectID=" + projectID + ", partner=" + partner + ", title=" + title + ", description=" + description + ", stage=" + stage + ", sdate=" + sdate + ", fdate=" + fdate + ", projectBudget=" + projectBudget + '}';
     }
+
+    
     
     
 
